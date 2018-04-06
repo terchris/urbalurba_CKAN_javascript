@@ -258,104 +258,6 @@ var CKANData =
 
 
 
-const membersData = [
-    {
-        name: "Acando",
-        orgType: "Company",
-        slogan: "Digitalt konsulentselskap",
-        website: "https://www.acando.no/",
-        logoURL: "http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/258860d5-881f-455d-bae8-03216d6c9c5d/download/acando-400x200.png",
-        segments: ["Mobilitet", "Helse", "Digitalisering"],
-        tags: ["IoT", "Rådgiving"],
-        longTXT: "Acando er et konsulentselskap som jobber med digitale transformasjoner i offentlig og private virksomheter. Vi forbedrer og effektiviserer virksomheter, prosesser og tjenester ved hjelp av IKT.",
-        contacts: [
-            {
-                contactName: "Frode Kjos",
-                contactTitle: "Head of ITS and Smart Transportation",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAIA_wDGAAAAAQAAAAAAAAo5AAAAJDFjMjVlYzA5LTgzMjItNDhkOC04OGJiLWFhNDA4YmE3M2UzYg.jpg",
-                contactLinkedinURL: "https://www.linkedin.com/in/frodekjos/"
-            },
-            {
-                contactName: "Marianne Røgeberg",
-                contactTitle: "Markedssjef",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAR5AAAAJGZiNDY0NzU4LTk0ODEtNDg2Zi1iNWQ5LTU4ZTY0NzJhNDg4Yw.jpg",
-                contactLinkedinURL: "https://www.linkedin.com/in/mrogeberg/"
-            }
-        ]
-    },
-    {
-        name: "Agenda Kaupang",
-        orgType: "Company",
-        slogan: "Rådgivere for offentlig sektor",
-        website: "http://agendakaupang.no/",
-        logoURL: "http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/1fae2284-d7b8-4b28-bb81-7f7a3f0ecee1/download/agenda_kaupang-400x200.png",
-        segments: ["Digitalisering"],
-        tags: ["Rådgiving"],
-        longTXT: " Agenda Kaupang er et norsk konsulentselskap. Vi tilbyr analyse, utredning og rådgiving innen områdene ledelse, styring, økonomi og organisasjonsutvikling. Agenda Kaupangs kunder er primært i offentlig sektor, samt blant bedrifter og organisasjoner i arbeidslivet.",
-        contacts: [
-            {
-                contactName: "Gjermund Lanestedt",
-                contactTitle: "Seniorrådgiver",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAlUAAAAJDlkMDA5MWFhLWZjZjEtNDM3Yy04M2UwLWJhYmJkM2FlNGRjMg.jpg",
-                contactLinkedinURL: "https://www.linkedin.com/in/laneste/"
-            },
-            {
-                contactName: "Inger Hegna",
-                contactTitle: "Employee",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/p/4/000/165/146/042d86a.jpg",
-                contactLinkedinURL: "https://www.linkedin.com/in/inger-hegna-40b8867/"
-            },
-            {
-                contactName: "Bente Sagen",
-                contactTitle: "Sekretær",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAZIAAAAJDRjNmY4OTBjLTY5ODUtNGNhZi1hZTJjLTNlM2IxZjJjNzdiMA.jpg",
-                contactLinkedinURL: "https://www.linkedin.com/in/bente-sagen-4a73b0102/"
-            }
-        ]
-
-    },
-    {
-        name: "AiSpot",
-        orgType: "Startup",
-        slogan: "IoT og app for varehandel og reiseliv",
-        website: "https://aispot.no/",
-        logoURL: "http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/419ecbe2-3432-47c2-936f-53a4e979b519/download/aispot-400x200.png",
-        segments: ["Mobilitet"],
-        tags: ["Programvare"],
-        longTXT: "Aispot helps retail and destinations engage customers and increase loyalty. Enabling the concept of Future Shopping. Clients Simply connect to – and publish to their customers through a shared mobile platform utilizing beacons, QR, club, mobile Wallet and a range of ready-made services",
-        contacts: [
-            {
-                contactName: "Harald Jellum",
-                contactTitle: "Gründer",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAMAAQDuAAgAAQAAAAAAABAkAAAAJGE1ZjIyZWM3LTg1NDItNGQ5Yy05MDVmLWVmM2FmMDc3NmVlYg.bin",
-                contactLinkedinURL: "https://www.linkedin.com/in/grunderfabrikken/"
-            }
-        ]
-        
-    },
-    {
-        name: "Alpha Venturi",
-        orgType: "Startup",
-        slogan: "Akselerator og venture",
-        website: "http://www.alpha-venturi.com/",
-        logoURL: "http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/bd2ef91f-18b9-418d-9c76-ee6f8b79bcd3/download/dummy-400x200.png",
-        segments: ["Any"],
-        tags: ["Investor", "Akselerator", "IoT"],
-        longTXT: "Alpha Venturi is a strategic innovation lab and venture launchpad for Impact. We harvest exponential technologies, explore disruptive business models and grow new ventures to shape a better tomorrow. We bring expertise in Blockchain and Distributed Ledger Technologies, Internet of Things (IoT), Internet of Me / MyData",
-        contacts: [
-            {
-                contactName: "Wilfried Pimenta De Miranda",
-                contactTitle: "Founder and CEO",
-                contactAvatarURL: "https://media.licdn.com/mpr/mpr/shrinknp_400_400/AAEAAQAAAAAAAAlcAAAAJGZhZTc4YzM4LTMxYWEtNDhkZS04ZWNkLTQyZjIyMzhlMDQyMA.jpg",
-                contactLinkedinURL: "https://www.linkedin.com/in/wilfriedpimenta/"
-            }
-        ]
-        
-    }
-
-];
-
-
 
 
 function tags(tags) {
@@ -364,12 +266,6 @@ function tags(tags) {
 `;
 }
 
-
-function segments(segments) {
-  return `
-  ${segments.map(segments => ` ${segments} `).join("")}
-`;
-}
 
 /* Figuring out what icon to symbolize organisation type
 Icon set https://linearicons.com/free
@@ -420,69 +316,11 @@ function orgType(orgType) {
 
 
 
-function avatars(contacts) {
-    return `
-  <!-- Start avatars -->
-  <ul class="avatars">
-    ${contacts.map(contacts => ` 
-    <li>
-        <a href="${contacts.contactLinkedinURL}" data-toggle="tooltip" data-placement="top" title="${contacts.contactName} - ${contacts.contactTitle}">
-            <img src="${contacts.contactAvatarURL}" onError="this.onerror=null;this.src='${avatarImageDefaut}';">
-        </a>
-    </li>
-  
-    `).join("")}
-  </ul>      
-  <!-- stop avatars --> 
-`;
-}
-
-
-
-
-function memberTemplate(member) {
-  return `
-<div class="col-lg-3 col-md-4 col-sm-6">
-<div class="card">
-
-  ${member.orgType ? orgType(member.orgType) : ""}
-
-    <img class="card-img-top img-fluid" src="${member.logoURL}"
-        alt="${member.name}">
-
-
-        ${member.contacts ? avatars(member.contacts) : ""}
-
-    <div class="card-body">
-        <h4 class="card-title">${member.name}</h4>
-        <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
-        <p class="card-text">${member.longTXT}</p>
-    </div>
-    <small class="text-muted">
-      Tags:
-      ${member.tags ? tags(member.tags) : ""}
-    </small>
-    <small class="text-muted">
-      Segments:
-      ${member.segments ? segments(member.segments) : ""}
-    </small>
-
-    <div class="card-footer text-muted">
-        <a href="#" class="card-link">Card link</a>
-        <a href="#" class="card-link">Another link</a>
-    </div>
-</div>
-<!-- end card -->
-</div>
-  `;
-}
-
-
 
 /* Figuring out what icon to symbolize organisation type
 Icon set https://linearicons.com/free
 */
-function orgType2(orgType) {
+function orgType(orgType) {
   
     const researchIcon = 'lnr-graduation-hat';  
     const publicIcon = 'lnr-shirt';  /*TODO: find other */
@@ -533,13 +371,14 @@ function orgType2(orgType) {
 
 
 
-function avatars2(users) {
+function avatars(users) {
+    
     return `
   <!-- Start avatars -->
   <ul class="avatars">
     ${users.map(users => ` 
     <li>
-        <a href="${ckanSiteURL}/user/${users.name}" data-toggle="tooltip" data-placement="top" title="${users.display_name} - ${users.about}">
+        <a href="${ckanServer}/user/${users.name}" data-toggle="tooltip" data-placement="top" title="${users.display_name} - ${users.about}">
             <img src="${users.id}" onError="this.onerror=null;this.src='${avatarImageDefaut}';">
         </a>
     </li>
@@ -553,18 +392,18 @@ function avatars2(users) {
 
 
 
-function memberTemplate2(member) {
+function memberTemplate(member) {
     return `
   <div class="col-lg-3 col-md-4 col-sm-6">
   <div class="card">
   
-    ${member.organization_type ? orgType2(member.organization_type) : ""}
+    ${member.organization_type ? orgType(member.organization_type) : ""}
   
       <img class="card-img-top img-fluid" src="${member.image_display_url}"
           alt="${member.display_name}">
   
   
-          ${member.users ? avatars2(member.users) : ""}
+          ${member.users ? avatars(member.users) : ""}
   
       <div class="card-body">
           <h4 class="card-title">${member.display_name}</h4>
@@ -575,10 +414,7 @@ function memberTemplate2(member) {
         Tags:
         ${member.tags ? tags(member.tags) : ""}
       </small>
-      <small class="text-muted">
-        Segments:
-        ${member.segments ? segments(member.segments) : ""}
-      </small>
+
   
       <div class="card-footer text-muted">
           <a href="#" class="card-link">Card link</a>
@@ -597,68 +433,132 @@ function memberTemplate2(member) {
 
 
 
-function myButton() {
-        document.getElementById("SBN").style.color = "blue";
+
+
+    var ckanServer = "http://urbalurba.no"; // change to your own to test or use http://demo.ckan.org
+    ckanServer = "http://172.16.1.96/";
+    var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
+    var organizationImageDefaut="";
+
+    
+
+function loadOrganizationsFromCKAN(){
+
+    
+    var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
+    var ckanURL = ckanServer + organization_list_api;
+    var parameters = { all_fields: "true" , include_extras: "true", include_users: "true" }; // See API description for what parameters to use
+
+
+
+  $.ajax({
+    url: ckanURL,
+    dataType: "jsonp",  // required: we want jsonp. See why here https://en.wikipedia.org/wiki/JSONP                
+    data: parameters,   // optional: but we use it to get all fields in this example
+    cache: "false"      // optional: tell it to get it from the server each time                
+})
+    .done(function (data) {
+        if (data.success == true) { // CKAN sets success = true if the API was OK
+            document.getElementById("numMembers").innerHTML = 
+            `
+            ${data.result.length} 
+            `;
+
+
+            document.getElementById("app").innerHTML = `
+  
+            ${data.result.map(memberTemplate).join("")}
+           
+           `;
+        } 
+    })
+    .fail(function () {
+        alert( "Failed for some reason" );
+    });
+  
+}
+
+function loadOrganizationsFromDummyCKAN(){
+    document.getElementById("numMembers").innerHTML = 
+    `
+    ${CKANData.result.length} 
+    `;
+    
+    
+    document.getElementById("app").innerHTML = `
+    
+     ${CKANData.result.map(memberTemplate).join("")}
+    
+    `;
+
+
+
 }
 
 
 
-   $().ready(function(){
-        $('[rel="tooltip"]').tooltip();
 
-    });
+  /**** Stuff below here are for testing */
 
-    function rotateCard(btn){
-        var $card = $(btn).closest('.card-container');
-                document.getElementById("SBN").style.color = "blue";
-        if($card.hasClass('hover')){
-            $card.removeClass('hover');
-        } else {
-            $card.addClass('hover');
-        }
+
+
+  function myButton() {
+    document.getElementById("SBN").style.color = "blue";
+}
+
+
+
+$().ready(function(){
+    $('[rel="tooltip"]').tooltip();
+
+});
+
+function rotateCard(btn){
+    var $card = $(btn).closest('.card-container');
+            document.getElementById("SBN").style.color = "blue";
+    if($card.hasClass('hover')){
+        $card.removeClass('hover');
+    } else {
+        $card.addClass('hover');
     }
+}
 
 
-
-var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
-var organizationImageDefaut="";
-var ckanSiteURL = "http://172.16.1.96";
 
 /*
+var data = {all_fields: true};
+//var data = {};
+  $.ajax({
+    url: 'http://urbalurba.no/api/3/action/organization_list',
+    data: data,
+    dataType: 'jsonp',
+    success: function(data) {
+      alert('Total results found: ' + data.result.total)
+      console.log("We can read all record in a dataset:", JSON.stringify(result));
+    }
+  });
+  
 
-document.getElementById("numMembers").innerHTML = 
-`
-${membersData.length} 
-`;
-
-
-
-document.getElementById("app").innerHTML = `
-
- ${membersData.map(memberTemplate).join("")}
-
-`;
+  var data = {
+    resource_id: 'c93dc25b-4335-4416-afde-bdee5388044a', // the resource id
+    limit: 5, // get 5 results
+    q: 'jones' // query for 'jones'
+  };
+  $.ajax({
+    url: 'http://172.16.1.96/api/3/action/datastore_search',
+    data: data,
+    dataType: 'jsonp',
+    success: function(data) {
+      alert('Total results found: ' + data.result.total)
+    }
+  });
 
 */
 
 
-document.getElementById("numMembers").innerHTML = 
-`
-${CKANData.result.length} 
-`;
-
-
-document.getElementById("app").innerHTML = `
-
- ${CKANData.result.map(memberTemplate2).join("")}
-
-`;
 
 
 
-$(function () {
-  $('[data-toggle="tooltip"]').tooltip()
-})
 
 
 

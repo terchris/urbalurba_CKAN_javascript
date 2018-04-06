@@ -1,0 +1,58 @@
+<html>
+
+<head>
+    <script src="//code.jquery.com/jquery-1.11.3.min.js"></script>
+
+
+    <script>
+
+        function get_ckan_organizations() {
+
+            var ckanServer = "http://urbalurba.no"; // change to your own to test or use http://demo.ckan.org
+            var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
+            var ckanURL = ckanServer + organization_list_api;
+            var parameters = { all_fields: "true", sort: "package_count desc"}; // See API description for what parameters to use
+
+            $.ajax({
+                url: ckanURL,
+                dataType: "jsonp",  // required: we want jsonp. See why here https://en.wikipedia.org/wiki/JSONP                
+                data: parameters,   // optional: but we use it to get all fields in this example
+                cache: "false"      // optional: tell it to get it from the server each time                
+            })
+                .done(function (data) {
+                    if (data.success == true) { // CKAN sets success = true if the API was OK
+                        $.each(data.result, function (i) { // Now we can loop and display it nicely
+                            $("#the-org-list").append(data.result[i].display_name + " : " + data.result[i].package_count + "<br>");
+                        });
+                        $("#the-dump").append(JSON.stringify(data)); //dump all to the screen. use stringify to make a string of it before dumping it
+                    } 
+                })
+                .fail(function () {
+                    alert( "Failed for some reason" );
+                });
+
+        } 
+
+
+    </script>
+
+</head>
+
+<body onload="get_ckan_organizations()"> <!-- call the function when the page is finished loading -->
+
+    <h1>Simple CKAN javascript example</h1>
+    <p>This is the most simple, basic and minimalistic page that gets data from a CKAN server and display in your browser.</p>
+    
+    <p>The only thing it does is to list all organizations and the number of datasets they have.<br> 
+        Then dump the json string returned by CKAN to the browser</p>
+    <p>It uses jquery and the organization_list CKAN API</p>
+    <a href="https://github.com/mmdolbow/MNGeospatialCommonsCounts">It is stripped down version of code by Mike Dolbow</a>
+    <hr>
+
+    <div id="the-org-list"></div> <!-- The function get_ckan_organizations connects to the div to output the list of organizations -->
+<hr>
+<h3>This is a dump of the data that came back from CKAN</h3>
+<div id="the-dump"></div>
+</body>
+
+</html>

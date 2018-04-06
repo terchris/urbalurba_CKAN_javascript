@@ -4,29 +4,31 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
-    <!-- Optional JavaScript -->
+
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
-        crossorigin="anonymous"></script>
+   
+<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
+
+        <script src="http://okfnlabs.org/ckan.js/ckan.js"></script>    
 
     <link rel="stylesheet" type="text/css" href="sbn_members.css">
     
 
 </head>
 
-<body>
+<body onload="loadOrganizationsFromCKAN()">
 
 
     <div class="container">
 
         <h1 id="SBN">Smarte Byer Norge - Nettverket</h1>
-        <p>Det er totalt
-            <div id="numMembers"> </div> medlemmer i nettverket</p>
-  <button onclick="myButton()">Click me</button>
+        <p>Det er totalt <div id="numMembers"> </div> medlemmer i nettverket</p>
+  
         <div class="row" id="app">
 
 
@@ -74,11 +76,6 @@
                         <li>
                             <a href="#">
                                 <img src="http://icons.iconarchive.com/icons/hopstarter/face-avatars/128/Female-Face-FD-2-dark-icon.png" alt="sixth" </a>
-                        </li>
-                        <li>
-                            <a href="#">
-                                <img src="http://icons.iconarchive.com/icons/hopstarter/superhero-avatar/128/Avengers-Thor-icon.png" alt="seventh">
-                            </a>
                         </li>
                     </ul>
 

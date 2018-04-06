@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width">
+  <title>JS Bin</title>
+</head>
+<body>
+  <h1>organizations</h1>
+  <ul id="organizations"></ul>
+
+  <hr>
+  fetch('url.com', { qs: { a: 1, b: 2 } }) is pretty basic functionality offered by every other URI request technologies.
+</body>
+<script>
+  function createNode(element) {
+      return document.createElement(element);
+  }
+
+  function append(parent, el) {
+    return parent.appendChild(el);
+  }
+
+  const ul = document.getElementById('organizations');
+
+var ckanSiteURL = "http://172.16.1.96";
+var parameters = {all_fields: true, include_extras: true, include_users: true};
+var ckanAPI = "/api/3/action/organization_list"
+var url = ckanSiteURL + ckanAPI;
+  fetch(url,parameters)
+  .then((resp) => resp.json())
+  .then(function(data) {
+    let organizations = data.results;
+    return organizations.map(function(organization) {
+      let li = createNode('li'),
+          img = createNode('img'),
+          span = createNode('span');
+      img.src = organization.image_display_url;
+      span.innerHTML = `${organization.display_name}`;
+      append(li, img);
+      append(li, span);
+      append(ul, li);
+    })
+  })
+  .catch(function(error) {
+    console.log(JSON.stringify(error));
+  });   
+
+
+
+</script>
+</html>
