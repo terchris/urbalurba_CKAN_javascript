@@ -267,51 +267,50 @@ function tags(tags) {
 }
 
 
-/* Figuring out what icon to symbolize organisation type
-Icon set https://linearicons.com/free
-*/
-function orgType(orgType) {
-  
-  const startupIcon = 'lnr-rocket';
-  const defaultIcon = 'lnr-question-circle';
-  const academiaIcon = 'lnr-graduation-hat';  
-  const companyIcon = 'lnr-apartment';
-  const govIcon = 'lnr-shirt';  /*TODO: find other */
-  const cityIcon = 'lnr-dinner';  /*TODO: find other */  
-  
-  
-  var icon = '';
-  
-  switch (orgType) {
-  case 'Startup':
-    icon = startupIcon;
-    break;
-  case 'Academia':
-    icon = academiaIcon;
-    break;      
-  case 'Company':
-    icon = companyIcon;
-    break;   
-  case 'Government':
-    icon = govIcon;
-    break;   
-  case 'Kommune':
-    icon = cityIcon;
-    break;   
-      
-  default: 
-    icon = defaultIcon;  
+
+function isJson(str) {
+    try {
+        JSON.parse(str);
+    } catch (e) {
+        return false;
+    }
+    return true;
 }
 
 
-  
-  return `
-<!--- Org type icon start -->                  
-<div class="card-img-overlay ">
-  <a href="" ><span class="lnr ${icon}" data-toggle="tooltip" data-placement="bottom" title="${orgType}"></span></a>
-</div>
-<!--- Org type iCon end -->                                 `;
-}   
+function setUserProperties(user) {
+    // The user.about field is free txt. This code figures out how to read it.
+    // If the field is empty. Well then its empty and we do nothing
+    // if it contains text. Then we display the text (no test for lenght)
+    // if it is a json string we try to get the fields
+
+    // The user.about json looks like this { "title":"Boss", "aboutdisplay":"Self made man and genius", "profilepictureurl":"http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png", "phone":"90054123", "email":"jalmar@jalla.no"}
+
+
+    user.userProfileURL= ckanServer + "user/" + user.name; //Set the URL you go to when clicking on the user
+    user.profilepictureurl = ""; // assume no picture
+
+
+
+    if ($.isEmptyObject(user.about)) {
+        user.aboutdisplay = ""; // about field is empty - don't display anything about the user
+    } else if (isJson(user.about)) {
+        // the about field contains a json string
+        var userAboutObj = JSON.parse(user.about);
+        for (var i in userAboutObj) {
+            user[i] = userAboutObj[i]; // copy the attributes. whatever they may be
+        }
+        if (user.title != "") {
+            user.aboutdisplay = user.title; // Display the tilte if there is one
+        }
+
+    } else {
+        user.aboutdisplay = user.about; // there is some text there. Assume we can just display it
+    }
+
+
+    return user;
+}
 
 
 
@@ -378,8 +377,8 @@ function avatars(users) {
   <ul class="avatars">
     ${users.map(users => ` 
     <li>
-        <a href="${ckanServer}/user/${users.name}" data-toggle="tooltip" data-placement="top" title="${users.display_name} - ${users.about}">
-            <img src="${users.id}" onError="this.onerror=null;this.src='${avatarImageDefaut}';">
+        <a href="${users.userProfileURL}" data-toggle="tooltip" data-placement="top" title="${users.display_name} ${users.aboutdisplay}">
+            <img src="${users.profilepictureurl}" onError="this.onerror=null;this.src='${avatarImageDefaut}';">
         </a>
     </li>
   
@@ -426,9 +425,62 @@ function memberTemplate(member) {
     `;
   }
   
-  
+
+function isAdminUser(name){
+// Check if a user is in the lis of admins that should not be displayed
+// return true if the user is an admin
+
+    isAdminUserReturn = false;
+    for (var i=0; i<=adminUsersToRemove.length;i++){
+        if (adminUsersToRemove[i] == name) {
+            isAdminUserReturn = true;
+            break;
+        } 
+
+    }
+ return isAdminUserReturn;
+}
 
 
+
+
+function filterOrganizations(members){
+// Remove the organizations that are not "member": "yes",
+// Remove the ckan admin user from the list of users in the organization
+// call setUserProperties to figure out how to intepret the user.about field
+
+    newMemberArray =[]; // All members are copied into this array.
+    
+
+    for (var i=0; i < members.length;i++) {    //loop members
+        if (members[i].member == 'yes') {  // we want only those marked member
+
+            newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
+            originalNumUsers =  newMember.users.length; // count the original number
+            delete newMember.users;  //delete the users
+            let newUserArray =[]; // we will copy all user that are not admin into this array
+
+            for (var usrcount=0; usrcount < originalNumUsers; usrcount++) { // loop users
+                
+                if  (isAdminUser(members[i].users[usrcount].name)) { 
+                    console.log("Admin user removed from : " + members[i].name) // not copied the admin user
+                } else {          
+                    theUser= setUserProperties(members[i].users[usrcount]); // set the properties for the user           
+                    newUserArray.push( theUser);            // and add it to the new list of users belonging to the org
+                }
+            } 
+            newMember.users = JSON.parse(JSON.stringify(newUserArray)); // seems to be the way one copies an array in javascript
+            newMemberArray.push( newMember); // copy the organization. it is a member
+        } else {
+            // organization from result set in CKAN is not a member
+            console.log("Not a member" + members[i].display_name);
+        }
+
+    }
+
+    return newMemberArray;
+
+}
 
 
 
@@ -437,8 +489,11 @@ function memberTemplate(member) {
 
     var ckanServer = "http://urbalurba.no"; // change to your own to test or use http://demo.ckan.org
     ckanServer = "http://172.16.1.96/";
-    var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
+    //var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
+    var avatarImageDefaut="http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
+    
     var organizationImageDefaut="";
+    let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
     
 
@@ -447,14 +502,14 @@ function loadOrganizationsFromCKAN(){
     
     var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
     var ckanURL = ckanServer + organization_list_api;
-    var parameters = { all_fields: "true" , include_extras: "true", include_users: "true" }; // See API description for what parameters to use
+    var ckanParameters = { all_fields: "true" , include_extras: "true", include_users: "true" }; // See API description for what parameters to use
 
 
 
   $.ajax({
     url: ckanURL,
     dataType: "jsonp",  // required: we want jsonp. See why here https://en.wikipedia.org/wiki/JSONP                
-    data: parameters,   // optional: but we use it to get all fields in this example
+    data: ckanParameters,   // optional: but we use it to get all fields in this example
     cache: "false"      // optional: tell it to get it from the server each time                
 })
     .done(function (data) {
@@ -464,10 +519,11 @@ function loadOrganizationsFromCKAN(){
             ${data.result.length} 
             `;
 
+            justMembers = filterOrganizations(data.result); // add and remove stuff
 
             document.getElementById("app").innerHTML = `
   
-            ${data.result.map(memberTemplate).join("")}
+            ${justMembers.map(memberTemplate).join("")}
            
            `;
         } 
