@@ -409,15 +409,14 @@ function memberTemplate(member) {
           <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
           <p class="card-text">${member.description}</p>
       </div>
-      <small class="text-muted">
-        Tags:
-        ${member.tags ? tags(member.tags) : ""}
-      </small>
+
 
   
       <div class="card-footer text-muted">
-          <a href="#" class="card-link">Card link</a>
-          <a href="#" class="card-link">Another link</a>
+            <small class="text-muted">
+                Tags:
+                ${member.tags ? tags(member.tags) : ""}
+            </small>
       </div>
   </div>
   <!-- end card -->
@@ -425,6 +424,76 @@ function memberTemplate(member) {
     `;
   }
   
+
+
+
+
+  function avatars2(users) {
+    
+    return `
+  <!-- Start avatars -->
+  <ul class="avatars">
+    ${users.map(users => ` 
+    <li>
+        <a href="${users.userProfileURL}" data-toggle="tooltip" data-placement="top" title="${users.display_name} ${users.aboutdisplay}">
+            <img src="${users.profilepictureurl}" class="profile-avatar" onError="this.onerror=null;this.src='${avatarImageDefaut}';">
+        </a>
+    </li>
+  
+    `).join("")}
+  </ul>      
+  <!-- stop avatars --> 
+`;
+}
+
+
+
+
+
+  function memberTemplate2(member) {
+    return `
+  <div class="col-sm-6 col-md-4 col-lg-3 mt-4">
+  <div class="card">
+  
+    ${member.organization_type ? orgType(member.organization_type) : ""} 
+  
+      <img class="card-img-top" src="${member.image_display_url}"  alt="${member.display_name}">
+      <div class="card-block">
+            <figure class="profile">  
+                ${member.users ? avatars2(member.users) : ""}
+            </figure>    
+            <h4 class="card-title mt-3">${member.display_name}</h4>
+            <div class="meta">
+                <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
+            </div>         
+            <div class="card-text">
+                ${member.description} 
+            </div>
+        </div>
+
+        <div class="card-footer">
+        <small>Tags:
+        ${member.tags ? tags(member.tags) : ""}</small>
+        
+    </div>  
+  </div>
+
+  <!-- end card -->
+  </div>
+    `;
+  }
+
+
+
+
+
+
+
+
+
+
+
+
 
 function isAdminUser(name){
 // Check if a user is in the lis of admins that should not be displayed
