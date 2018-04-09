@@ -1,6 +1,8 @@
-<html lang="en">
+Paste the following in the Squarespace settings page. 
+Under Advanced. Paste into PAGE HEADER CODE INJECTION
+Paste from below:
 
-<head>
+
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
 
@@ -15,36 +17,5 @@
         crossorigin="anonymous"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="sbn_members.css">
+    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/sbn_members.css">
     <script src="http://ckan.urbalurba.com/sbn_members.js"></script>
-<!---
-    <link rel="stylesheet" type="text/css" href="tawshif.css"> 
--->
-
-</head>
-
-<body onload="loadOrganizationsFromCKAN()">
-
-
-    <div class="container">
-
-        <h1 id="SBN">Smarte Byer Norge - Nettverket</h1>
-        <p>Det er totalt <div id="numMembers"> </div> medlemmer i nettverket</p>
-  
-        <div class="row" id="app">
-
-
-
-
-
-
-        </div>
-        <!-- /.card-columns -->
-    </div>
-    <!-- /.container -->
-
-
-
-</body>
-
-</html>
