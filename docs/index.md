@@ -17,20 +17,20 @@ rename them to remove the beginning sbn_
 http://ckan.urbalurba.com/member.html
 
 
-2. change url links in members.html
-'
+3. change url links in members.html
+```
     <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
     <script src="http://ckan.urbalurba.com/members.js"></script>
-'
-3. on a page in Squarespace insert a code-block
+```
+4. on a page in Squarespace insert a code-block
 In members.html select all between the  <body> </body> and paste it the code block.
 
-4. Tell squarespace to load javascript and css 
+5. Tell squarespace to load javascript and css 
 In Squarespace go to settings on the page you have the code block. 
 Under Advanced. Paste into PAGE HEADER CODE INJECTION
 Paste from below:
 
-
+```
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
@@ -44,3 +44,4 @@ Paste from below:
 
     <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
     <script src="http://ckan.urbalurba.com/members.js"></script>
+```
