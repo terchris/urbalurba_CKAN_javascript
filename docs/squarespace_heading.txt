@@ -1,21 +1,34 @@
-Paste the following in the Squarespace settings page. 
+
+Installing in Squarespace
+
+1. copy files
+Copy sbn_members.* to the /docs folder
+rename them to remove the beginning sbn_ 
+
+
+2. change url links in members.html
+    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
+    <script src="http://ckan.urbalurba.com/members.js"></script>
+
+3. on a page in Squarespace insert a code-block
+In members.html select all between the  <body> </body> and paste it the code block.
+
+4. Tell squarespace to load javascript and css 
+In Squarespace go to settings on the page you have the code block. 
 Under Advanced. Paste into PAGE HEADER CODE INJECTION
 Paste from below:
 
 
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
         crossorigin="anonymous">
-
-
     <!-- jQuery first, then Popper.js, then Bootstrap JS -->
    
-<script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
         crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
         crossorigin="anonymous"></script>
 
 
-    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/sbn_members.css">
-    <script src="http://ckan.urbalurba.com/sbn_members.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
+    <script src="http://ckan.urbalurba.com/members.js"></script>

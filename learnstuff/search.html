@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <title>Hello, world!</title>
+</head>
+
+<body>
+    <h1>Hello, world!</h1>
+    <p>hei</p>
+    <button class="mybuttons" id="mybutton1">Click</button>
+
+    <div class="container-fluid">
+        <div class="form-group my-2">
+            <input type="text" class="form-control form-control-lg searchbox" placeholder="Search..." />
+        </div>
+
+
+        <div class="row" id="app">
+
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">ABC</h4>
+                        <h3>zk</h3>
+                        <p>bcd</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">DEF</h4>
+                        <p>efg</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">GHI</h4>
+                        <p>hij</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">JKL</h4>
+                        <p>klm</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">MNO</h4>
+                        <p>nop</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">PQR</h4>
+                        <p>qrs</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">STU</h4>
+                        <p>tuv</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">VWX</h4>
+                        <p>wxy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">VWX</h4>
+                        <p>wxy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">VWX</h4>
+                        <p>wxy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">VWX</h4>
+                        <p>wxy</p>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card bg-light">
+                    <div class="card-body">
+                        <h4 class="card-title">VWX</h4>
+                        <p>wxy</p>
+                    </div>
+                </div>
+            </div>
+
+
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
+        crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
+        crossorigin="anonymous"></script>
+
+
+
+
+
+    <script>
+
+        $(document).ready(function () {
+
+
+
+
+            $('.searchbox').on('input', function () {
+                var $targets = $('.col-lg-3');
+                $targets.show();
+
+                var text = $(this).val().toLowerCase();
+                if (text) {
+                    $targets.filter(':visible').each(function () {
+
+                        var $target = $(this);
+                        var $matches = 0;
+                        // Search only in targeted element
+                        $target.find('h2, h3, h4, p').add($target).each(function () {
+                            tmp = $(this).text().toLowerCase().indexOf("" + text + "");
+                            debugger;
+                            if ($(this).text().toLowerCase().indexOf("" + text + "") !== -1) {
+                                debugger;
+                                $matches++;
+                            }
+                        });
+                        if ($matches === 0) {
+                            debugger;
+                            $target.hide();
+                        }
+                    });
+                }
+
+            });
+
+        });
+
+
+        $("#mybutton1").click(function () {
+            alert("hei");
+        });
+
+
+    </script>
+
+
+
+
+
+
+
+</body>
+
+</html>

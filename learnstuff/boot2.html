@@ -1,0 +1,353 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Bootstrap Example</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
+        crossorigin="anonymous">
+
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+
+<body>
+
+    <p>Her er det noe tekst</p>
+    <hr>
+
+    <div class="row" id="app">
+
+
+        <div class="col-lg-3 col-md-4 col-sm-6">
+            <div class="card">
+
+
+
+                <img class="card-img-top img-fluid" src="http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/258860d5-881f-455d-bae8-03216d6c9c5d/download/acando-400x200.png"
+                    alt="Acando">
+
+
+                <!--- Org type icon start -->
+                <div class="card-img-overlay ">
+                    <a href="">
+                        <span class="lnr lnr-apartment" data-toggle="tooltip" data-placement="bottom" title="Privat"></span>
+                    </a>
+                </div>
+                <!--- Org type iCon end -->
+
+
+                <!-- Start avatars -->
+                <ul class="avatars">
+
+                    <li>
+                        <a href="http://172.16.1.96/user/terje_dan" data-toggle="tooltip" data-placement="top" title="Dan Vigeland ">
+                            <img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png" onerror="this.onerror=null;this.src='http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png';">
+                        </a>
+                    </li>
+
+
+                    <li>
+                        <a href="http://172.16.1.96/user/terje_frode" data-toggle="tooltip" data-placement="top" title="Frode Kjos Director Smart Transport">
+                            <img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png" onerror="this.onerror=null;this.src='http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png';">
+                        </a>
+                    </li>
+
+
+                </ul>
+                <!-- stop avatars -->
+
+                <h4 class="card-title">Acando</h4>
+                <h6 class="card-subtitle mb-2 text-muted">Digitalt konsulentselskap</h6>
+
+                <div class="card-body">
+                    <p class="card-text">Acando er et konsulentselskap som jobber med digitale transformasjoner i offentlig og private virksomheter.
+                        Vi forbedrer og effektiviserer virksomheter, prosesser og tjenester ved hjelp av IKT.</p>
+                </div>
+
+
+                <div class="card-footer text-muted">
+                    <ul class="menuItems">
+                        <li>
+                            <a class="collapsed d-block" data-toggle="collapse" href="#collapse-${member.name}" aria-expanded="true" aria-controls="collapse-${member.name}"
+                                id="heading-${member.name}">
+                                <span class="lnr lnr-pointer-up"></span>
+                            </a>
+                        </li>
+                        <li>
+                            <span class="lnr lnr-tag"></span>
+                            ${member.tags ? tags(member.tags) : ""}
+
+                        </li>
+                        <li>
+                            <span class="lnr lnr-enter"></span>
+                        </li>
+                    </ul>
+                </div>
+
+
+                <!-- end card -->
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+
+
+
+                    <img class="card-img-top img-fluid" src="http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/1fae2284-d7b8-4b28-bb81-7f7a3f0ecee1/download/agenda_kaupang-400x200.png"
+                        alt="Agenda Kaupang">
+
+
+                    <!--- Org type icon start -->
+                    <div class="card-img-overlay ">
+                        <a href="">
+                            <span class="lnr lnr-apartment" data-toggle="tooltip" data-placement="bottom" title="Privat"></span>
+                        </a>
+                    </div>
+                    <!--- Org type iCon end -->
+
+
+                    <!-- Start avatars -->
+                    <ul class="avatars">
+
+                        <li>
+                            <a href="http://172.16.1.96/user/terje" data-toggle="tooltip" data-placement="top" title="Terje Christensen Grunder i Smarte Byer Norge">
+                                <img src="http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png" onerror="this.onerror=null;this.src='http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png';">
+                            </a>
+                        </li>
+
+
+                    </ul>
+                    <!-- stop avatars -->
+
+                    <h4 class="card-title">Agenda Kaupang</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Rådgivere for offentlig sektor</h6>
+
+                    <div class="card-body">
+                        <p class="card-text">Agenda Kaupang er et norsk konsulentselskap. Vi tilbyr analyse, utredning og rådgiving innen områdene
+                            ledelse, styring, økonomi og organisasjonsutvikling. Agenda Kaupangs kunder er primært i offentlig
+                            sektor, samt blant bedrifter og organisasjoner i arbeidslivet.</p>
+                    </div>
+
+
+
+                    <div class="card-footer text-muted">
+                        <small class="text-muted">
+                            Tags:
+
+                        </small>
+
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Link with href
+                            </a>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                Button with data-target
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
+                                craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+
+
+
+                    <img class="card-img-top img-fluid" src="http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/419ecbe2-3432-47c2-936f-53a4e979b519/download/aispot-400x200.png"
+                        alt="AiSpot">
+
+
+                    <!--- Org type icon start -->
+                    <div class="card-img-overlay ">
+                        <a href="">
+                            <span class="lnr lnr-rocket" data-toggle="tooltip" data-placement="bottom" title="Startup"></span>
+                        </a>
+                    </div>
+                    <!--- Org type iCon end -->
+
+
+                    <!-- Start avatars -->
+                    <ul class="avatars">
+
+                    </ul>
+                    <!-- stop avatars -->
+
+                    <h4 class="card-title">AiSpot</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">IoT og app for varehandel og reiseliv</h6>
+
+                    <div class="card-body">
+                        <p class="card-text">Aispot helps retail and destinations engage customers and increase loyalty. Enabling the concept
+                            of Future Shopping. Clients Simply connect to – and publish to their customers through a shared
+                            mobile platform utilizing beacons, QR, club, mobile Wallet and a range of ready-made services</p>
+                    </div>
+
+
+
+                    <div class="card-footer text-muted">
+                        <small class="text-muted">
+                            Tags:
+
+                        </small>
+
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Link with href
+                            </a>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                Button with data-target
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
+                                craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+
+
+
+                    <img class="card-img-top img-fluid" src="http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/bd2ef91f-18b9-418d-9c76-ee6f8b79bcd3/download/dummy-400x200.png"
+                        alt="Alpha Venturi">
+
+
+                    <!--- Org type icon start -->
+                    <div class="card-img-overlay ">
+                        <a href="">
+                            <span class="lnr lnr-rocket" data-toggle="tooltip" data-placement="bottom" title="Startup"></span>
+                        </a>
+                    </div>
+                    <!--- Org type iCon end -->
+
+
+                    <!-- Start avatars -->
+                    <ul class="avatars">
+
+                    </ul>
+                    <!-- stop avatars -->
+
+                    <h4 class="card-title">Alpha Venturi</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Akselerator og venture</h6>
+
+                    <div class="card-body">
+                        <p class="card-text">Alpha Venturi is a strategic innovation lab and venture launchpad for Impact. We harvest exponential
+                            technologies, explore disruptive business models and grow new ventures to shape a better tomorrow.
+                            We bring expertise in Blockchain and Distributed Ledger Technologies, Internet of Things (IoT),
+                            Internet of Me / MyData</p>
+                    </div>
+
+
+
+                    <div class="card-footer text-muted">
+                        <small class="text-muted">
+                            Tags:
+
+                        </small>
+
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Link with href
+                            </a>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                Button with data-target
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
+                                craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+
+            <div class="col-lg-3 col-md-4 col-sm-6">
+                <div class="card">
+
+
+
+                    <img class="card-img-top img-fluid" src="http://urbalurba.no/dataset/27695b10-8987-42d4-87ce-e0a172293cd4/resource/34bac524-f39e-4b7a-a6d6-4ac01e630c2e/download/atea-400x200.png"
+                        alt="Atea">
+
+
+                    <!--- Org type icon start -->
+                    <div class="card-img-overlay ">
+                        <a href="">
+                            <span class="lnr lnr-apartment" data-toggle="tooltip" data-placement="bottom" title="Privat"></span>
+                        </a>
+                    </div>
+                    <!--- Org type iCon end -->
+
+
+                    <!-- Start avatars -->
+                    <ul class="avatars">
+
+                    </ul>
+                    <!-- stop avatars -->
+
+                    <h4 class="card-title">Atea</h4>
+                    <h6 class="card-subtitle mb-2 text-muted">Sammen digitaliserer vi Norge</h6>
+
+                    <div class="card-body">
+                        <p class="card-text">Atea er rådgivere for teknologiske løsninger og bruker vår kompetanse til å forme et bedre Norge.
+                            I samarbeid med kunder og partnere utvikler vi løsningene neste generasjon kan være stolte av.</p>
+                    </div>
+
+
+
+                    <div class="card-footer text-muted">
+                        <small class="text-muted">
+                            Tags:
+
+                        </small>
+
+                        <p>
+                            <a class="btn btn-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
+                                Link with href
+                            </a>
+                            <button class="btn btn-primary" type="button" data-toggle="collapse" data-target="#collapseExample" aria-expanded="false"
+                                aria-controls="collapseExample">
+                                Button with data-target
+                            </button>
+                        </p>
+                        <div class="collapse" id="collapseExample">
+                            <div class="card card-body">
+                                Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica,
+                                craft beer labore wes anderson cred nesciunt sapiente ea proident.
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+                <!-- end card -->
+            </div>
+
+
+        </div>
+</body>
+
+</html>
