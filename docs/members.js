@@ -223,18 +223,35 @@ function isAdminUser(name) {
 
 
 
-function filterOrganizations(members) {
+function tidyOrganizations(members) {
     // Remove the organizations that are not "member": "yes",
     // Remove the ckan admin user from the list of users in the organization
     // call setUserProperties to figure out how to intepret the user.about field
+    // tidy upp the employees field: convert it to a object
 
     newMemberArray = []; // All members are copied into this array.
 
 
     for (var i = 0; i < members.length; i++) {    //loop members
-        if (members[i].member == 'yes') {  // we want only those marked member
+//        if (members[i].member == 'yes') {  // we want only those marked member
 
             newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
+
+            if (newMember.hasOwnProperty('employees')) {   // if the field employees is present. make sure it is converted to a object
+                if (isJson(newMember.employees)) {
+                    // the about field contains a json string
+                    var tempEmployeesObj = JSON.parse(newMember.employees);
+                    newMember.employees = tempEmployeesObj;    
+                    //newMember.employees = JSON.parse(JSON.stringify(newMember.employees)); // seems to be the way one copies an array in javascript
+                } else
+                    mylog(mylogdiv, "ERR: misformed employees in " + newMember.display_name+ ": employees=" + newMember.employees + "=");
+
+            } else
+                mylog(mylogdiv, "No employees in " + newMember.display_name);            
+            
+
+
+            // handle the ckan users for the member org 
             originalNumUsers = newMember.users.length; // count the original number
             delete newMember.users;  //delete the users
             let newUserArray = []; // we will copy all user that are not admin into this array
@@ -250,11 +267,12 @@ function filterOrganizations(members) {
                 }
             }
             newMember.users = JSON.parse(JSON.stringify(newUserArray)); // seems to be the way one copies an array in javascript
+
             newMemberArray.push(newMember); // copy the organization. it is a member
-        } else {
-            // organization from result set in CKAN is not a member
-            mylog(mylogdiv,"Not a member" + members[i].display_name);
-        }
+//        } else {
+//            // organization from result set in CKAN is not a member
+//            mylog(mylogdiv,"Not a member" + members[i].display_name);
+//        }
 
     }
 
@@ -276,7 +294,7 @@ var organizationImageDefaut = "";
 let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
 // For logging to screen
-const mylogdiv="mylogdiv";
+const mylogdiv="mylogdiv"; //there must be a div with this name in the html file
 const globalMyLog = false;
 
 
@@ -306,8 +324,9 @@ $(document).ready(function() {
             ${data.result.length} 
             `;
                 
-                justMembers = filterOrganizations(data.result); // add and remove stuff
+                justMembers = tidyOrganizations(data.result); // add and remove stuff
                 mylog(mylogdiv, "justMembers finished");
+                mylog(mylogdiv,"JSON:"+JSON.stringify(justMembers));
 
                 document.getElementById("app").innerHTML = `
                 
