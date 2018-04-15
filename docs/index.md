@@ -1,31 +1,44 @@
 # My docs folder
 
+### members
+members is a small pice of code that reads organizations from the CKAN server an display them as bootstrap 4 cards.
+[members.html](http://ckan.urbalurba.com/members.html)
+
+
+
 Files here are the production version of files in the code.
 If a file is named sbn_members.html in code it will be named members.html here
 (spent hours debugging the wrong file once. So now they have different names)
 
-
-
-
 ## Installing in Squarespace
 
 1. copy files
+
 Copy sbn_members.* to the /docs folder
 rename them to remove the beginning sbn_ 
 
-2. test that it works
-http://ckan.urbalurba.com/member.html
 
-
-3. change url links in members.html
+2. change url links in members.html
 ```
     <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
     <script src="http://ckan.urbalurba.com/members.js"></script>
 ```
-4. on a page in Squarespace insert a code-block
+
+3. Test that it works
+
+http://ckan.urbalurba.com/member.html
+
+
+4. On a page in Squarespace insert a code-block
+
 In members.html select all between the  <body> </body> and paste it the code block.
 
+When testing I'm making a page in squarespace that has testing- in front of the name of the html file. 
+Eg. my members.html will be http://www.smartebyernorge.no/testing-members
+
+
 5. Tell squarespace to load javascript and css 
+
 In Squarespace go to settings on the page you have the code block. 
 Under Advanced. Paste into PAGE HEADER CODE INJECTION
 Paste from below:

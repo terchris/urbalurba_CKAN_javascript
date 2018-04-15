@@ -1,0 +1,34 @@
+[
+    {
+        "name": "terje_frode",
+        "display_name": "Frode Kjos",
+        "userProfileURL": "http://172.16.1.96/user/terje_frode",
+        "profilepictureurl": "ja",
+        "title": "Director Smart Transport",
+        "aboutdisplay": "Jobber med spennende prosjekter innen smart transport",
+        "phone": "922 39 751",
+        "email": "frode.kjos(a)acando.no",
+        "twitter": "http://twitter.com/FrodeKjos",
+        "facebook": "https://www.facebook.com/frode.kjos",
+        "linkedIn": "https://www.linkedin.com/in/frodekjos",
+        "ckan_user_name": "terje_frode",
+        "insightly_id": "188939726",
+        "insightly_tags": "_Naringsliv,+Oslo,=SBNmedlem,=SmartbypilsenOsloGard,Hurtigruten_Deltager,Hurtigruten_Lugar,-Mobilitet,SmartCity"
+    },
+    {
+        "name": "kaare_k2",
+        "display_name": "Kaare Knudsen",
+        "userProfileURL": "",
+        "profilepictureurl": "http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png",
+        "title": "Rådgiver arkitektur",
+        "aboutdisplay": "",
+        "phone": "91551097",
+        "email": "kaare.knudsen@acando.no",
+        "twitter": "",
+        "facebook": "",
+        "linkedIn": "",
+        "ckan_user_name": "",
+        "insightly_id": "201757089",
+        "insightly_tags": "_Naringsliv,+Oslo,=SBNmedlem,SmartCity"
+    }
+]
