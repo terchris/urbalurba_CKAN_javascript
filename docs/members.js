@@ -341,8 +341,8 @@ function tidyOrganizations(members) {
 
 
 
-var ckanServer = "http://urbalurba.no"; // change to your own to test or use http://demo.ckan.org
-ckanServer = "http://172.16.1.96/";
+var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or use http://demo.ckan.org
+//ckanServer = "http://172.16.1.96/";
 //var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
 var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
 
