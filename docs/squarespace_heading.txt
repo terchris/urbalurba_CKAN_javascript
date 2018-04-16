@@ -7,28 +7,29 @@ rename them to remove the beginning sbn_
 
 
 2. change url links in members.html
-    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
-    <script src="http://ckan.urbalurba.com/members.js"></script>
+Change this 
+<script src="sbn_members.js"></script>
+to this
+<script src="http://ckan.urbalurba.com/members.js"></script>
+
 
 3. on a page in Squarespace insert a code-block
-In members.html select all between the  <body> </body> and paste it the code block.
+
+The page I'm using for testing is http://www.smartebyernorge.no/test-members
+In the code block copy from <body> in members.html
+
+everything from 
+<!-- Outer container start. Squarespace copy start. Paste into code block -->
+to 
+<!-- Outer container Stop. Squarespace copy stop -->
+
 
 4. Tell squarespace to load javascript and css 
 In Squarespace go to settings on the page you have the code block. 
 Under Advanced. Paste into PAGE HEADER CODE INJECTION
-Paste from below:
 
-
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
-
-
-    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
-    <script src="http://ckan.urbalurba.com/members.js"></script>
+Paste from <header> in members.html
+everything from 
+<!-- Squarespace header copy start. Paste to Settings - Advanced - PAGE HEADER CODE INJECTION-->
+to 
+<!-- Squarespace header copy Stop-->
