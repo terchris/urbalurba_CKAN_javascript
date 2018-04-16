@@ -31,6 +31,7 @@
     <!-- From coreui.io STOP-->
 
 
+
         <script src="http://ckan.urbalurba.com/members.js"></script>
 
 
@@ -64,6 +65,13 @@
 
 
     </div>
+    <script>
+        // Wait until all scrips has load before executing
+        $( document ).ready(function() {
+            loadOrganizationsFromCKAN()
+        });
+    </script>
+
     <!-- Outer container Stop. Squarespace copy stop -->
 
 </body>

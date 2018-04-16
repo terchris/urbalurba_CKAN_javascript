@@ -354,8 +354,12 @@ const mylogdiv = "mylogdiv"; //there must be a div with this name in the html fi
 const globalMyLog = false;
 
 
-// function loadOrganizationsFromCKAN() {
-$(document).ready(function () {
+
+/* loadOrganizationsFromCKAN
+* to initiate you must put <body onload="loadOrganizationsFromCKAN()"> in the html doc that uses this javascript
+***/
+function loadOrganizationsFromCKAN() {
+// This cant be used in squarespace. Must use onload $(document).ready(function () {
 
     var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
     var ckanURL = ckanServer + organization_list_api;
@@ -405,8 +409,8 @@ $(document).ready(function () {
 
 
 
-});
+// for dockument ready use: });
 
-
+};
 
 
