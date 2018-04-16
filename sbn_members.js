@@ -72,12 +72,12 @@ Icon set https://linearicons.com/free
 */
 function orgType(orgType) {
 
-    const researchIcon = 'lnr-graduation-hat';
-    const publicIcon = 'lnr-shirt';  /*TODO: find other */
-    const startupIcon = 'lnr-rocket';
-    const privateIcon = 'lnr-apartment';
-    const civilSocietyIcon = 'lnr-dinner';  /*TODO: find other */
-    const defaultIcon = 'lnr-question-circle';
+    const researchIcon = 'graduation-cap';
+    const publicIcon = 'institution';  
+    const startupIcon = 'rocket';
+    const privateIcon = 'industry';
+    const civilSocietyIcon = 'group';  
+    const defaultIcon = 'support';
 
     var icon = '';
     var orgTypeDisplayTxt = '';
@@ -107,15 +107,8 @@ function orgType(orgType) {
         default:
             icon = defaultIcon;
     }
-
-
-
-    return `
-  <!--- Org type icon start -->                  
-  <div class="card-img-overlay ">
-    <a href="" ><span class="lnr ${icon}" data-toggle="tooltip" data-placement="bottom" title="${orgTypeDisplayTxt}"></span></a>
-  </div>
-  <!--- Org type iCon end -->                                 `;
+                             
+    return `<i class="fa fa-${icon} fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="${orgTypeDisplayTxt}"></i>`;
 }
 
 
@@ -124,18 +117,18 @@ function orgType(orgType) {
 function avatars(users) {
 
     return `
-  <!-- Start avatars -->
-  <ul class="avatars">
-    ${users.map(users => ` 
-    <li>
-        <a href="${users.userProfileURL}" data-toggle="tooltip" data-placement="top" title="${users.display_name} ${users.aboutdisplay}">
-            <img src="${users.profilepictureurl}" onError="this.onerror=null;this.src='${avatarImageDefaut}';">
-        </a>
-    </li>
-  
-    `).join("")}
-  </ul>      
-  <!-- stop avatars --> 
+            <!-- Start avatars -->
+            <div class="avatars-stack mt-2">
+
+                ${users.map(users => ` 
+                <div class="avatar">
+                <a href="${users.userProfileURL}" data-toggle="tooltip" data-placement="top" title="${users.display_name} ${users.aboutdisplay}">
+                    <img class="img-avatar" src="${users.profilepictureurl}" onerror="this.onerror=null;this.src='${avatarImageDefaut}';">
+                    </a>
+                </div>  
+            `).join("")}
+            </div>     
+            <!-- stop avatars --> 
 `;
 }
 
@@ -143,61 +136,41 @@ function avatars(users) {
 
 /* displays the card for a organization */
 
-/* This must be fixed. It is the org type and should be a owelay 
-// ${member.organization_type ? orgType(member.organization_type) : ""} 
-*/
 
 function memberTemplate(member) {
     return `
-  <div class="card-deck col-lg-3 col-md-4 col-sm-6 urbacard"> 
-  <div class="card">
-  
-    
-  
-      <img class="card-img-top img-fluid" src="${member.image_display_url}"
-          alt="${member.display_name}">
+    <div class="col-sm-6 col-md-4"> 
+       <div class="card">
 
-         
-  
+          <img class="card-img-top img-fluid" src="${member.image_display_url}" alt="${member.display_name}">
           ${member.users ? avatars(member.users) : ""}
-          <h4 class="card-title">${member.display_name}</h4>
 
-          <h6 class="card-subtitle mb-2 text-muted">
-          ${member.slogan}
-          </h6>
-          <div id="collapse-${member.name}" class="collapse" aria-labelledby="heading-${member.name}">
-            <div class="card-body">
+          <div class="card-body">                     
+             <h4 class="card-title">${member.display_name} ${member.organization_type ? orgType(member.organization_type) : ""}</h4>              
+             <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
+             <div class="collapse" id="collapse-${member.name}">
                 <p class="card-text">${member.description}</p>
-            </div>
-         </div>
-
-  
-      <div class="card-footer text-muted">
-          <ul class="menuItems">
-                <li>
-                    <a class="collapsed d-block" data-toggle="collapse" href="#collapse-${member.name}" aria-expanded="true" aria-controls="collapse-${member.name}"
-                        id="heading-${member.name}">
-                        <span class="lnr lnr-pointer-up"></span>
-                    </a>
-                </li>
-                <li>
-                    <span class="lnr lnr-tag"></span>
-                    ${member.tags ? tags(member.tags) : ""}
-
-                </li>
-                <li>
-                    <span class="lnr lnr-enter"></span>
-                </li>
-                <li>
-                    <span class="lnr lnr-home"></span>
-                </li>
+                <p>TAGS ${member.tags ? tags(member.tags) : ""}</p>
+             </div>
+          </div>
+       
+          <div class="card-footer">Urbalurba Card footer
+             <div class="card-header-actions">
+                <a href="#" class="card-header-action btn-setting">
+                   <i class="icon-settings"></i>
+                </a>
+                <a href="#" class="card-header-action btn-minimize" data-toggle="collapse" data-target="#collapse-${member.name}" aria-expanded="true">
+                   <i class="icon-arrow-up"></i>
+                </a>
+                <a href="#" class="card-header-action btn-close">
+                   <i class="icon-close"></i>
+                </a>
+             </div>
+          </div>
       
-          </ul>
-      
-      </div>
-  </div>
+       </div>
+    </div>
   <!-- end card -->
-  </div> 
     `;
 }
 
