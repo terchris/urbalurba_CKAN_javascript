@@ -10,8 +10,8 @@ function tags(tags) {
 
 /* Writes text to a div - used for logging 
 Se global variable to false to stop logging or just remove the divTag*/
-function mylog(divTag, logTxt){
-    if (globalMyLog){
+function mylog(divTag, logTxt) {
+    if (globalMyLog) {
         var element = document.getElementById(divTag);
         document.getElementById(divTag).innerText = element.innerText + logTxt + " :--  ";
     }
@@ -73,10 +73,10 @@ Icon set https://linearicons.com/free
 function orgType(orgType) {
 
     const researchIcon = 'graduation-cap';
-    const publicIcon = 'institution';  
+    const publicIcon = 'institution';
     const startupIcon = 'rocket';
     const privateIcon = 'industry';
-    const civilSocietyIcon = 'group';  
+    const civilSocietyIcon = 'group';
     const defaultIcon = 'support';
 
     var icon = '';
@@ -107,7 +107,7 @@ function orgType(orgType) {
         default:
             icon = defaultIcon;
     }
-                             
+
     return `<i class="fa fa-${icon} fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="${orgTypeDisplayTxt}"></i>`;
 }
 
@@ -140,7 +140,7 @@ function avatars(users) {
 function memberTemplate(member) {
     return `
     <div class="col-sm-6 col-md-4"> 
-       <div class="card">
+       <div class="card urbacard">
 
           <img class="card-img-top img-fluid" src="${member.image_display_url}" alt="${member.display_name}">
           ${member.users ? avatars(member.users) : ""}
@@ -206,46 +206,46 @@ function tidyOrganizations(members) {
 
 
     for (var i = 0; i < members.length; i++) {    //loop members
-//        if (members[i].member == 'yes') {  // we want only those marked member
+        //        if (members[i].member == 'yes') {  // we want only those marked member
 
-            newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
+        newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
 
-            if (newMember.hasOwnProperty('employees')) {   // if the field employees is present. make sure it is converted to a object
-                if (isJson(newMember.employees)) {
-                    // the about field contains a json string
-                    var tempEmployeesObj = JSON.parse(newMember.employees);
-                    newMember.employees = tempEmployeesObj;    
-                    //newMember.employees = JSON.parse(JSON.stringify(newMember.employees)); // seems to be the way one copies an array in javascript
-                } else
-                    mylog(mylogdiv, "ERR: misformed employees in " + newMember.display_name+ ": employees=" + newMember.employees + "=");
-
+        if (newMember.hasOwnProperty('employees')) {   // if the field employees is present. make sure it is converted to a object
+            if (isJson(newMember.employees)) {
+                // the about field contains a json string
+                var tempEmployeesObj = JSON.parse(newMember.employees);
+                newMember.employees = tempEmployeesObj;
+                //newMember.employees = JSON.parse(JSON.stringify(newMember.employees)); // seems to be the way one copies an array in javascript
             } else
-                mylog(mylogdiv, "No employees in " + newMember.display_name);            
-            
+                mylog(mylogdiv, "ERR: misformed employees in " + newMember.display_name + ": employees=" + newMember.employees + "=");
+
+        } else
+            mylog(mylogdiv, "No employees in " + newMember.display_name);
 
 
-            // handle the ckan users for the member org 
-            originalNumUsers = newMember.users.length; // count the original number
-            delete newMember.users;  //delete the users
-            let newUserArray = []; // we will copy all user that are not admin into this array
 
-            for (var usrcount = 0; usrcount < originalNumUsers; usrcount++) { // loop users
+        // handle the ckan users for the member org 
+        originalNumUsers = newMember.users.length; // count the original number
+        delete newMember.users;  //delete the users
+        let newUserArray = []; // we will copy all user that are not admin into this array
 
-                if (isAdminUser(members[i].users[usrcount].name)) {
-                    mylog(mylogdiv,"Admin user removed from : " + members[i].name) // not copied the admin user
-                    
-                } else {
-                    theUser = setUserProperties(members[i].users[usrcount]); // set the properties for the user           
-                    newUserArray.push(theUser);            // and add it to the new list of users belonging to the org
-                }
+        for (var usrcount = 0; usrcount < originalNumUsers; usrcount++) { // loop users
+
+            if (isAdminUser(members[i].users[usrcount].name)) {
+                mylog(mylogdiv, "Admin user removed from : " + members[i].name) // not copied the admin user
+
+            } else {
+                theUser = setUserProperties(members[i].users[usrcount]); // set the properties for the user           
+                newUserArray.push(theUser);            // and add it to the new list of users belonging to the org
             }
-            newMember.users = JSON.parse(JSON.stringify(newUserArray)); // seems to be the way one copies an array in javascript
+        }
+        newMember.users = JSON.parse(JSON.stringify(newUserArray)); // seems to be the way one copies an array in javascript
 
-            newMemberArray.push(newMember); // copy the organization. it is a member
-//        } else {
-//            // organization from result set in CKAN is not a member
-//            mylog(mylogdiv,"Not a member" + members[i].display_name);
-//        }
+        newMemberArray.push(newMember); // copy the organization. it is a member
+        //        } else {
+        //            // organization from result set in CKAN is not a member
+        //            mylog(mylogdiv,"Not a member" + members[i].display_name);
+        //        }
 
     }
 
@@ -267,12 +267,12 @@ var organizationImageDefaut = "";
 let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
 // For logging to screen
-const mylogdiv="mylogdiv"; //there must be a div with this name in the html file
+const mylogdiv = "mylogdiv"; //there must be a div with this name in the html file
 const globalMyLog = false;
 
 
 // function loadOrganizationsFromCKAN() {
-$(document).ready(function() {
+$(document).ready(function () {
 
     mylog(mylogdiv, "doc ready");
 
@@ -296,10 +296,10 @@ $(document).ready(function() {
                     `
             ${data.result.length} 
             `;
-                
+
                 justMembers = tidyOrganizations(data.result); // add and remove stuff
                 mylog(mylogdiv, "justMembers finished");
-                mylog(mylogdiv,"JSON:"+JSON.stringify(justMembers));
+                mylog(mylogdiv, "JSON:" + JSON.stringify(justMembers));
 
                 document.getElementById("app").innerHTML = `
                 
@@ -315,37 +315,30 @@ $(document).ready(function() {
 
 
 
-
-
-
-$("#mybutton1").click(function() {
-    alert("klikket");
-    mylog(mylogdiv,"klikket");
-});
-
-$('a[data-toggle="tooltip"]').tooltip({
-    animated: 'fade',
-    placement: 'bottom',
-    html: true
-});
+    $('a[data-toggle="tooltip"]').tooltip({
+        animated: 'fade',
+        placement: 'bottom',
+        html: true
+    });
 
 
 
 
-    
+
     $('.searchbox').on('input', function () {
         var $targets = $('.urbacard'); // 
         $targets.show();
-debugger;
+        debugger;
         var text = $(this).val().toLowerCase();
         if (text) {
             $targets.filter(':visible').each(function () {
                 debugger;
+                mylog(mylogdiv, text);
                 var $target = $(this);
                 var $matches = 0;
                 // Search only in targeted element
                 $target.find('h2, h3, h4, p').add($target).each(function () {
-                    tmp = $(this).text().toLowerCase().indexOf("" + text + ""); 
+                    tmp = $(this).text().toLowerCase().indexOf("" + text + "");
                     debugger;
                     if ($(this).text().toLowerCase().indexOf("" + text + "") !== -1) {
                         debugger;
