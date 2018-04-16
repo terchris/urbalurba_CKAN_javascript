@@ -29,6 +29,38 @@ function isJson(str) {
 }
 
 
+
+/* Inserts the search box */
+function displaySearchbox(noMembers) {
+    debugger;
+    return `
+    <div class="jumbotron jumbotron-fluid">
+    <div class="container">
+        <h1 class="display-3">Smarte Byer Norge - Nettverket</h1>
+        <p class="lead">
+            Smarte Byer Norge nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
+            kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre.
+    </div>
+</div>
+
+
+
+
+<div>
+    REMOVE THIS Logging:
+    <p id="mylogdiv"></p>
+</div>
+
+
+
+
+
+
+`;
+}
+
+
+
 function setUserProperties(user) {
     // The user.about field is free txt. This code figures out how to read it.
     // If the field is empty. Well then its empty and we do nothing
@@ -134,13 +166,16 @@ function avatars(users) {
 
 
 
+
+
+
 /* displays the card for a organization */
 
 
 function memberTemplate(member) {
     return `
-    <div class="col-sm-6 col-md-4"> 
-       <div class="card urbacard">
+    <div class="col-sm-6 col-md-4 urbacard"> 
+       <div class="card">
 
           <img class="card-img-top img-fluid" src="${member.image_display_url}" alt="${member.display_name}">
           ${member.users ? avatars(member.users) : ""}
@@ -173,6 +208,54 @@ function memberTemplate(member) {
   <!-- end card -->
     `;
 }
+
+
+
+/* Connects the search to the searchbox 
+* The must class must exist <input type="text" class="searchboxfield" placeholder="Search..." />
+* and must be loaded and ready before this function executes
+* The search is quite nifty. A target is set on the div that we want to seatch in.
+* the name of the target is urbacard
+* Important. In order not just hide, but also reorganize the output on the screen, 
+* the target must be set on the outer div that is to be removed.
+*     <div class="col-sm-6 col-md-4 urbacard"> 
+*       <div class="card">
+*
+* */
+function searching(){
+    $('.searchboxfield').on('input', function () { // connect to the div named searchboxfield
+        var $targets = $('.urbacard'); // 
+        $targets.show();
+        debugger;
+        var text = $(this).val().toLowerCase();
+        if (text) {
+            $targets.filter(':visible').each(function () {
+                debugger;
+                mylog(mylogdiv, text);
+                var $target = $(this);
+                var $matches = 0;
+                // Search only in targeted element
+                $target.find('h2, h3, h4, p').add($target).each(function () {
+                    tmp = $(this).text().toLowerCase().indexOf("" + text + "");
+                    debugger;
+                    if ($(this).text().toLowerCase().indexOf("" + text + "") !== -1) {
+                        debugger;
+                        $matches++;
+                    }
+                });
+                if ($matches === 0) {
+                    debugger;
+                    $target.hide();
+                }
+            });
+        }
+
+    });
+
+
+}
+
+
 
 
 
@@ -274,9 +357,6 @@ const globalMyLog = false;
 // function loadOrganizationsFromCKAN() {
 $(document).ready(function () {
 
-    mylog(mylogdiv, "doc ready");
-
-
     var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
     var ckanURL = ckanServer + organization_list_api;
     var ckanParameters = { all_fields: "true", include_extras: "true", include_users: "true" }; // See API description for what parameters to use
@@ -292,19 +372,17 @@ $(document).ready(function () {
         .done(function (data) {
             if (data.success == true) { // CKAN sets success = true if the API was OK
                 mylog(mylogdiv, "data.success");
-                document.getElementById("numMembers").innerHTML =
-                    `
-            ${data.result.length} 
-            `;
 
                 justMembers = tidyOrganizations(data.result); // add and remove stuff
                 mylog(mylogdiv, "justMembers finished");
                 mylog(mylogdiv, "JSON:" + JSON.stringify(justMembers));
 
                 document.getElementById("app").innerHTML = `
-                
-            ${justMembers.map(memberTemplate).join("")}
-            
+                <!-- start cards -->
+                <div class="row">    
+                ${justMembers.map(memberTemplate).join("")}
+                </div>
+                <!-- End cards -->
            
            `;
             }
@@ -322,37 +400,8 @@ $(document).ready(function () {
     });
 
 
+    searching();
 
-
-
-    $('.searchbox').on('input', function () {
-        var $targets = $('.urbacard'); // 
-        $targets.show();
-        debugger;
-        var text = $(this).val().toLowerCase();
-        if (text) {
-            $targets.filter(':visible').each(function () {
-                debugger;
-                mylog(mylogdiv, text);
-                var $target = $(this);
-                var $matches = 0;
-                // Search only in targeted element
-                $target.find('h2, h3, h4, p').add($target).each(function () {
-                    tmp = $(this).text().toLowerCase().indexOf("" + text + "");
-                    debugger;
-                    if ($(this).text().toLowerCase().indexOf("" + text + "") !== -1) {
-                        debugger;
-                        $matches++;
-                    }
-                });
-                if ($matches === 0) {
-                    debugger;
-                    $target.hide();
-                }
-            });
-        }
-
-    });
 
 
 

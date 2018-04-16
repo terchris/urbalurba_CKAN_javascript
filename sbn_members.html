@@ -1,62 +1,26 @@
 <html lang="no">
 
 <head>
-        <meta charset="utf-8">
-        <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-        <meta name="author" content="Terje Christensen">
-        <meta name="keyword" content="CKAN,Bootstrap,JavaScript,Open,Source,jQuery,Organization,Members">
-        <title>Display CKAN Organizations</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="author" content="Terje Christensen">
+    <meta name="keyword" content="CKAN,Bootstrap,JavaScript,Open,Source,jQuery,Organization,Members">
+    <title>Display CKAN Organizations</title>
 
-        <!-- From coreui.io START-->
-        <!-- Icons-->
-        <link href="http://ckan.urbalurba.com/vendors/css/flag-icon.min.css" rel="stylesheet">
-        <link href="http://ckan.urbalurba.com/vendors/css/font-awesome.min.css" rel="stylesheet">
-        <link href="http://ckan.urbalurba.com/vendors/css/simple-line-icons.css" rel="stylesheet">
-        <!-- Main styles for this application-->
-        <link href="http://ckan.urbalurba.com/css/style.css" rel="stylesheet">
-        <!-- From coreui.io STOP-->
+<!-- Squarespace copy start-->
 
-
-</head>
-
-
-<body>
-
-    <div class="container">
-
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-3">Smarte Byer Norge - Nettverket</h1>
-                <p class="lead">
-                    Smarte Byer Norge nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
-                    kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre.
-                </p>
-                <p id="numMembers">
-            </div>
-        </div>
-        <div class="container-fluid">
-            <div class="form-group my-2">
-                <input type="text" class="form-control form-control-lg searchbox" placeholder="Search..." />
-            </div>
+    <!-- From coreui.io START-->
+    <!-- Icons-->
+    <link href="http://ckan.urbalurba.com/vendors/css/flag-icon.min.css" rel="stylesheet">
+    <link href="http://ckan.urbalurba.com/vendors/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://ckan.urbalurba.com/vendors/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="http://ckan.urbalurba.com/css/style.css" rel="stylesheet">
+    <!-- From coreui.io STOP-->
 
 
-        </div>
-
-        <div>
-            Logging:
-            <p id="mylogdiv"></p>
-        </div>
-
-
-        <hr>
-        <div class="row" id="app">
-        </div>
-        <!-- /.card-columns -->
-    </div>
-    <!-- /.container -->
-
-    <!-- From coreui.io START-->    
+    <!-- From coreui.io START-->
     <!-- Bootstrap and necessary plugins-->
     <script src="http://ckan.urbalurba.com/vendors/js/jquery.min.js"></script>
     <script src="http://ckan.urbalurba.com/vendors/js/popper.min.js"></script>
@@ -64,9 +28,44 @@
     <script src="http://ckan.urbalurba.com/vendors/js/pace.min.js"></script>
     <script src="http://ckan.urbalurba.com/vendors/js/perfect-scrollbar.min.js"></script>
     <script src="http://ckan.urbalurba.com/vendors/js/coreui.min.js"></script>
-    <!-- From coreui.io STOP-->        
+    <!-- From coreui.io STOP-->
+
     <script src="sbn_members.js"></script>
-    
+<!-- when publishing change to this:
+        <script src="http://ckan.urbalurba.com/members.js"></script>
+-->
+
+<!-- Squarespace copy Stop-->
+
+</head>
+
+
+<body>
+
+    <!-- Outer container start. Squarespace copy start -->
+    <div class="container">
+
+        <div class="jumbotron jumbotron-fluid">
+            <div class="container">
+                <h1 class="display-3">Smarte Byer Norge - Nettverket</h1>
+                <p class="lead">
+                    Smarte Byer Norge Nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
+                    kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre.
+                    <p>
+                        <div class="form-group my-2">
+                            <input type="text" class="form-control form-control-lg searchboxfield" placeholder="Search..." />
+                        </div>
+                        <p id="mylogdiv"></p>
+            </div>
+        </div>
+
+
+        <!-- This is where the javascrip loads its stuff -->
+        <div class="urbalurba" id="app"></div>
+
+
+    </div>
+    <!-- Outer container Stop. Squarespace copy stop -->
 
 </body>
 
