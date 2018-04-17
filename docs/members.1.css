@@ -1,0 +1,69 @@
+
+@import url('https://fonts.googleapis.com/css?family=Arima+Madurai:100,200,300,400,500,700,800,900');
+
+
+
+/* icons used */
+@import url("https://cdn.linearicons.com/free/1.0.0/icon-font.min.css");
+
+/* The Org type icon at the top right 
+.lnr {
+  color: red;
+  font-size: 25px;
+  position: absolute;
+  top: 1px;
+  right: 1px;
+
+}
+
+******* it is not correct **/
+
+.lnr {
+  color: red;
+  font-size: 25px;
+}
+
+
+/* The avatar css*/
+ul.avatars {
+	margin:0 auto; 
+	padding:1; /* avatar starts to the left with alittle padding */
+	list-style:none;
+	width:100%;
+	border:1px solid red; /*for debugging */
+	overflow:hidden;
+/*  position: absolute;
+  top: 110px; */ /*trying to put them nice half way on the logo */
+}
+
+.avatars.li, .avatars a { float:left;} /* avatars will be side by side. Starting from left*/
+
+.avatars li img {
+	display:inline;
+	vertical-align:middle;
+  width:30px;/* size of the avatar image*/
+	height:30px;/* size of the avatar image*/
+  border-radius: 50%; /*circle */
+  border: 1px solid green;
+}
+
+
+ul.menuItems {
+	margin:0 auto; 
+	padding:0; 
+	list-style:none;
+	width:100%;
+	border:1px solid blue; /*for debugging */
+
+}
+
+.menuItems li, .menuItems a { float:left;} 
+
+.menuItems li img {
+	display:inline;
+	vertical-align:middle;
+  width:30px;/* size of the avatar image*/
+	height:30px;/* size of the avatar image*/
+  border-radius: 50%; /*circle */
+  border: 1px solid green;
+}
