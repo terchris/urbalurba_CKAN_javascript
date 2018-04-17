@@ -177,7 +177,8 @@ function memberTemplate(member) {
     <div class="col-sm-6 col-md-4 urbacard"> 
        <div class="card">
 
-          <img class="card-img-top img-fluid" src="${member.image_display_url}" alt="${member.display_name}">
+          <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">
+
           ${member.users ? avatars(member.users) : ""}
 
           <div class="card-body">                     
@@ -345,8 +346,9 @@ var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or 
 //ckanServer = "http://172.16.1.96/";
 //var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
 var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
+var organizationImageDefaut = "http://bucket.urbalurba.com/logo/dummylogo.png";
 
-var organizationImageDefaut = "";
+
 let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
 // For logging to screen
@@ -356,7 +358,8 @@ const globalMyLog = false;
 
 
 /* loadOrganizationsFromCKAN
-* to initiate you must put <body onload="loadOrganizationsFromCKAN()"> in the html doc that uses this javascript
+* to initiate you must put <body onload="loadOrganizationsFromCKAN()"> 
+* in the html doc that uses this javascript - NO THAT DOESNT WORK
 ***/
 function loadOrganizationsFromCKAN() {
 // This cant be used in squarespace. Must use onload $(document).ready(function () {
@@ -392,7 +395,9 @@ function loadOrganizationsFromCKAN() {
             }
         })
         .fail(function () {
-            alert("Failed for some reason");
+            alert("Failed: ", JSON.stringify(data));
+            console.log(JSON.stringify(data));
+            
         });
 
 
