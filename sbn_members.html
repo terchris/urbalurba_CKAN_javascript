@@ -8,7 +8,7 @@
     <meta name="keyword" content="CKAN,Bootstrap,JavaScript,Open,Source,jQuery,Organization,Members">
     <title>Display CKAN Organizations</title>
 
-<!-- Squarespace header copy start. Paste to Settings - Advanced - PAGE HEADER CODE INJECTION-->
+    <!-- Squarespace header copy start. Paste to Settings - Advanced - PAGE HEADER CODE INJECTION-->
 
     <!-- From coreui.io START-->
     <!-- Icons-->
@@ -30,12 +30,12 @@
     <script src="http://ckan.urbalurba.com/vendors/js/coreui.min.js"></script>
     <!-- From coreui.io STOP-->
 
-    <script src="sbn_members.js"></script> 
-<!-- when publishing change to this:
+    <script src="sbn_members.js"></script>
+    <!-- when publishing change to this:
         <script src="http://ckan.urbalurba.com/members.js"></script>
 -->
 
-<!-- Squarespace header copy Stop-->
+    <!-- Squarespace header copy Stop-->
 
 </head>
 
@@ -45,17 +45,26 @@
     <!-- Outer container start. Squarespace copy start. Paste into code block -->
     <div class="container">
 
-        <div class="jumbotron jumbotron-fluid">
-            <div class="container">
-                <h1 class="display-3">Smarte Byer Norge - Nettverket</h1>
-                <p class="lead">
-                    Smarte Byer Norge Nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
-                    kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre..
-                    <p>
-                        <div class="form-group my-2">
-                            <input type="text" class="form-control form-control-lg searchboxfield" placeholder="Search..." />
-                        </div>
-                        <p id="mylogdiv"></p>
+
+
+
+
+
+
+
+
+        <div class="card">
+            <div class="card-header">
+                Smarte Byer Norge - Nettverket (PROTOTYPE)
+            </div>
+            <div class="card-body">
+                Smarte Byer Norge Nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
+                kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre.
+                <div class="form-group my-2">
+                    <input type="text" class="form-control form-control-lg searchboxfield" placeholder="Search..." />
+                </div>
+                <p id="mylogdiv"></p>
+
             </div>
         </div>
 
@@ -68,7 +77,7 @@
     <script>
         // Wait until all scrips has load before executing
         // This script must be placed just before the body tag
-        $( document ).ready(function() {
+        $(document).ready(function () {
             loadOrganizationsFromCKAN()
         });
     </script>
