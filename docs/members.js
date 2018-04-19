@@ -201,6 +201,10 @@ function memberTemplate(member) {
                 <a href="#" class="card-header-action btn-close">
                    <i class="icon-location-pin"></i>
                 </a>
+                <a href="#" class="card-header-action btn-close">
+                    <i class="icon-bulb"></i>
+             </a>
+
              </div>
           </div>
       
