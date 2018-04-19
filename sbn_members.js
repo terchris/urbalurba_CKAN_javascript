@@ -190,16 +190,16 @@ function memberTemplate(member) {
              </div>
           </div>
        
-          <div class="card-footer">Urbalurba Card footer
-             <div class="card-header-actions">
-                <a href="#" class="card-header-action btn-setting">
-                   <i class="icon-settings"></i>
+          <div class="card-footer">Mer iinfo
+                <div class="card-header-actions">
+                    <a href="#" class="card-header-action btn-minimize" data-toggle="collapse" data-target="#collapse-${member.name}" aria-expanded="true">
+                    <i class="icon-info"></i>
                 </a>
-                <a href="#" class="card-header-action btn-minimize" data-toggle="collapse" data-target="#collapse-${member.name}" aria-expanded="true">
-                   <i class="icon-arrow-up"></i>
+                <a href="#" class="card-header-action btn-setting">
+                   <i class="icon-tag"></i>
                 </a>
                 <a href="#" class="card-header-action btn-close">
-                   <i class="icon-close"></i>
+                   <i class="icon-location-pin"></i>
                 </a>
              </div>
           </div>
@@ -344,8 +344,8 @@ function tidyOrganizations(members) {
 
 var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or use http://demo.ckan.org
 //ckanServer = "http://172.16.1.96/";
-//var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
-var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
+var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
+//var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
 var organizationImageDefaut = "http://bucket.urbalurba.com/logo/dummylogo.png";
 
 
