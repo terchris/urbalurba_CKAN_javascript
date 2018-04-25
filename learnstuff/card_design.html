@@ -1,0 +1,957 @@
+<html lang="no">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
+    <meta name="author" content="Terje Christensen">
+    <meta name="keyword" content="CKAN,Bootstrap,JavaScript,Open,Source,jQuery,Organization,Members">
+    <title>Display CKAN Organizations</title>
+
+    <!-- Squarespace header copy start. Paste to Settings - Advanced - PAGE HEADER CODE INJECTION-->
+
+    <!-- From coreui.io START-->
+    <!-- Icons-->
+    <link href="http://ckan.urbalurba.com/vendors/css/flag-icon.min.css" rel="stylesheet">
+    <link href="http://ckan.urbalurba.com/vendors/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://ckan.urbalurba.com/vendors/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application-->
+    <link href="http://ckan.urbalurba.com/css/style.css" rel="stylesheet">
+    <!-- From coreui.io STOP-->
+
+
+    <!-- From coreui.io START-->
+    <!-- Bootstrap and necessary plugins-->
+    <script src="http://ckan.urbalurba.com/vendors/js/jquery.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/popper.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/bootstrap.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/pace.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/perfect-scrollbar.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/coreui.min.js"></script>
+    <!-- From coreui.io STOP-->
+
+    <!-- CKAN api -->
+    <script src="http://okfnlabs.org/ckan.js/ckan.js"></script>
+
+
+
+    <script src="sbn_members.js"></script>
+    <!-- when publishing change to this:
+        <script src="http://ckan.urbalurba.com/members.js"></script>
+-->
+
+    <!-- Squarespace header copy Stop-->
+    <style>
+        urba-card-body {
+            padding-top: 0px;
+            padding-left: 10px;
+            padding-right: 10px;
+            padding-bottom: 5px;
+        }
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Outer container start. Squarespace copy start. Paste into code block -->
+    <div class="container">
+
+        <div class="card">
+            <div class="card-header">
+                Smarte Byer Norge - Nettverket (PROTOTYPE)
+            </div>
+            <div class="card-body">
+                Smarte Byer Norge Nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
+                kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre.
+                <div class="form-group my-2">
+                    <input type="text" class="form-control form-control-lg searchboxfield" placeholder="Search..." />
+                </div>
+                <p id="mylogdiv"></p>
+
+            </div>
+        </div>
+
+
+        <!-- This is where the javascrip loads its stuff -->
+        <div class="urbalurba" id="app"></div>
+        <!-- start cards -->
+        <div class="row">
+
+            <div class="col-sm-6 col-md-4 urbacard">
+                <div class="card">
+
+                    <img class="card-img-top img-fluid" src="./Organizations_files/abb.jpg" onerror="this.onerror=null;this.src=&#39;http://bucket.urbalurba.com/logo/dummylogo.png&#39;;"
+                        alt="abb">
+
+
+                    <div class="card-body">
+                        <h4 class="card-title">abb
+                            <i class="fa fa-industry fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="Privat"></i>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Industriell automatisering</h6>
+
+
+                        <!-- START tabs-->
+
+
+                        <ul class="nav nav-tabs" id="myTab1" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Om</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Kontakt</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Personer</a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Prosjekt</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false">Tag</a>
+                            </li>
+
+                        </ul>
+                        <div class="tab-content" id="myTab1Content">
+                            <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+                                El-produkter, roboter og drivsystemer, industriell automatisering og kraftnett.
+                            </div>
+                            <div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                                Profile med ansatte
+                            </div>
+                            <div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+                                Tags
+                            </div>
+
+                        </div>
+                        <!-- tab component-->
+
+                        <!-- STOP tabs -->
+
+                    </div>
+                    <!-- card body-->
+
+
+
+                </div>
+                <!-- card -->
+            </div>
+            <!-- end card -->
+
+
+
+
+
+
+
+            <div class="col-sm-6 col-md-4 urbacard">
+                <div class="card">
+
+                    <img class="card-img-top img-fluid" src="./Organizations_files/acando.jpg" onerror="this.onerror=null;this.src=&#39;http://bucket.urbalurba.com/logo/dummylogo.png&#39;;"
+                        alt="Acando">
+
+
+                    <div class="card-body">
+                        <h4 class="card-title">AcandoSAMPLE
+                            <i class="fa fa-industry fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="Privat"></i>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Digitalt konsulentselskap</h6>
+
+
+
+                        <!-- START tabs -->
+
+
+                        <ul class="nav nav-tabs" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" data-toggle="tab" href="#acando-close" role="tab" aria-controls="close">
+                                    <i class="fa fa-window-close-o"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#acando-om" role="tab" aria-controls="om">
+                                    <i class="icon-info"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#acando-kontakt" role="tab" aria-controls="kontakt">
+                                    <i class="icon-phone"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#acando-ansatte" role="tab" aria-controls="ansatte">
+                                    <i class="icon-people"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#acando-prosjekter" role="tab" aria-controls="prosjekter">
+                                    <i class="icon-bulb"></i>
+                                </a>
+                            </li>
+
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#acando-tags" role="tab" aria-controls="tags">
+                                    <i class="icon-tag"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" data-toggle="tab" href="#acando-news" role="tab" aria-controls="news">
+                                    <i class="fa fa-newspaper-o"></i>
+                                </a>
+                            </li>
+
+
+
+                        </ul>
+
+                        <div class="tab-content">
+                            <div class="tab-pane active" id="acando-close" role="tabpanel">
+                                Info om Acando
+                            </div>
+                            <div class="tab-pane" id="acando-om" role="tabpanel">
+                                Acando er et konsulentselskap som jobber med digitale transformasjoner i offentlig og private virksomheter. Teknologi er
+                                en sentral driver til forandring, men det er brukerens evne og ønske om å ta teknologien
+                                i bruk som skaper verdi. Med teknisk spisskompetanse og inngående innsikt i brukeratferd
+                                og forretningsutvikling drevet av digitalisering, skaper vi idéer, løsninger og mobiliserer
+                                organisasjoner til forandring. Et av våre satsningsområder er Smart City der Intelligente
+                                Transportsystemer (ITS) og selvkjørende minibusser i alminnelig trafikkmiljø, er en del av
+                                satsningen.
+                            </div>
+                            <div class="tab-pane" id="acando-kontakt" role="tabpanel">
+                                <!-- START org info-->
+                                <div class="list-group">
+
+                                    <div class="list-group-item">
+                                        <small class="text-muted mr-3">
+                                            <i class="icon-location-pin"></i>  Tordenskioldsgate 8-10, 0160 Oslo</small>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <small class="text-muted mr-3">
+                                            <i class="icon-phone"></i>  93001000</small>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <small class="text-muted mr-3">
+                                            <i class="icon-globe"></i>  https://www.acando.no/</small>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <small class="text-muted mr-3">
+                                            <i class="icon-user"></i>  Dan Vigeland</small>
+                                    </div>
+
+                                    <div class="list-group-item">
+                                        <small class="text-muted mr-3">
+                                            <i class="fa fa-industry"></i>  Privat</small>
+                                    </div>
+
+
+                                    <div class="list-group-item">
+
+                                        <small class="text-muted mr-3">
+                                            <i class="icon-check"></i>  SBN medlem</small>
+                                        <small class="text-muted mr-3">
+                                            <i class="icon-badge"></i>  SBN Prime medlem</small>
+                                    </div>
+
+                                </div>
+                                <!-- SLUTT org info-->
+                            </div>
+                            <div class="tab-pane" id="acando-ansatte" role="tabpanel">
+                                <div class="list-group">
+
+                                    <div class="list-group-item list-group-item-divider">
+                                        <div class="avatar float-right">
+                                            <img class="img-avatar" src="https://media.licdn.com/dms/image/C4D03AQHMiiijEkFt_A/profile-displayphoto-shrink_800_800/0?e=1529611200&v=beta&t=WJ6cXOmmuI0UCRTm-6aNxYjsx7_4jJpapuDvnmSrN1k">
+                                        </div>
+                                        <div>
+                                            <strong>Frode Kjos</strong>
+                                        </div>
+                                        <div>Director Smart Transport</div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-screen-smartphone"></i>  95913285</small>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-social-linkedin"></i>
+                                            </small>
+                                            <small class="text-muted">
+                                                <i class="icon-social-twitter"></i>
+                                            </small>
+                                        </div>
+
+                                        <small class="text-muted">
+                                            <i class="icon-envelope"></i>  frode.kjos@acando.no</small>
+
+
+                                    </div>
+
+
+
+
+                                    <div class="list-group-item list-group-item-divider">
+                                        <div class="avatar float-right">
+                                            <img class="img-avatar" src="https://media.licdn.com/dms/image/C4D03AQEIZRjjsErQkw/profile-displayphoto-shrink_800_800/0?e=1529766000&v=beta&t=OYv9LiUg45BiTuwhPsGF84SL6CjfbQYFePSeyT_c8lI">
+                                        </div>
+                                        <div>
+                                            <strong>Dan Vigeland</strong>
+                                        </div>
+                                        <div>Director Smart City</div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-screen-smartphone"></i>  93248286</small>
+                                            <small class="text-muted">
+                                                <small class="text-muted mr-3">
+                                                    <i class="icon-social-linkedin"></i>
+                                                </small>
+                                                <small class="text-muted">
+                                                    <i class="icon-social-twitter"></i>
+                                                </small>
+                                        </div>
+                                        <i class="icon-envelope"></i>  dan.vigeland@acando.no</small>
+                                    </div>
+
+
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="acando-prosjekter" role="tabpanel">
+                                <!-- START prosjekt info -->
+                                <div class="list-group">
+
+                                    <div class="list-group-item list-group-item-divider">
+                                        <div class="avatar float-right">
+                                            Se i kart
+                                            <img class="img-avatar" src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Gnome_maps_icon.svg">
+                                        </div>
+                                        <div>
+                                            <strong>Selvkjørende buss på Fornebu</strong>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                Dette blir Norges aller første prosjektet med selvkjørende busser i rute. Bussene skal i første omgang kjøre på korte strekninger.
+                                                Hastigheten blir på cirka 15 km/t, og bussen tar inntil 12 passasjerer. På
+                                                Fornebu skal bussene frakte badegjester til Storøyodden badestrand gjennom
+                                                hele skoleferien. Prosjektet gjennomføres med støtte fra Bærum kommune og
+                                                konsulentselskapet Acando.
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-calendar"></i>  23/4-2018</small>
+                                            <small class="text-muted">
+                                                <i class="icon-user"></i>  Frode Kjos</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-location-pin"></i>  Fornebu, Oslo</small>
+                                            <small class="text-muted">
+                                                <i class="icon-globe"></i>  www</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-tag"></i>  Selvkjørende, autonom, smart transport, smart mobility, buss</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="list-group-item list-group-item-divider">
+                                        <div class="avatar float-right">
+                                            Se i kart
+                                            <img class="img-avatar" src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Gnome_maps_icon.svg">
+                                        </div>
+                                        <div>
+                                            <strong>Selvkjørende bønder i byen</strong>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                Noe som foregår hver helg og som har foregått i hundrevis av år.
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-calendar"></i>  10/5-2018</small>
+                                            <small class="text-muted">
+                                                <i class="icon-user"></i>  Terje Christensen</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-location-pin"></i>  Hele landet</small>
+                                            <small class="text-muted">
+                                                <i class="icon-globe"></i>  www</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-tag"></i>  Selvkjørende, smart?</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- START prosjekt info -->
+
+                            </div>
+                            <div class="tab-pane" id="acando-tags" role="tabpanel">
+                                <strong>Acando Tags:</strong>
+                                <div>
+                                        Selvkjørende, autonomi, IOT, maskinlæring, AI, kunstig intelligens, integrasjoner, systemutvikling, konsulent, rådgivning, smarte byer, smart city, Smart governance, smart transport, kombinert mobilitet, Smart Care
+                                </div>
+                            </div>
+                            <div class="tab-pane" id="acando-news" role="tabpanel">
+                                <!-- START news info -->
+                                <div class="list-group">
+
+                                    <div class="list-group-item list-group-item-divider">
+
+                                        <div>
+                                            <strong>Presentasjon Hutigruten 2018</strong>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                Link til nedlasting av presentasjonen finner du ved å klikke på ...
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-calendar"></i>  4/5-2018</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted">
+                                                <i class="icon-user"></i>  Frode Kjos</small>
+                                        </div>
+                                    </div>
+
+                                    <div class="list-group-item list-group-item-divider">
+
+                                        <div>
+                                            <strong>Lesefolder til Hurtigruten 2018</strong>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                Acando er initiativtaker til å bringe de selvkjørende minibussene til Norge. Frem til i dag har vi gjennomført 17 demonstratorprosjekter
+                                                i ...
+                                            </small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted mr-3">
+                                                <i class="icon-calendar"></i>  4/5-2018</small>
+                                        </div>
+                                        <div>
+                                            <small class="text-muted">
+                                                <i class="icon-user"></i>  Dan Vigeland/Director Smart City og Frode Kjos/Director Smart Transport</small>
+                                        </div>
+                                    </div>
+
+                                </div>
+                                <!-- SLUTT news info -->
+
+                            </div>
+
+                        </div>
+
+
+
+
+                        <!-- STOP tabs -->
+
+                    </div>
+                    <!-- card body-->
+
+
+                </div>
+            </div>
+            <!-- end card -->
+
+
+
+            <div class="col-md-6 mb-4">
+
+
+                <ul class="nav nav-tabs" role="tablist">
+                    <li class="nav-item">
+                        <a class="nav-link active" data-toggle="tab" href="#home2" role="tab" aria-controls="home">
+                            <i class="icon-calculator"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#profile2" role="tab" aria-controls="profile">
+                            <i class="icon-basket-loaded"></i>
+                        </a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" data-toggle="tab" href="#messages2" role="tab" aria-controls="messages">
+                            <i class="icon-pie-chart"></i>
+                        </a>
+                    </li>
+                </ul>
+
+                <div class="tab-content">
+                    <div class="tab-pane active" id="home2" role="tabpanel">
+                        Acando er et konsulentselskap som jobber med digitale transformasjoner i offentlig og private virksomheter. Teknologi er
+                        en sentral driver til forandring, men det er brukerens evne og ønske om å ta teknologien i bruk som
+                        skaper verdi. Med teknisk spisskompetanse og inngående innsikt i brukeratferd og forretningsutvikling
+                        drevet av digitalisering, skaper vi idéer, løsninger og mobiliserer organisasjoner til forandring.
+                        Et av våre satsningsområder er Smart City der Intelligente Transportsystemer (ITS) og selvkjørende
+                        minibusser i alminnelig trafikkmiljø, er en del av satsningen.
+                    </div>
+                    <div class="tab-pane" id="profile2" role="tabpanel">
+                        2. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum.
+                    </div>
+                    <div class="tab-pane" id="messages2" role="tabpanel">
+                        3. Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                        Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+                        consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat
+                        nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt
+                        mollit anim id est laborum.
+                    </div>
+                </div>
+
+            </div>
+            <!--/.col-->
+
+
+            <div class="col-lg-6">
+                <div class="card">
+                    <div class="card-header">
+                        <i class="fa fa-align-justify"></i> Condensed Table
+                    </div>
+                    <div class="card-body">
+                        <table class="table table-responsive-sm table-sm">
+                            <thead>
+                                <tr>
+                                    <th>Username</th>
+                                    <th>Date registered</th>
+                                    <th>Role</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Carwyn Fachtna</td>
+                                    <td>2012/01/01</td>
+                                    <td>Member</td>
+                                    <td>
+                                        <span class="badge badge-success">Active</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Nehemiah Tatius</td>
+                                    <td>2012/02/01</td>
+                                    <td>Staff</td>
+                                    <td>
+                                        <span class="badge badge-danger">Banned</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Ebbe Gemariah</td>
+                                    <td>2012/02/01</td>
+                                    <td>Admin</td>
+                                    <td>
+                                        <span class="badge badge-secondary">Inactive</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Eustorgios Amulius</td>
+                                    <td>2012/03/01</td>
+                                    <td>Member</td>
+                                    <td>
+                                        <span class="badge badge-warning">Pending</span>
+                                    </td>
+                                </tr>
+                                <tr>
+                                    <td>Leopold Gáspár</td>
+                                    <td>2012/01/21</td>
+                                    <td>Staff</td>
+                                    <td>
+                                        <span class="badge badge-success">Active</span>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                        <ul class="pagination">
+                            <li class="page-item">
+                                <a class="page-link" href="#">Prev</a>
+                            </li>
+                            <li class="page-item active">
+                                <a class="page-link" href="#">1</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">2</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">3</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">4</a>
+                            </li>
+                            <li class="page-item">
+                                <a class="page-link" href="#">Next</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <!--/.col-->
+
+
+
+
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+
+                    <img class="card-img-top img-fluid" src="./Organizations_files/abb.jpg" onerror="this.onerror=null;this.src=&#39;http://bucket.urbalurba.com/logo/dummylogo.png&#39;;"
+                        alt="abb">
+                    <div class="card-body">
+                        <h4 class="card-title">abb
+                            <i class="fa fa-industry fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="Privat"></i>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Industriell automatisering</h6>
+
+                        <!-- START person list-->
+
+                        <!-- Tab panes-->
+
+                        <div class="list-group list-group-accent">
+
+                            <div class="list-group-item list-group-item-divider">
+                                <div class="avatar float-right">
+                                    <img class="img-avatar" src="https://media.licdn.com/dms/image/C4D03AQHMiiijEkFt_A/profile-displayphoto-shrink_800_800/0?e=1529611200&v=beta&t=WJ6cXOmmuI0UCRTm-6aNxYjsx7_4jJpapuDvnmSrN1k">
+                                </div>
+                                <div>
+                                    <strong>Frode Kjos</strong>
+                                </div>
+                                <div>Director Smart Transport</div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-screen-smartphone"></i>  95913285</small>
+                                    <small class="text-muted">
+                                        <i class="icon-envelope"></i>  frode.kjos@acando.no</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-social-linkedin"></i>
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="icon-social-twitter"></i>
+                                    </small>
+                                </div>
+                            </div>
+
+                            <div class="list-group-item list-group-item-divider">
+                                <div class="avatar float-right">
+                                    <img class="img-avatar" src="https://media.licdn.com/dms/image/C4D03AQHMiiijEkFt_A/profile-displayphoto-shrink_800_800/0?e=1529611200&v=beta&t=WJ6cXOmmuI0UCRTm-6aNxYjsx7_4jJpapuDvnmSrN1k">
+                                </div>
+                                <div>
+                                    <strong>Frode Kjos</strong>
+                                </div>
+                                <div>Director Smart Transport</div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-screen-smartphone"></i>  95913285</small>
+                                    <small class="text-muted">
+                                        <i class="icon-envelope"></i>  frode.kjos@acando.no</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-social-linkedin"></i>
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="icon-social-twitter"></i>
+                                    </small>
+                                </div>
+                            </div>
+
+
+                            <div class="list-group-item list-group-item-divider">
+                                <div class="avatar float-right">
+                                    <img class="img-avatar" src="https://media.licdn.com/dms/image/C4D03AQEIZRjjsErQkw/profile-displayphoto-shrink_800_800/0?e=1529766000&v=beta&t=OYv9LiUg45BiTuwhPsGF84SL6CjfbQYFePSeyT_c8lI">
+                                </div>
+                                <div>
+                                    <strong>Dan Vigeland</strong>
+                                </div>
+                                <div>Director Smart City</div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-screen-smartphone"></i>  93248286</small>
+                                    <small class="text-muted">
+                                        <i class="icon-envelope"></i>  dan.vigeland@acando.no</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-social-linkedin"></i>
+                                    </small>
+                                    <small class="text-muted">
+                                        <i class="icon-social-twitter"></i>
+                                    </small>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+
+
+
+                        <!-- END person list-->
+
+
+                    </div>
+
+
+                </div>
+            </div>
+            <!--/.col-->
+
+
+
+
+
+            <!-- START org info card-->
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+
+                    <img class="card-img-top img-fluid" src="./Organizations_files/abb.jpg" onerror="this.onerror=null;this.src=&#39;http://bucket.urbalurba.com/logo/dummylogo.png&#39;;"
+                        alt="abb">
+                    <div class="card-body">
+                        <h4 class="card-title">abb
+                            <i class="fa fa-industry fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="Privat"></i>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Industriell automatisering</h6>
+
+                        <!-- START prosjekt info-->
+                        <div class="list-group">
+
+                            <div class="list-group-item">
+                                <small class="text-muted mr-3">
+                                    <i class="icon-location-pin"></i>  Tordenskioldsgate 8-10, 0160 Oslo</small>
+                            </div>
+
+                            <div class="list-group-item">
+                                <small class="text-muted mr-3">
+                                    <i class="icon-phone"></i>  93001000</small>
+                            </div>
+
+                            <div class="list-group-item">
+                                <small class="text-muted mr-3">
+                                    <i class="icon-globe"></i>  https://www.acando.no/</small>
+                            </div>
+
+                            <div class="list-group-item">
+                                <small class="text-muted mr-3">
+                                    <i class="icon-user"></i>  Dan Vigeland</small>
+                            </div>
+
+                            <div class="list-group-item">
+                                <small class="text-muted mr-3">
+                                    <i class="fa fa-industry"></i>  Privat</small>
+                            </div>
+
+
+                            <div class="list-group-item">
+
+                                <small class="text-muted mr-3">
+                                    <i class="icon-check"></i>  SBN medlem</small>
+                                <small class="text-muted mr-3">
+                                    <i class="icon-badge"></i>  SBN Prime medlem</small>
+                            </div>
+
+                        </div>
+                        <!-- START prosjekt info-->
+
+                    </div>
+                </div>
+
+
+            </div>
+            <!-- SLUTT org info card-->
+
+
+
+            <!-- START prosjekt card-->
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+
+                    <img class="card-img-top img-fluid" src="./Organizations_files/abb.jpg" onerror="this.onerror=null;this.src=&#39;http://bucket.urbalurba.com/logo/dummylogo.png&#39;;"
+                        alt="abb">
+                    <div class="card-body">
+                        <h4 class="card-title">abb
+                            <i class="fa fa-industry fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="Privat"></i>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Industriell automatisering</h6>
+
+                        <!-- START prosjekt info -->
+                        <div class="list-group">
+
+                            <div class="list-group-item list-group-item-divider">
+                                <div class="avatar float-right">
+                                    Se i kart
+                                    <img class="img-avatar" src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Gnome_maps_icon.svg">
+                                </div>
+                                <div>
+                                    <strong>Selvkjørende buss på Fornebu</strong>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        Dette blir Norges aller første prosjektet med selvkjørende busser i rute. Bussene skal i første omgang kjøre på korte strekninger.
+                                        Hastigheten blir på cirka 15 km/t, og bussen tar inntil 12 passasjerer. På Fornebu
+                                        skal bussene frakte badegjester til Storøyodden badestrand gjennom hele skoleferien.
+                                        Prosjektet gjennomføres med støtte fra Bærum kommune og konsulentselskapet Acando.
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-calendar"></i>  23/4-2018</small>
+                                    <small class="text-muted">
+                                        <i class="icon-user"></i>  Frode Kjos</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-location-pin"></i>  Fornebu, Oslo</small>
+                                    <small class="text-muted">
+                                        <i class="icon-globe"></i>  www</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-tag"></i>  Selvkjørende, autonom, smart transport, smart mobility, buss</small>
+                                </div>
+                            </div>
+
+                            <div class="list-group-item list-group-item-divider">
+                                <div class="avatar float-right">
+                                    Se i kart
+                                    <img class="img-avatar" src="https://upload.wikimedia.org/wikipedia/commons/8/8c/Gnome_maps_icon.svg">
+                                </div>
+                                <div>
+                                    <strong>Selvkjørende bønder i byen</strong>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        Noe som foregår hver helg og som har foregått i hundrevis av år.
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-calendar"></i>  10/5-2018</small>
+                                    <small class="text-muted">
+                                        <i class="icon-user"></i>  Terje Christensen</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-location-pin"></i>  Hele landet</small>
+                                    <small class="text-muted">
+                                        <i class="icon-globe"></i>  www</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-tag"></i>  Selvkjørende, smart?</small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- START prosjekt info -->
+
+                    </div>
+                </div>
+
+
+
+            </div>
+            <!-- SLUTT prosjekt card-->
+
+
+
+
+            <!-- START news card-->
+            <div class="col-sm-6 col-md-4">
+                <div class="card">
+
+                    <img class="card-img-top img-fluid" src="./Organizations_files/abb.jpg" onerror="this.onerror=null;this.src=&#39;http://bucket.urbalurba.com/logo/dummylogo.png&#39;;"
+                        alt="abb">
+                    <div class="card-body">
+                        <h4 class="card-title">abb
+                            <i class="fa fa-industry fa-sm mt-4" data-toggle="tooltip" data-placement="top" title="Privat"></i>
+                        </h4>
+                        <h6 class="card-subtitle mb-2 text-muted">Industriell automatisering</h6>
+
+                        <!-- START news info -->
+                        <div class="list-group">
+
+                            <div class="list-group-item list-group-item-divider">
+
+                                <div>
+                                    <strong>Presentasjon Hutigruten 2018</strong>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        Link til nedlasting av presentasjonen finner du ved å klikke på ...
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-calendar"></i>  4/5-2018</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted">
+                                        <i class="icon-user"></i>  Frode Kjos</small>
+                                </div>
+                            </div>
+
+                            <div class="list-group-item list-group-item-divider">
+
+                                <div>
+                                    <strong>Lesefolder til Hurtigruten 2018</strong>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        Acando er initiativtaker til å bringe de selvkjørende minibussene til Norge. Frem til i dag har vi gjennomført 17 demonstratorprosjekter
+                                        i ...
+                                    </small>
+                                </div>
+                                <div>
+                                    <small class="text-muted mr-3">
+                                        <i class="icon-calendar"></i>  4/5-2018</small>
+                                </div>
+                                <div>
+                                    <small class="text-muted">
+                                        <i class="icon-user"></i>  Dan Vigeland/Director Smart City og Frode Kjos/Director Smart Transport</small>
+                                </div>
+                            </div>
+
+                        </div>
+                        <!-- SLUTT news info -->
+
+                    </div>
+                </div>
+            </div>
+            <!-- SLUTT news card-->
+
+
+
+
+
+
+
+
+
+
+
+        </div>
+        <!-- row div-->
+
+
+
+
+
+
+    </div>
+    <!-- class="container" -->
+
+
+</body>
+
+</html>

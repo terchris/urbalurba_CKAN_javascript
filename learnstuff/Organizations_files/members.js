@@ -202,8 +202,8 @@ function memberTemplate(member) {
                    <i class="icon-location-pin"></i>
                 </a>
                 <a href="#" class="card-header-action btn-close">
-                <i class="icon-bulb"></i>
-         </a>
+                    <i class="icon-bulb"></i>
+             </a>
 
              </div>
           </div>
@@ -282,47 +282,6 @@ function isAdminUser(name) {
 }
 
 
-/**** Load employees
- * Loads employees from the resource provided
- * 
- */
-function readResource(resource_id) {
-
-    let resourecArray = [];
-    
-    var client = new CKAN.Client(ckanServer, myAPIkey);
-
-    client.action('datastore_search', { resource_id: resource_id }, function(err, result) {
-
-        if (!err) {
-            debugger;
-            mylog(mylogdiv, "readResource: resource_id:" + resource_id + ": ERROR");
-            resourecArray = false; //if this legal ?
-        } else // we have read the resource
-        {
-            debugger;
-            mylog(mylogdiv, "readResource: resource_id:" + resource_id + ": read OK");            
-            resourecArray = result.result.records;     
-        }
-        
-      });
-
-return resourecArray;
-
-
-}
-
-/*** Test if a resurce_id is valid.
-* A valid resource_id is llike this:
-* 88ad7fac-f90c-4ae2-ba01-bcceb1486137
-* Lenght = 
-*****/
-function isValidResource(resource_id) {
-
-//TODO: write the code to validate the resource_id
-    return true;
-}
-
 
 
 function tidyOrganizations(members) {
@@ -340,18 +299,13 @@ function tidyOrganizations(members) {
         newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
 
         if (newMember.hasOwnProperty('employees')) {   // if the field employees is present. make sure it is converted to a object
-            // Rewrite: Now the employees contains a resource_id for a dataset containing all employees 
-            if (isValidResource(newMember.employees)) {
-                //var tempEmployeesObj = JSON.parse(newMember.employees);
-                //var tempEmployeesObj = readResource(newMember.employees);
-                debugger;
-                var tempEmployeesObj = readResource("88ad7fac-f90c-4ae2-ba01-bcceb1486137");
-                if (tempEmployeesObj != false ) {
-                    newMember.employees = tempEmployeesObj;
-                } else
-                    newMember.employees = "Err"; 
+            if (isJson(newMember.employees)) {
+                // the about field contains a json string
+                var tempEmployeesObj = JSON.parse(newMember.employees);
+                newMember.employees = tempEmployeesObj;
+                //newMember.employees = JSON.parse(JSON.stringify(newMember.employees)); // seems to be the way one copies an array in javascript
             } else
-                mylog(mylogdiv, "ERR: resource_id not valid in " + newMember.display_name + ": employees=" + newMember.employees + "=");
+                mylog(mylogdiv, "ERR: misformed employees in " + newMember.display_name + ": employees=" + newMember.employees + "=");
 
         } else
             mylog(mylogdiv, "No employees in " + newMember.display_name);
@@ -391,7 +345,7 @@ function tidyOrganizations(members) {
 
 
 
-var myAPIkey = ""; // TODO: figure out how to set this a secure way
+
 var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or use http://demo.ckan.org
 //ckanServer = "http://172.16.1.96/";
 var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
