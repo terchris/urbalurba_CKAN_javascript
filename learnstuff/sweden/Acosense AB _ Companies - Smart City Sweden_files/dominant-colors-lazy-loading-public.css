@@ -1,0 +1,13 @@
+.dcll-wrapper {
+    position: relative;
+    width: 100%;
+    height: 0;
+}
+
+.dcll-wrapper .dcll-image {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
