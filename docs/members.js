@@ -164,48 +164,178 @@ function avatars(users) {
 `;
 }
 
+/** displayMemberContactInfo
+ * 
+ * 
+ */
+function displayMemberContactInfo(member){
+
+    return `
+
+    <!-- START org info-->
+    <div class="list-group">
+
+        <div class="list-group-item">
+            <small class="text-muted mr-3">
+                <i class="icon-location-pin"></i>  ${member.main_adddress}</small>
+        </div>
+
+        <div class="list-group-item">
+            <small class="text-muted mr-3">
+                <i class="icon-phone"></i>  ${member.phone}</small>
+        </div>
+
+        <div class="list-group-item">
+            <small class="text-muted mr-3">
+                <i class="icon-globe"></i>  ${member.website}</small>
+        </div>
+
+        <div class="list-group-item">
+            <small class="text-muted mr-3">
+                <i class="icon-user"></i>  ${member.contact_name}</small>
+        </div>
+
+        <div class="list-group-item">
+            <small class="text-muted mr-3">
+                <i class="fa fa-industry"></i>  ${member.organization_type}</small>
+        </div>
+
+
+        <div class="list-group-item">
+
+            <small class="text-muted mr-3">
+                <i class="icon-check"></i>  SBN medlem: ${member.member}</small>
+            <small class="text-muted mr-3">
+                <i class="icon-badge"></i>  SBN Prime medlem</small>
+        </div>
+
+    </div>
+    <!-- SLUTT org info-->
+
+
+
+
+
+    `;
+}
+
+
+
+/** displayMemberProfileCard
+ * Takes member object as parameter and creates a card with member info
+ * 
+ */
+function displayMemberProfileCard(member) {
+
+    return `
+    <div class="card">
+
+    
+    <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">    
+
+
+    <div class="card-body">
+        <h4 class="card-title">${member.display_name}
+            ${member.organization_type ? orgType(member.organization_type) : ""} 
+        </h4>
+        <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
+
+        ${displayMemberContactInfo(member)}
+
+    </div>
+</div>
+
+`;
+
+}
+
+/** displayMemberProfileTags
+ * Takes member object as parameter and creates a card with tags info
+ * 
+ */
+function displayMemberProfileTags(member) {
+
+    return `
+    <div class="card">
+        <div class="card-header">
+            Tags
+        </div>
+        <div class="card-body">
+            ${member.tags ? tags(member.tags) : ""}
+        </div>
+    </div>
+    `;
+
+}
+
+/** displayMemberProfileAbout
+ * Takes member object as parameter and creates a card with about info
+ * 
+ */
+function displayMemberProfileAbout(member) {
+
+    return `
+    <div class="card">
+        <div class="card-header">
+            Om
+        </div>
+        <div class="card-body">
+            <div class="list-group">
+                <div class="list-group-item">            
+                    ${member.description}
+                </div>
+            </div>
+        </div>
+    </div>
+    `;
+
+}
 
 
 
 
 
 /* displays the card for a organization */
-
+// <!-- ${member.users ? avatars(member.users) : ""} -->
+//   TAGS ${member.tags ? tags(member.tags) : ""}
 
 function memberTemplate(member) {
     return `
-    <div class="col-sm-6 col-md-4 urbacard"> 
-       <div class="card">
+    <div class="col-sm-6 col-md-2 urbacard"> 
+       <div class="card" onclick="displayMemberOverlay('${member.id}')">
 
           <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">
 
-          ${member.users ? avatars(member.users) : ""}
-
-          <div class="card-body">                     
-             <h4 class="card-title">${member.display_name} ${member.organization_type ? orgType(member.organization_type) : ""}</h4>              
+          
+          <div class="card-body" style="
+          padding-top: 0px;
+          padding-bottom: 5px;
+          padding-left: 5px;
+          padding-right: 5px;
+      ">                      
+             <h5 class="card-title">${member.display_name}</h5>              
              <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
              <div class="collapse" id="collapse-${member.name}">
                 <p class="card-text">${member.description}</p>
-                <p>TAGS ${member.tags ? tags(member.tags) : ""}</p>
+
              </div>
           </div>
        
-          <div class="card-footer">Mer iinfo
-                <div class="card-header-actions">
-                    <a href="#" class="card-header-action btn-minimize" data-toggle="collapse" data-target="#collapse-${member.name}" aria-expanded="true">
-                    <i class="icon-info"></i>
-                </a>
-                <a href="#" class="card-header-action btn-setting">
-                   <i class="icon-tag"></i>
-                </a>
-                <a href="#" class="card-header-action btn-close">
-                   <i class="icon-location-pin"></i>
-                </a>
-                <a href="#" class="card-header-action btn-close">
-                    <i class="icon-bulb"></i>
-             </a>
-
-             </div>
+          <div class="card-footer" style="
+          padding-left: 6px;
+          padding-right: 6px;
+          padding-top: 0px;
+          padding-bottom: 1px;
+      ">
+                 ${member.organization_type ? orgType(member.organization_type) : ""} 
+                <i class="icon-info text-dark"></i>
+                <i class="icon-phone text-dark"></i>
+                <i class="icon-people text-muted"></i>
+                <i class="icon-bulb text-muted"></i>
+                <i class="icon-tag text-dark"></i>
+                <i class="fa fa-newspaper-o text-muted"></i>
+                <i class="fa fa-database text-muted"></i>
+                
           </div>
       
        </div>
@@ -283,12 +413,213 @@ function isAdminUser(name) {
 
 
 
+/** employeeSidebarTemplate
+ * Used to display employees in sidebar
+ */
+function employeeSidebarTemplate(employee) {
+
+    return `    
+    <!-- start employee -->
+    <div class="list-group-item list-group-item-divider">
+        <div class="avatar float-right">
+            <img class="rounded-circle img-fluid d-block mx-auto" src="${employee.profilbilde}" onerror="this.onerror=null;this.src='${avatarImageDefaut}';" >
+        </div>
+        <div>
+            <strong>${employee.fornavn} ${employee.etternavn}</strong>
+        </div>
+        <div>${employee.tittel}</div>
+        <div>
+            <small class="text-muted mr-3">
+                <i class="icon-screen-smartphone"></i> <a href="tel:${employee.mobil}"> ${employee.mobil}
+            </small>
+            <a href="${employee.linkedin}" target="_blank">
+                <small class="text-muted mr-3">
+                    <i class="icon-social-linkedin"></i>
+                </small>
+            </a>    
+            
+            <a href="${employee.twitter}" target="_blank">
+                <small class="text-muted">
+                    <i class="icon-social-twitter"></i>
+                </small>
+            </a> 
+        </div>
+
+        <small class="text-muted">
+            <i class="icon-envelope"></i>  ${employee.epost}
+        </small>
+    </div>
+<!-- end employee -->
+ `;
+
+
+
+
+}
+
+/** employeeTemplate
+ * 
+ * 
+ * 
+ */
+function employeeTemplate(employee) {
+
+
+    return `
+    <!-- start employee -->
+    <div class="col-lg-4 col-sm-6 text-center mb-4">    
+        <img class="rounded-circle img-fluid d-block mx-auto" src="${employee.profilbilde}" onerror="this.onerror=null;this.src='${avatarImageDefaut}';" >
+        <h3>${employee.fornavn} ${employee.etternavn}
+            <small>${employee.tittel}</small>
+        </h3>
+        <div>
+            <small class="text-muted">
+                <i class="icon-envelope"></i>  ${employee.epost}
+            </small>
+            <small class="text-muted mr-3">
+                <i class="icon-screen-smartphone"></i> <a href="tel:${employee.mobil}"> ${employee.mobil}
+            </small>
+        </div>
+
+        
+        <a href="${employee.linkedin}" target="_blank">
+            <small class="text-muted mr-3">
+                <i class="icon-social-linkedin"></i>
+            </small>
+        </a>
+
+        <a href="${employee.twitter}" target="_blank">
+            <small class="text-muted">
+                <i class="icon-social-twitter"></i>
+            </small>
+        </a>      
+    </div>
+  <!-- end employee -->
+    `;
+
+
+}
+
+
+/** displaySidebarEmployees
+ * 
+ */
+function displaySidebarEmployees(member) {
+
+
+    return `
+    <!-- start employees -->
+    <div class="list-group">
+        ${member.employees.map(employeeSidebarTemplate).join("")}         
+    </div>
+  <!-- end employees -->
+    `;
+
+
+}
+
+/*** displays all employees for a member.
+ * connects to div id=employees
+ *     document.getElementById("employees").innerHTML = `
+ * ${member.employees.map(employeeTemplate).join("")}
+ */
+
+function  displayEmployees(member){
+
+    return `
+    <!-- start employees -->
+    <div class="row">
+        <div class="col-lg-12">
+        <h2 class="my-4">Team</h2>
+        </div>
+        ${member.employees.map(employeeTemplate).join("")}
+         
+    </div>
+  <!-- end employees -->
+    `;
+}
+
+
+
+/** readEmployees reads all employees 
+ * and adds it to the member object in the global array
+ * Default the member.employees contains a resource_id for a dataset containing all employees 
+ * If this function has run before, then the member.employees contains a array of all emplyees
+ */
+function readEmployees(member) {
+   
+    if (member.hasOwnProperty('employees')) {   // if the field employees is present. 
+        if (isValidResource(member.employees)) { // the member has a valid pointer to a dataset resource
+
+
+            
+            var client = new CKAN.Client(ckanServer, myAPIkey);
+
+            client.action('datastore_search', { resource_id: member.employees }, 
+                function(err, result) {
+
+                    if (err != null) { //some error - try figure out what
+                        debugger;
+                        mylog(mylogdiv, "readEmployees ERROR: " +JSON.stringify(err));
+                        console.log("readEmployees ERROR: " +JSON.stringify(err));
+                    } else // we have read the resource
+                    {
+                        member.employees = JSON.parse(JSON.stringify(result.result.records));     // copy the employees array to the member 
+                        // we must attach to the div id employees the first time because it has taken time to fetch the employees
+                        document.getElementById("employees").innerHTML =  `
+                            ${displaySidebarEmployees(member)} 
+                        `;
+        
+                }
+                
+            });
+            
+        } 
+        else if(Array.isArray(member.employees)){ // employees are already read into member object
+            // when the employees are already in the array we can just output them
+            return `
+                ${displaySidebarEmployees(member)} 
+            `;
+        }
+        else 
+        return `
+        Kontaktpersoner ikke definert. Se Acando for hvordan kontakter vises når de er registrert
+         `;
+    }
+    else 
+    return `
+    Kontaktpersoner ikke definert. Se Acando for hvordan kontakter vises når de er registrert..
+     `;
+
+}
+
+
+
+
+
+/*** Test if a resurce_id is valid.
+* A valid resource_id is llike this:
+* 88ad7fac-f90c-4ae2-ba01-bcceb1486137
+* Lenght = 36 
+*****/
+function isValidResource(resource_id) {
+
+//TODO: write the code to validate the resource_id
+
+var n = resource_id.length;
+if (n == 36)
+    return true;
+else
+    return false;
+}
+
+
 
 function tidyOrganizations(members) {
     // Remove the organizations that are not "member": "yes",
     // Remove the ckan admin user from the list of users in the organization
     // call setUserProperties to figure out how to intepret the user.about field
-    // tidy upp the employees field: convert it to a object
+  
 
     newMemberArray = []; // All members are copied into this array.
 
@@ -298,19 +629,7 @@ function tidyOrganizations(members) {
 
         newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
 
-        if (newMember.hasOwnProperty('employees')) {   // if the field employees is present. make sure it is converted to a object
-            if (isJson(newMember.employees)) {
-                // the about field contains a json string
-                var tempEmployeesObj = JSON.parse(newMember.employees);
-                newMember.employees = tempEmployeesObj;
-                //newMember.employees = JSON.parse(JSON.stringify(newMember.employees)); // seems to be the way one copies an array in javascript
-            } else
-                mylog(mylogdiv, "ERR: misformed employees in " + newMember.display_name + ": employees=" + newMember.employees + "=");
-
-        } else
-            mylog(mylogdiv, "No employees in " + newMember.display_name);
-
-
+       // readEmployees(newMember); //TODO: remove this. just for testing
 
         // handle the ckan users for the member org 
         originalNumUsers = newMember.users.length; // count the original number
@@ -343,9 +662,453 @@ function tidyOrganizations(members) {
 
 
 
+/** getMembersDummyData
+ * To avoid waiting for ckan server to return all members we just populate 
+ * the screen with the first n member cards
+ * 
+ * The global array that holds members is globalMembers 
+ */
+function getMembersDummyData(){
+
+    globalMembers = [
+        {
+            "package_count": 0,
+            "num_followers": 0,
+            "contact_name": "",
+            "id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "display_name": "abb",
+            "approval_status": "approved",
+            "title": "",
+            "member": "no",
+            "state": "active",
+            "is_organization": true,
+            "type": "organization",
+            "website": "http://www.abb.no",
+            "description": " El-produkter, roboter og drivsystemer, industriell automatisering og kraftnett.",
+            "main_adddress": "",
+            "slogan": "Industriell automatisering",
+            "name": "abb",
+            "created": "2018-04-17T22:57:13.282926",
+            "organization_type": "private",
+            "employees": "",
+            "image_display_url": "http://bucket.urbalurba.com/logo/abb.jpg",
+            "insightly_tags": "Hurtigruten2018",
+            "image_url": "http://bucket.urbalurba.com/logo/abb.jpg",
+            "revision_id": "83b01469-3f20-412c-9f36-4e88db5e57be",
+            "insightly_id": "107445495",
+            "users": [
+                {
+                    "email_hash": "590c06df50b74f292f2258d1e64f323e",
+                    "about": null,
+                    "capacity": "admin",
+                    "name": "urbalurbaadmin",
+                    "created": "2018-04-14T00:11:07.970227",
+                    "openid": null,
+                    "sysadmin": true,
+                    "activity_streams_email_notifications": false,
+                    "state": "active",
+                    "number_of_edits": 330,
+                    "display_name": "urbalurbaadmin",
+                    "fullname": null,
+                    "id": "55f915f3-510e-4ab6-bdfb-fd8f0e6437a9",
+                    "number_created_packages": 3,
+                    "userProfileURL": "http://data.urbalurba.com/user/urbalurbaadmin",
+                    "profilepictureurl": "",
+                    "aboutdisplay": ""
+                }
+            ]
+        },
+        {
+            "package_count": 0,
+            "num_followers": 0,
+            "contact_name": "",
+            "id": "a27f3c27-11ef-4f04-921f-629fb58a9799",
+            "display_name": "ABAX AS",
+            "approval_status": "approved",
+            "title": "ABAX AS",
+            "member": "no",
+            "state": "active",
+            "is_organization": true,
+            "type": "organization",
+            "website": "https://www.abax.no/",
+            "description": "Elektronisk kjørebok, utstyrskontroll og digital prosjektstyring",
+            "main_adddress": "",
+            "slogan": "Elektronisk kjørebok",
+            "name": "abax-as",
+            "created": "2018-04-17T22:41:34.215029",
+            "organization_type": "private",
+            "employees": "",
+            "image_display_url": "http://bucket.urbalurba.com/logo/abax.jpg",
+            "insightly_tags": "Hurtigruten2018",
+            "image_url": "http://bucket.urbalurba.com/logo/abax.jpg",
+            "revision_id": "a69fdd01-a464-4093-96e2-1737772eea7b",
+            "insightly_id": "98965342",
+            "users": [
+                {
+                    "email_hash": "590c06df50b74f292f2258d1e64f323e",
+                    "about": null,
+                    "capacity": "admin",
+                    "name": "urbalurbaadmin",
+                    "created": "2018-04-14T00:11:07.970227",
+                    "openid": null,
+                    "sysadmin": true,
+                    "activity_streams_email_notifications": false,
+                    "state": "active",
+                    "number_of_edits": 330,
+                    "display_name": "urbalurbaadmin",
+                    "fullname": null,
+                    "id": "55f915f3-510e-4ab6-bdfb-fd8f0e6437a9",
+                    "number_created_packages": 3,
+                    "userProfileURL": "http://data.urbalurba.com/user/urbalurbaadmin",
+                    "profilepictureurl": "",
+                    "aboutdisplay": ""
+                }
+            ]
+        },
+        {
+            "package_count": 2,
+            "num_followers": 0,
+            "contact_name": "Dan Vigeland",
+            "id": "5b60c765-ad61-4e9e-876d-5a19653a846b",
+            "display_name": "Acando",
+            "approval_status": "approved",
+            "is_organization": true,
+            "member": "yes",
+            "state": "active",
+            "type": "organization",
+            "website": "https://www.acando.no/",
+            "description": "Acando er et konsulentselskap som jobber med digitale transformasjoner i offentlig og private virksomheter. Teknologi er en sentral driver til forandring, men det er brukerens evne og ønske om å ta teknologien i bruk som skaper verdi. Med teknisk spisskompetanse og inngående innsikt i brukeratferd og forretningsutvikling drevet av digitalisering, skaper vi idéer, løsninger og mobiliserer organisasjoner til forandring.\r\nEt av våre satsningsområder er Smart City der Intelligente Transportsystemer (ITS) og selvkjørende minibusser i alminnelig trafikkmiljø, er en del av satsningen.",
+            "main_adddress": "Tordenskioldsgate 8-10, 0160 Oslo",
+            "phone": "93001000",
+            "organization_number": "979191138",
+            "slogan": "Digitalt konsulentselskap",
+            "name": "acando",
+            "created": "2018-04-16T19:18:33.457075",
+            "organization_type": "private",
+            "employees": "2dfb69b8-a9cc-47f2-a894-803001703737",
+            "image_display_url": "http://bucket.urbalurba.com/logo/acando.jpg",
+            "insightly_tags": "",
+            "image_url": "http://bucket.urbalurba.com/logo/acando.jpg",
+            "title": "Acando",
+            "revision_id": "284d8271-bdeb-4173-9169-acf505ca856c",
+            "insightly_id": "95288967",
+            "users": [
+                {
+                    "email_hash": "590c06df50b74f292f2258d1e64f323e",
+                    "about": null,
+                    "capacity": "admin",
+                    "name": "urbalurbaadmin",
+                    "created": "2018-04-14T00:11:07.970227",
+                    "openid": null,
+                    "sysadmin": true,
+                    "activity_streams_email_notifications": false,
+                    "state": "active",
+                    "number_of_edits": 330,
+                    "display_name": "urbalurbaadmin",
+                    "fullname": null,
+                    "id": "55f915f3-510e-4ab6-bdfb-fd8f0e6437a9",
+                    "number_created_packages": 3,
+                    "userProfileURL": "http://data.urbalurba.com/user/urbalurbaadmin",
+                    "profilepictureurl": "",
+                    "aboutdisplay": ""
+                }
+            ]
+        },
+        {
+            "website": "http://www.afconsult.com/",
+            "display_name": "ÅF Lighting Norge",
+            "description": "Rådgivning, offentlig belysning",
+            "image_display_url": "http://bucket.urbalurba.com/logo/af-logo-tag-black.jpg",
+            "organization_type": "startup",
+            "created": "2018-04-18T01:22:38.620441",
+            "name": "af-lighting-norge",
+            "member": "yes",
+            "is_organization": true,
+            "state": "active",
+            "image_url": "http://bucket.urbalurba.com/logo/af-logo-tag-black.jpg",
+            "title": "ÅF Lighting Norge",
+            "type": "organization",
+            "package_count": 0,
+            "slogan": "Rådgivning, offentlig belysning",
+            "revision_id": "7b021d2e-5b70-4d16-91aa-9bb6ca7832f4",
+            "insightly_id": "114887093",
+            "num_followers": 0,
+            "id": "a5e05ae1-dbe8-4579-95ec-9aec292dcce3",
+            "approval_status": "approved",
+            "users": [
+                {
+                    "email_hash": "590c06df50b74f292f2258d1e64f323e",
+                    "about": null,
+                    "capacity": "admin",
+                    "name": "urbalurbaadmin",
+                    "created": "2018-04-14T00:11:07.970227",
+                    "openid": null,
+                    "sysadmin": true,
+                    "activity_streams_email_notifications": false,
+                    "state": "active",
+                    "number_of_edits": 330,
+                    "display_name": "urbalurbaadmin",
+                    "fullname": null,
+                    "id": "55f915f3-510e-4ab6-bdfb-fd8f0e6437a9",
+                    "number_created_packages": 3,
+                    "userProfileURL": "http://data.urbalurba.com/user/urbalurbaadmin",
+                    "profilepictureurl": "",
+                    "aboutdisplay": ""
+                }
+            ]
+        },
+        {
+            "package_count": 0,
+            "num_followers": 0,
+            "contact_name": "Gjermund Lanestedt",
+            "id": "ba175754-a1b9-4e9f-9e31-f7f7268baa2b",
+            "display_name": "Agenda Kaupang",
+            "approval_status": "approved",
+            "is_organization": true,
+            "member": "yes",
+            "state": "active",
+            "type": "organization",
+            "website": "https://www.agendakaupang.no/",
+            "description": "Agenda Kaupang er et norsk konsulentselskap. Vi tilbyr analyse, utredning og rådgiving innen områdene ledelse, styring, økonomi og organisasjonsutvikling. Agenda Kaupangs kunder er primært i offentlig sektor, samt blant bedrifter og organisasjoner i arbeidslivet.",
+            "main_adddress": "Holtet 45, 1368 Stabekk",
+            "phone": "95195648",
+            "organization_number": "968938525",
+            "slogan": "Rådgivere for offentlig sektor",
+            "name": "agenda-kaupang",
+            "created": "2018-04-16T19:30:53.207288",
+            "organization_type": "private",
+            "employees": "",
+            "image_display_url": "http://bucket.urbalurba.com/logo/agenda.jpg",
+            "insightly_tags": "",
+            "image_url": "http://bucket.urbalurba.com/logo/agenda.jpg",
+            "title": "Agenda Kaupang",
+            "revision_id": "1dc171bd-cbf1-4312-b31c-d3f706e49820",
+            "insightly_id": "90622205",
+            "users": [
+                {
+                    "email_hash": "590c06df50b74f292f2258d1e64f323e",
+                    "about": null,
+                    "capacity": "admin",
+                    "name": "urbalurbaadmin",
+                    "created": "2018-04-14T00:11:07.970227",
+                    "openid": null,
+                    "sysadmin": true,
+                    "activity_streams_email_notifications": false,
+                    "state": "active",
+                    "number_of_edits": 330,
+                    "display_name": "urbalurbaadmin",
+                    "fullname": null,
+                    "id": "55f915f3-510e-4ab6-bdfb-fd8f0e6437a9",
+                    "number_created_packages": 3,
+                    "userProfileURL": "http://data.urbalurba.com/user/urbalurbaadmin",
+                    "profilepictureurl": "",
+                    "aboutdisplay": ""
+                }
+            ]
+        },
+        {
+            "package_count": 0,
+            "num_followers": 0,
+            "contact_name": "",
+            "id": "0c6fc289-a443-4e32-9cab-6b59830a8076",
+            "display_name": "AISPOT",
+            "approval_status": "approved",
+            "title": "AISPOT",
+            "member": "yes",
+            "state": "active",
+            "is_organization": true,
+            "type": "organization",
+            "website": "https://aispot.no/",
+            "description": "Aispot helps retail and destinations engage customers and increase loyalty. Enabling the concept of Future Shopping. Clients Simply connect to – and publish to their customers through a shared mobile platform utilizing beacons, QR, club, mobile Wallet and a range of ready-made services",
+            "main_adddress": "",
+            "slogan": "IoT og app for varehandel og reiseliv",
+            "name": "aispot",
+            "created": "2018-04-16T20:19:21.829200",
+            "organization_type": "private",
+            "employees": "",
+            "image_display_url": "http://bucket.urbalurba.com/logo/aispot.jpg",
+            "insightly_tags": "",
+            "image_url": "http://bucket.urbalurba.com/logo/aispot.jpg",
+            "revision_id": "08a4b0cf-7f13-4398-82ad-86cf5ec23ecc",
+            "insightly_id": "120108147",
+            "users": [
+                {
+                    "email_hash": "590c06df50b74f292f2258d1e64f323e",
+                    "about": null,
+                    "capacity": "admin",
+                    "name": "urbalurbaadmin",
+                    "created": "2018-04-14T00:11:07.970227",
+                    "openid": null,
+                    "sysadmin": true,
+                    "activity_streams_email_notifications": false,
+                    "state": "active",
+                    "number_of_edits": 330,
+                    "display_name": "urbalurbaadmin",
+                    "fullname": null,
+                    "id": "55f915f3-510e-4ab6-bdfb-fd8f0e6437a9",
+                    "number_created_packages": 3,
+                    "userProfileURL": "http://data.urbalurba.com/user/urbalurbaadmin",
+                    "profilepictureurl": "",
+                    "aboutdisplay": ""
+                }
+            ]
+        }
+
+    ];
 
 
 
+
+
+}
+
+/** displayMemberCards display all members in the 
+ * array globalMembers
+ * 
+ */
+function displayMemberCards() {
+
+    document.getElementById("app").innerHTML = `
+    <!-- start cards -->
+    <div class="row">    
+    ${globalMembers.map(memberTemplate).join("")}
+    </div>
+    <!-- End cards -->
+
+    `;
+
+}
+
+/** displayMemberOverlay displays the info on the member
+ * it is called when the user click on a member card
+ * takes the member_id as parameter and uses it to find the member to be displayed in the global array globalMembers
+ */
+
+function displayMemberOverlay(member_id) {
+                 
+
+
+    var member = globalMembers.find(function (member) { return member.id === member_id; }); //get the member object
+    document.getElementById("displayProfile").innerHTML = `
+
+
+
+ <div class="container" style="background-color:white">
+
+    <button type="button" class="close closebtn" aria-label="Close">
+            <span aria-hidden="true">&times;</span>            
+    </button>
+    <section>
+
+    
+        <div style=" padding-top: 10px">
+                
+            <div class="jumbotron">
+                <h1 class="display-3">${member.display_name}</h1>
+                <p class="slogan">${member.slogan}</p>
+
+            </div>
+        </div>
+        </section>
+        
+        <!-- start middle section-->
+        <section>
+
+            <div class="container">
+                <!-- main and aside is placed in a row -->
+                <div class="row no-gutters">
+                    <main class="col-md-8 col-lg-8">
+                        <div>
+                            <div class="hidden-md-up">
+                                <!-- terchris: denne vises på mobil skjerm -->                               
+                                <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">    
+                            </div>
+                            <p class="leadtext">${member.description} </p>
+
+                        </div>
+                    </main>
+                    <aside class="col-md-4 col-lg-3 TCsidebar" >
+                        <div class="TCsidebar__offset-wrapper">
+                            <div class="hidden-sm-down">
+                                <!-- terchris: denne vises på pc skjerm. Oppå topp banner eller under avh av oppløsning -->
+                                <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">    
+                            </div>
+                        </div>
+                        <!-- Start widgets-->
+                        <div class="widgets-NODEFINE">
+
+
+                            <div class="widget widget--widget_meta">
+                                <h3 class="widget__title">Tags</h3>
+                                <div class="widget__content-NODEFINE">
+                                    <ul>
+                                        <li>
+                                            <a href="" class="nav__item__link-NODEFINE">Selvkjørende</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="nav__item__link-NODEFINE">autonom</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="nav__item__link-NODEFINE">smart transport</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="nav__item__link-NODEFINE">smart mobility</a>
+                                        </li>
+                                        <li>
+                                            <a href="" class="nav__item__link-NODEFINE">buss</a>
+                                        </li>
+
+                                    </ul>
+                                </div>
+                            </div>
+
+                            <div class="widget widget--widget_meta">
+                                <h3 class="widget__title">Kontakt info</h3>
+                                ${displayMemberContactInfo(member)}
+                            </div>
+
+
+                            <div class="widget widget--widget_meta">
+                                <h3 class="widget__title">Kontaktpersoner</h3>
+                                <div id="employees">
+                                    ${readEmployees(member)}
+                                </div>
+                            </div>
+
+
+
+                        </div>
+                        <!-- Stop widgets-->
+                    </aside>
+                </div>
+            </div>
+
+        </section>
+        <!-- end middle section-->
+
+
+
+    </div>
+
+           
+           `;
+
+
+
+    document.getElementById("memberOverlay").style.width = "100%";
+}
+
+        
+
+function closeMemberOverlay() {
+            document.getElementById("memberOverlay").style.width = "0%";
+}
+ 
+
+
+
+
+var myAPIkey = ""; // TODO: figure out how to set this a secure way
 var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or use http://demo.ckan.org
 //ckanServer = "http://172.16.1.96/";
 var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
@@ -359,6 +1122,8 @@ let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a membe
 const mylogdiv = "mylogdiv"; //there must be a div with this name in the html file
 const globalMyLog = false;
 
+
+var globalMembers = []; // we need to access the member array after the cards are rendered
 
 
 /* loadOrganizationsFromCKAN
@@ -384,18 +1149,15 @@ function loadOrganizationsFromCKAN() {
             if (data.success == true) { // CKAN sets success = true if the API was OK
                 mylog(mylogdiv, "data.success");
 
-                justMembers = tidyOrganizations(data.result); // add and remove stuff
-                mylog(mylogdiv, "justMembers finished");
-                mylog(mylogdiv, "JSON:" + JSON.stringify(justMembers));
+                globalMembers = tidyOrganizations(data.result); // add and remove stuff
+                
+                
+                displayMemberCards(); 
 
-                document.getElementById("app").innerHTML = `
-                <!-- start cards -->
-                <div class="row">    
-                ${justMembers.map(memberTemplate).join("")}
-                </div>
-                <!-- End cards -->
            
-           `;
+
+
+
             }
         })
         .fail(function () {
@@ -414,6 +1176,8 @@ function loadOrganizationsFromCKAN() {
 
 
     searching();
+    getMembersDummyData();
+    displayMemberCards(); 
 
 
 

@@ -16,7 +16,7 @@
     <link href="http://ckan.urbalurba.com/vendors/css/font-awesome.min.css" rel="stylesheet">
     <link href="http://ckan.urbalurba.com/vendors/css/simple-line-icons.css" rel="stylesheet">
     <!-- Main styles for this application -->
-    <link href="http://ckan.urbalurba.com/css/style.css" rel="stylesheet"> 
+    <link href="http://ckan.urbalurba.com/css/style.css" rel="stylesheet">
     <!-- From coreui.io STOP-->
 
 
@@ -33,49 +33,15 @@
     <!-- CKAN api -->
     <script src="http://okfnlabs.org/ckan.js/ckan.js"></script>
 
-    <!-- axios -->
-    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
 
     <script src="sbn_members.js"></script>
+    <link href="sbn_members.css" rel="stylesheet">
     <!-- when publishing change to this:
         <script src="http://ckan.urbalurba.com/members.js"></script>
+        <link href="http://ckan.urbalurba.com/sbn_members.css" rel="stylesheet">
 -->
 
     <!-- Squarespace header copy Stop-->
-
-<!-- overlay testing Start -->
-<style>
-.overlay {
-    height: 100%;
-    width: 0;
-    position: fixed;
-    z-index: 1;
-    top: 0;
-    left: 0;
-    background-color: rgb(0,0,0);
-    background-color: rgba(0,0,0, 0.9);
-    overflow-x: hidden;
-    transition: 0.5s;
-}
-
-.overlay-content {
-    position: relative;
-    top: 15%;
-    width: 100%;
-    
-    
-}
-
-
-
-
-
-
-
-
-</style>
-
-
 
 
 </head>
@@ -83,73 +49,19 @@
 
 <body>
 
-    <!-- overlay test start -->
-    <div id="myNav" class="overlay" onclick="closeNav()">
-        
-        <div id="displayProfile" class="overlay-content">
- <p>Some dummy text</p>
-        </div>
-
-      </div>
-      
-      <script>
-        function displayMember(member_id) {
-
-
-
-    var member = globalMembers.find(function (member) { return member.id === member_id; }); //get the member object
-
- 
-
-
- document.getElementById("displayProfile").innerHTML = `
- <div class="container">
-    <div class="row">
-        <div class="col-6">
-            <div class="jumbotron">
-                <h1 class="display-4">${member.display_name}</h1>
-                <p class="lead">${member.slogan}</p>
-                <p>${member.description}</p>
-            </div>
-            <div id="employees" class="jumbotron">
-                
-                ${readEmployees(member)}
-            </div>
-        </div>
-        <div class="col-4">
-                ${displayMemberProfileCard(member)}
-        
-                ${displayMemberProfileTags(member)}
-
-    
-        </div>
-
-    </div>    
-</div>
-
-
-
-           
-           `;
-
-
-
-            document.getElementById("myNav").style.width = "100%";
-        }
-        
-        function closeNav() {
-            document.getElementById("myNav").style.width = "0%";
-        }
-        </script>
-        
-
-
-    <!-- overlay test stop -->
-
-
 
 
     <!-- Outer container start. Squarespace copy start. Paste into code block -->
+
+    <!-- overlay start -->
+    <div id="memberOverlay" class="overlay" onclick="closeMemberOverlay()">        
+        <div id="displayProfile" class="overlay-content">
+            <p>Some dummy text</p>
+        </div>
+    </div>
+    <!-- overlay stop -->
+
+
     <div class="container">
 
         <div class="card">
@@ -175,7 +87,7 @@
     </div>
     <script>
         // Wait until all scrips has load before executing
-        // This script must be placed just before the body tag
+        // This script must be placed just before the end body tag
         $(document).ready(function () {
             loadOrganizationsFromCKAN()
         });
