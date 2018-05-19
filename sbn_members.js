@@ -327,13 +327,20 @@ function displayMemberDescriptionCard(member) {
 
 /**
  * displays the card for a organization
+ * 
+ * 
+ * <!-- ${(member.member != "no") ? '<div class="card border-primary" >' : '<div class="card" >'} -->
+ * <div class="card border-primary" onclick="displayMemberOverlay('${member.id}')">
  */
+
 
 
 function memberTemplateCard(member) {
     return `
-    <div class="col-sm-6 col-md-2 urbacard"> 
-       <div class="card" onclick="displayMemberOverlay('${member.id}')">
+    <div class="col-sm-6 col-md-2 urbacard" onclick="displayMemberOverlay('${member.id}')"> 
+    
+       
+       ${(member.member != "no") ? '<div class="card border-success" >' : '<div class="card" >'}
 
           <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">
 
