@@ -33,28 +33,51 @@ http://ckan.urbalurba.com/member.html
 
 In members.html select all between the  <body> </body> and paste it the code block.
 
-When testing I'm making a page in squarespace that has testing- in front of the name of the html file. 
-Eg. my members.html will be http://www.smartebyernorge.no/testing-members
+I have this test page
+ http://www.smartebyernorge.no/test
 
 
 5. Tell squarespace to load javascript and css 
 
 In Squarespace go to settings on the page you have the code block. 
 Under Advanced. Paste into PAGE HEADER CODE INJECTION
-Paste from below:
+See members.html head tags. 
+All between "Squarespace header copy start" and "Squarespace header copy Stop" goes into the PAGE HEADER CODE INJECTION. 
 
 ```
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
-        crossorigin="anonymous">
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-   
-    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q"
-        crossorigin="anonymous"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl"
-        crossorigin="anonymous"></script>
+    <!-- Squarespace header copy start. Paste to Settings - Advanced - PAGE HEADER CODE INJECTION-->
+
+    <!-- From coreui.io START-->
+    <!-- Icons-->
+    <link href="http://ckan.urbalurba.com/vendors/css/flag-icon.min.css" rel="stylesheet">
+    <link href="http://ckan.urbalurba.com/vendors/css/font-awesome.min.css" rel="stylesheet">
+    <link href="http://ckan.urbalurba.com/vendors/css/simple-line-icons.css" rel="stylesheet">
+    <!-- Main styles for this application -->
+    <link href="http://ckan.urbalurba.com/css/style.css" rel="stylesheet">
+    <!-- From coreui.io STOP-->
 
 
-    <link rel="stylesheet" type="text/css" href="http://ckan.urbalurba.com/members.css">
+    <!-- From coreui.io START-->
+    <!-- Bootstrap and necessary plugins-->
+    <script src="http://ckan.urbalurba.com/vendors/js/jquery.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/popper.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/bootstrap.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/pace.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/perfect-scrollbar.min.js"></script>
+    <script src="http://ckan.urbalurba.com/vendors/js/coreui.min.js"></script>
+    <!-- From coreui.io STOP-->
+
+    <!-- CKAN api -->
+    <script src="http://okfnlabs.org/ckan.js/ckan.js"></script>
+
+
     <script src="http://ckan.urbalurba.com/members.js"></script>
+    <link href="http://ckan.urbalurba.com/members.css" rel="stylesheet">
+
+    <!-- when publishing change to this:
+        <script src="http://ckan.urbalurba.com/members.js"></script>
+        <link href="http://ckan.urbalurba.com/members.css" rel="stylesheet">
+-->
+
+    <!-- Squarespace header copy Stop-->
 ```
