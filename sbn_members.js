@@ -365,14 +365,13 @@ function displayArticles(member) {
     var memberArticles = globalSBNnetworkInfo.filter(function(matchingMember) {
         return matchingMember.name == member.name;
     });
-    
-    // we must attach to the div id employees the first time because it has taken time to fetch the employees
-    document.getElementById("SBNnetworkInfo_resource_id").innerHTML =  `
+    return `
     <div class="container">
         <div class="row">
             ${memberArticles.map(articleTemplateCard).join("")}         
-        </div>
+        </div>        
     </div>
+    
     `;    
 
 }
@@ -386,7 +385,9 @@ function displayArticles(member) {
 function readSBNnetworkInfo(member){
 
     if(Array.isArray(globalSBNnetworkInfo)){ // the array is already read
-        displayArticles(member); 
+       return `
+            ${displayArticles(member)} 
+            `;   
     }else{
        // First call. Read it from server
         var client = new CKAN.Client(ckanServer, myAPIkey);
@@ -400,8 +401,11 @@ function readSBNnetworkInfo(member){
                 } else // we have read the resource     
                 {
                     globalSBNnetworkInfo = result.result.records;
-                }       
-                    displayArticles(member);     
+                    document.getElementById("SBNnetworkInfo_resource_id").innerHTML =  `
+                        ${displayArticles(member)} 
+                    `;    
+                }      
+                        
             });
 
     }
@@ -1134,10 +1138,9 @@ function displayMemberOverlay(member_id) {
                             
                         </div>
                         <div id="SBNnetworkInfo_resource_id">
-                         .   
+                            ${readSBNnetworkInfo(member)}    
                         </div>
-                        ${readSBNnetworkInfo(member)}
-                        jalla
+                        
 
 
                     </main>
@@ -1154,19 +1157,19 @@ function displayMemberOverlay(member_id) {
 
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Tags</h3>
-                                ${displayMemberTagsSidebar(member)}
+                                ${displayMemberTagsSidebar(member)} 
                             </div>
 
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Kontakt info</h3>
-                                ${displayMemberContactInfo(member)}
+                                ${displayMemberContactInfo(member)} 
                             </div>
 
 
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Kontaktpersoner</h3>
                                 <div id="employees">
-                                    ${readEmployees(member)}
+                                    ${readEmployees(member)} 
                                 </div>
                             </div>
 
