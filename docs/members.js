@@ -1,10 +1,12 @@
 
 
 
-/* Displays all tags on a organization */
+/**  tags Displays all tags on a organization as list items
+ * 
+ */
 function tags(tags) {
     return `
-  ${tags.map(tag => ` ${tag} `).join("")}
+  ${tags.map(tag => ` <li> <a href=""> ${tag.trim()}</a></li> `).join("")}
 `;
 }
 
@@ -60,14 +62,14 @@ function displaySearchbox(noMembers) {
 }
 
 
-
-function setUserProperties(user) {
-    // The user.about field is free txt. This code figures out how to read it.
-    // If the field is empty. Well then its empty and we do nothing
-    // if it contains text. Then we display the text (no test for lenght)
-    // if it is a json string we try to get the fields
-
-    // The user.about json looks like this { "title":"Boss", "aboutdisplay":"Self made man and genius", "profilepictureurl":"http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png", "phone":"90054123", "email":"jalmar@jalla.no"}
+/**
+    * The user.about field is free txt. This code figures out how to read it.
+    * If the field is empty. Well then its empty and we do nothing
+    * if it contains text. Then we display the text (no test for lenght)
+    * if it is a json string we try to get the fields
+    * The user.about json looks like this { "title":"Boss", "aboutdisplay":"Self made man and genius", "profilepictureurl":"http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png", "phone":"90054123", "email":"jalmar@jalla.no"}
+ */
+function getExtendedUserProperties(user) {
 
 
     user.userProfileURL = ckanServer + "user/" + user.name; //Set the URL you go to when clicking on the user
@@ -99,8 +101,9 @@ function setUserProperties(user) {
 
 
 
-/* Figuring out what icon to symbolize organisation type
-Icon set https://linearicons.com/free
+/**
+ *  Figuring out what icon to symbolize organisation type
+ * Icon set https://linearicons.com/free
 */
 function orgType(orgType) {
 
@@ -146,7 +149,7 @@ function orgType(orgType) {
 
 
 /* displays the profile images for each user */
-function avatars(users) {
+function displayUserAvatars(users) {
 
     return `
             <!-- Start avatars -->
@@ -249,11 +252,11 @@ function displayMemberProfileCard(member) {
 
 }
 
-/** displayMemberProfileTags
+/** displayMemberTagsCard
  * Takes member object as parameter and creates a card with tags info
  * 
  */
-function displayMemberProfileTags(member) {
+function displayMemberTagsCard(member) {
 
     return `
     <div class="card">
@@ -261,18 +264,46 @@ function displayMemberProfileTags(member) {
             Tags
         </div>
         <div class="card-body">
-            ${member.tags ? tags(member.tags) : ""}
+            <ul>
+                ${member.tags ? tags(member.tags) : ""}
+            </ul>    
         </div>
     </div>
     `;
 
 }
 
-/** displayMemberProfileAbout
+/** displayMemberTagsSidebar displays the tags for a member in the sidebar
+ * 
+ */
+
+function displayMemberTagsSidebar(member){
+
+    if (member.tags != undefined) {
+        var tagArray = member.tags.split(',');
+        return `
+        <div class="widget__content-NODEFINE">
+            <ul>
+                ${member.tags ? tags(tagArray) : ""}
+            </ul>    
+        </div>
+        `;
+    }
+    else
+    return `
+    <div class="widget__content-NODEFINE">
+       Ingen Tags definert. Se Acando for eksempel   
+    </div>
+    `;
+
+
+}
+
+/** displayMemberDescriptionCard
  * Takes member object as parameter and creates a card with about info
  * 
  */
-function displayMemberProfileAbout(member) {
+function displayMemberDescriptionCard(member) {
 
     return `
     <div class="card">
@@ -293,16 +324,103 @@ function displayMemberProfileAbout(member) {
 
 
 
+/**
+ * 
+ * 
+ */
+function articleTemplateCard(article,member) {
 
-
-/* displays the card for a organization */
-// <!-- ${member.users ? avatars(member.users) : ""} -->
-//   TAGS ${member.tags ? tags(member.tags) : ""}
-
-function memberTemplate(member) {
     return `
-    <div class="col-sm-6 col-md-2 urbacard"> 
-       <div class="card" onclick="displayMemberOverlay('${member.id}')">
+    <div>
+
+        <div class="card">
+            <div class="card-header">
+                ${article.what}
+            </div>
+            <div class="card-body">
+                ${article.text}
+            </div>
+            <div class="card-footer">
+                <small>
+                    <i class="icon-user"></i>
+                    ${article.who}
+                </small>
+                <small>
+                    <i class="icon-home"></i>
+                    ${article.virksomhet}
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+
+function displayArticles(member) {
+
+    var memberArticles = globalSBNnetworkInfo.filter(function(matchingMember) {
+        return matchingMember.name == member.name;
+    });
+    
+    // we must attach to the div id employees the first time because it has taken time to fetch the employees
+    document.getElementById("SBNnetworkInfo_resource_id").innerHTML =  `
+    <div class="container">
+        <div class="row">
+            ${memberArticles.map(articleTemplateCard).join("")}         
+        </div>
+    </div>
+    `;    
+
+}
+
+
+
+/**
+ * Read articles that has name=member.name 
+ * 
+ */
+function readSBNnetworkInfo(member){
+
+    if(Array.isArray(globalSBNnetworkInfo)){ // the array is already read
+        displayArticles(member); 
+    }else{
+       // First call. Read it from server
+        var client = new CKAN.Client(ckanServer, myAPIkey);
+    
+        client.action('datastore_search', { resource_id: SBNnetworkInfo_resource_id }, 
+            function(err, result) {
+                if (err != null) { //some error - try figure out what
+                    debugger;
+                    mylog(mylogdiv, "SBNnetworkInfo_resource_id ERROR: " +JSON.stringify(err));
+                    console.log("SBNnetworkInfo_resource_id ERROR: " +JSON.stringify(err));
+                } else // we have read the resource     
+                {
+                    globalSBNnetworkInfo = result.result.records;
+                }       
+                    displayArticles(member);     
+            });
+
+    }
+}
+
+
+
+/**
+ * displays the card for a organization
+ * 
+ *
+ */
+
+function memberTemplateCard(member) {
+    return `
+    <div class="col-sm-6 col-md-2 urbacard" onclick="displayMemberOverlay('${member.id}')"> 
+    
+       
+       ${(member.member != "no") ? '<div class="card border-success" >' : '<div class="card" >'}
 
           <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">
 
@@ -317,7 +435,7 @@ function memberTemplate(member) {
              <h6 class="card-subtitle mb-2 text-muted">${member.slogan}</h6>
              <div class="collapse" id="collapse-${member.name}">
                 <p class="card-text">${member.description}</p>
-
+                <p class="card-tags">${member.tags}</p>
              </div>
           </div>
        
@@ -328,14 +446,11 @@ function memberTemplate(member) {
           padding-bottom: 1px;
       ">
                  ${member.organization_type ? orgType(member.organization_type) : ""} 
-                <i class="icon-info text-dark"></i>
-                <i class="icon-phone text-dark"></i>
-                <i class="icon-people text-muted"></i>
-                <i class="icon-bulb text-muted"></i>
-                <i class="icon-tag text-dark"></i>
-                <i class="fa fa-newspaper-o text-muted"></i>
-                <i class="fa fa-database text-muted"></i>
-                
+                 ${member.description.length > 50 ? ` <i class="icon-info text-dark"></i> ` : ""}
+                 ${member.phone ? ` <i class="icon-phone text-dark"></i> ` : ""}
+                 ${ ((isValidResource(member.employees)) || (Array.isArray(member.employees))  )  ? ` <i class="icon-people"></i> ` : ""}
+                 ${member.tags ? ` <i class="icon-tag text-dark"></i> ` : ""}              
+                ${member.package_count > 0 ? ` <i class="fa fa-database text-muted"></i> ` : ""}                
           </div>
       
        </div>
@@ -413,10 +528,10 @@ function isAdminUser(name) {
 
 
 
-/** employeeSidebarTemplate
+/** employeeTemplateSidebar
  * Used to display employees in sidebar
  */
-function employeeSidebarTemplate(employee) {
+function employeeTemplateSidebar(employee) {
 
     return `    
     <!-- start employee -->
@@ -457,12 +572,10 @@ function employeeSidebarTemplate(employee) {
 
 }
 
-/** employeeTemplate
- * 
- * 
+/** employeeTemplateRow Displays employees in a row 
  * 
  */
-function employeeTemplate(employee) {
+function employeeTemplateRow(employee) {
 
 
     return `
@@ -501,16 +614,16 @@ function employeeTemplate(employee) {
 }
 
 
-/** displaySidebarEmployees
+/** displayEmployeesSidebar
  * 
  */
-function displaySidebarEmployees(member) {
+function displayEmployeesSidebar(member) {
 
 
     return `
     <!-- start employees -->
     <div class="list-group">
-        ${member.employees.map(employeeSidebarTemplate).join("")}         
+        ${member.employees.map(employeeTemplateSidebar).join("")}         
     </div>
   <!-- end employees -->
     `;
@@ -519,12 +632,10 @@ function displaySidebarEmployees(member) {
 }
 
 /*** displays all employees for a member.
- * connects to div id=employees
- *     document.getElementById("employees").innerHTML = `
- * ${member.employees.map(employeeTemplate).join("")}
+ * 
  */
 
-function  displayEmployees(member){
+function  displayEmployeesRow(member){
 
     return `
     <!-- start employees -->
@@ -532,7 +643,7 @@ function  displayEmployees(member){
         <div class="col-lg-12">
         <h2 class="my-4">Team</h2>
         </div>
-        ${member.employees.map(employeeTemplate).join("")}
+        ${member.employees.map(employeeTemplateRow).join("")}
          
     </div>
   <!-- end employees -->
@@ -567,7 +678,7 @@ function readEmployees(member) {
                         member.employees = JSON.parse(JSON.stringify(result.result.records));     // copy the employees array to the member 
                         // we must attach to the div id employees the first time because it has taken time to fetch the employees
                         document.getElementById("employees").innerHTML =  `
-                            ${displaySidebarEmployees(member)} 
+                            ${displayEmployeesSidebar(member)} 
                         `;
         
                 }
@@ -578,7 +689,7 @@ function readEmployees(member) {
         else if(Array.isArray(member.employees)){ // employees are already read into member object
             // when the employees are already in the array we can just output them
             return `
-                ${displaySidebarEmployees(member)} 
+                ${displayEmployeesSidebar(member)} 
             `;
         }
         else 
@@ -605,12 +716,13 @@ function readEmployees(member) {
 function isValidResource(resource_id) {
 
 //TODO: write the code to validate the resource_id
-
-var n = resource_id.length;
-if (n == 36)
-    return true;
-else
-    return false;
+    if (resource_id != undefined){
+        var n = resource_id.length;
+        if (n == 36)
+            return true;
+        else
+            return false;
+    }
 }
 
 
@@ -629,7 +741,7 @@ function tidyOrganizations(members) {
 
         newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
 
-       // readEmployees(newMember); //TODO: remove this. just for testing
+       
 
         // handle the ckan users for the member org 
         originalNumUsers = newMember.users.length; // count the original number
@@ -642,7 +754,7 @@ function tidyOrganizations(members) {
                 mylog(mylogdiv, "Admin user removed from : " + members[i].name) // not copied the admin user
 
             } else {
-                theUser = setUserProperties(members[i].users[usrcount]); // set the properties for the user           
+                theUser = getExtendedUserProperties(members[i].users[usrcount]); // set the properties for the user           
                 newUserArray.push(theUser);            // and add it to the new list of users belonging to the org
             }
         }
@@ -770,7 +882,7 @@ function getMembersDummyData(){
             "num_followers": 0,
             "contact_name": "Dan Vigeland",
             "id": "5b60c765-ad61-4e9e-876d-5a19653a846b",
-            "display_name": "Acando",
+            "display_name": "Acando:)",
             "approval_status": "approved",
             "is_organization": true,
             "member": "yes",
@@ -788,6 +900,7 @@ function getMembersDummyData(){
             "employees": "2dfb69b8-a9cc-47f2-a894-803001703737",
             "image_display_url": "http://bucket.urbalurba.com/logo/acando.jpg",
             "insightly_tags": "",
+            "tags": "Selvkjørende, autonom, smart transport, smart mobility, buss,banan",
             "image_url": "http://bucket.urbalurba.com/logo/acando.jpg",
             "title": "Acando",
             "revision_id": "284d8271-bdeb-4173-9169-acf505ca856c",
@@ -971,7 +1084,7 @@ function displayMemberCards() {
     document.getElementById("app").innerHTML = `
     <!-- start cards -->
     <div class="row">    
-    ${globalMembers.map(memberTemplate).join("")}
+    ${globalMembers.map(memberTemplateCard).join("")}
     </div>
     <!-- End cards -->
 
@@ -1024,8 +1137,15 @@ function displayMemberOverlay(member_id) {
                                 <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">    
                             </div>
                             <p class="leadtext">${member.description} </p>
-
+                            
                         </div>
+                        <div id="SBNnetworkInfo_resource_id">
+                         .   
+                        </div>
+                        ${readSBNnetworkInfo(member)}
+                        jalla
+
+
                     </main>
                     <aside class="col-md-4 col-lg-3 TCsidebar" >
                         <div class="TCsidebar__offset-wrapper">
@@ -1040,26 +1160,7 @@ function displayMemberOverlay(member_id) {
 
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Tags</h3>
-                                <div class="widget__content-NODEFINE">
-                                    <ul>
-                                        <li>
-                                            <a href="" class="nav__item__link-NODEFINE">Selvkjørende</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="nav__item__link-NODEFINE">autonom</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="nav__item__link-NODEFINE">smart transport</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="nav__item__link-NODEFINE">smart mobility</a>
-                                        </li>
-                                        <li>
-                                            <a href="" class="nav__item__link-NODEFINE">buss</a>
-                                        </li>
-
-                                    </ul>
-                                </div>
+                                ${displayMemberTagsSidebar(member)}
                             </div>
 
                             <div class="widget widget--widget_meta">
@@ -1115,75 +1216,61 @@ var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-
 //var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
 var organizationImageDefaut = "http://bucket.urbalurba.com/logo/dummylogo.png";
 
-
+const SBNnetworkInfo_resource_id = "0cd73796-e873-4079-a976-46cd765b6523";
 let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
 // For logging to screen
 const mylogdiv = "mylogdiv"; //there must be a div with this name in the html file
 const globalMyLog = false;
 
-
+var globalSBNnetworkInfo; // First time we access SBN articles we read all of them and store them here
 var globalMembers = []; // we need to access the member array after the cards are rendered
 
 
-/* loadOrganizationsFromCKAN
-* to initiate you must put <body onload="loadOrganizationsFromCKAN()"> 
-* in the html doc that uses this javascript - NO THAT DOESNT WORK
-***/
+
+/**
+ * This is the starting function. It reads the organisations from CKAN 
+ * and displays the organizations/members as cards
+ */
 function loadOrganizationsFromCKAN() {
-// This cant be used in squarespace. Must use onload $(document).ready(function () {
 
-    var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
-    var ckanURL = ckanServer + organization_list_api;
-    var ckanParameters = { all_fields: "true", include_extras: "true", include_users: "true" }; // See API description for what parameters to use
+        var ckanParameters = { all_fields: "true", include_extras: "true", include_users: "true" }; // See API description for what parameters to use
+    
+        var client = new CKAN.Client(ckanServer, myAPIkey);
 
-
-
-    $.ajax({
-        url: ckanURL,
-        dataType: "jsonp",  // required: we want jsonp. See why here https://en.wikipedia.org/wiki/JSONP                
-        data: ckanParameters,   // optional: but we use it to get all fields in this example
-        cache: "false"      // optional: tell it to get it from the server each time                
-    })
-        .done(function (data) {
-            if (data.success == true) { // CKAN sets success = true if the API was OK
-                mylog(mylogdiv, "data.success");
-
-                globalMembers = tidyOrganizations(data.result); // add and remove stuff
-                
-                
-                displayMemberCards(); 
-
-           
-
-
-
+        client.action('organization_list', { all_fields: "true", include_extras: "true", include_users: "true" }, 
+            function(err, result) {
+                if (err != null) { //some error - try figure out what
+                    mylog(mylogdiv, "organization_list ERROR: " +JSON.stringify(err));
+                    console.log("organization_list ERROR: " +JSON.stringify(err));
+                } else // we have read the data
+                {
+                    //globalMembers = JSON.parse(JSON.stringify(result.result.records));     
+                    globalMembers = tidyOrganizations(result.result); // add and remove stuff
+                    displayMemberCards(); // display the members fetched into globalMembers array                    
             }
-        })
-        .fail(function () {
-            alert("Failed: ", JSON.stringify(data));
-            console.log(JSON.stringify(data));
             
         });
 
-
-
-    $('a[data-toggle="tooltip"]').tooltip({
-        animated: 'fade',
-        placement: 'bottom',
-        html: true
-    });
-
-
-    searching();
-    getMembersDummyData();
-    displayMemberCards(); 
-
-
-
-
-// for dockument ready use: });
-
-};
-
-
+    
+    
+    
+        $('a[data-toggle="tooltip"]').tooltip({
+            animated: 'fade',
+            placement: 'bottom',
+            html: true
+        });
+    
+    
+        searching();
+        getMembersDummyData();
+        displayMemberCards(); 
+    
+    
+    
+    
+    // for dockument ready use: });
+    
+    };
+    
+    
