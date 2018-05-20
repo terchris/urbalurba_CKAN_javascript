@@ -324,16 +324,96 @@ function displayMemberDescriptionCard(member) {
 
 
 
+/**
+ * 
+ * 
+ */
+function articleTemplateCard(article,member) {
+
+    return `
+    <div>
+
+        <div class="card">
+            <div class="card-header">
+                ${article.what}
+            </div>
+            <div class="card-body">
+                ${article.text}
+            </div>
+            <div class="card-footer">
+                <small>
+                    <i class="icon-user"></i>
+                    ${article.who}
+                </small>
+                <small>
+                    <i class="icon-home"></i>
+                    ${article.virksomhet}
+                </small>
+            </div>
+
+        </div>
+
+    </div>
+
+    `;
+
+}
+
+
+function displayArticles(member) {
+
+    var memberArticles = globalSBNnetworkInfo.filter(function(matchingMember) {
+        return matchingMember.name == member.name;
+    });
+    
+    // we must attach to the div id employees the first time because it has taken time to fetch the employees
+    document.getElementById("SBNnetworkInfo_resource_id").innerHTML =  `
+    <div class="container">
+        <div class="row">
+            ${memberArticles.map(articleTemplateCard).join("")}         
+        </div>
+    </div>
+    `;    
+
+}
+
+
+
+/**
+ * Read articles that has name=member.name 
+ * 
+ */
+function readSBNnetworkInfo(member){
+
+    if(Array.isArray(globalSBNnetworkInfo)){ // the array is already read
+        displayArticles(member); 
+    }else{
+       // First call. Read it from server
+        var client = new CKAN.Client(ckanServer, myAPIkey);
+    
+        client.action('datastore_search', { resource_id: SBNnetworkInfo_resource_id }, 
+            function(err, result) {
+                if (err != null) { //some error - try figure out what
+                    debugger;
+                    mylog(mylogdiv, "SBNnetworkInfo_resource_id ERROR: " +JSON.stringify(err));
+                    console.log("SBNnetworkInfo_resource_id ERROR: " +JSON.stringify(err));
+                } else // we have read the resource     
+                {
+                    globalSBNnetworkInfo = result.result.records;
+                }       
+                    displayArticles(member);     
+            });
+
+    }
+}
+
+
 
 /**
  * displays the card for a organization
  * 
- * 
- * <!-- ${(member.member != "no") ? '<div class="card border-primary" >' : '<div class="card" >'} -->
- * <div class="card border-primary" onclick="displayMemberOverlay('${member.id}')">
+ *
  */
-
-
 
 function memberTemplateCard(member) {
     return `
@@ -368,14 +448,8 @@ function memberTemplateCard(member) {
                  ${member.organization_type ? orgType(member.organization_type) : ""} 
                  ${member.description.length > 50 ? ` <i class="icon-info text-dark"></i> ` : ""}
                  ${member.phone ? ` <i class="icon-phone text-dark"></i> ` : ""}
-                 ${ ((isValidResource(member.employees)) || (Array.isArray(member.employees))  )  ? ` <i class="icon-people text-muted"></i> ` : ""}
-                 ${member.tags ? ` <i class="icon-tag text-dark"></i> ` : ""}
-                
-<!-- TODO: create functionality for reading projects and news
-                <i class="icon-bulb text-muted"></i>
-
-                <i class="fa fa-newspaper-o text-muted"></i>
--->                
+                 ${ ((isValidResource(member.employees)) || (Array.isArray(member.employees))  )  ? ` <i class="icon-people"></i> ` : ""}
+                 ${member.tags ? ` <i class="icon-tag text-dark"></i> ` : ""}              
                 ${member.package_count > 0 ? ` <i class="fa fa-database text-muted"></i> ` : ""}                
           </div>
       
@@ -1063,8 +1137,15 @@ function displayMemberOverlay(member_id) {
                                 <img class="card-img-top img-fluid" src="${member.image_display_url}" onerror="this.onerror=null;this.src='${organizationImageDefaut}';" alt="${member.display_name}">    
                             </div>
                             <p class="leadtext">${member.description} </p>
-
+                            
                         </div>
+                        <div id="SBNnetworkInfo_resource_id">
+                         .   
+                        </div>
+                        ${readSBNnetworkInfo(member)}
+                        jalla
+
+
                     </main>
                     <aside class="col-md-4 col-lg-3 TCsidebar" >
                         <div class="TCsidebar__offset-wrapper">
@@ -1135,73 +1216,23 @@ var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-
 //var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
 var organizationImageDefaut = "http://bucket.urbalurba.com/logo/dummylogo.png";
 
-
+const SBNnetworkInfo_resource_id = "0cd73796-e873-4079-a976-46cd765b6523";
 let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
 // For logging to screen
 const mylogdiv = "mylogdiv"; //there must be a div with this name in the html file
 const globalMyLog = false;
 
-
+var globalSBNnetworkInfo; // First time we access SBN articles we read all of them and store them here
 var globalMembers = []; // we need to access the member array after the cards are rendered
 
 
-/* loadOrganizationsFromCKAN
-* to initiate you must put <body onload="loadOrganizationsFromCKAN()"> 
-* in the html doc that uses this javascript - NO THAT DOESNT WORK
-***/
+
+/**
+ * This is the starting function. It reads the organisations from CKAN 
+ * and displays the organizations/members as cards
+ */
 function loadOrganizationsFromCKAN() {
-// This cant be used in squarespace. Must use onload $(document).ready(function () {
-
-    var organization_list_api = "/api/3/action/organization_list"; //the API. See http://docs.ckan.org/en/latest/api/index.html?highlight=organization_list#ckan.logic.action.get.organization_list
-    var ckanURL = ckanServer + organization_list_api;
-    var ckanParameters = { all_fields: "true", include_extras: "true", include_users: "true" }; // See API description for what parameters to use
-
-
-
-    $.ajax({
-        url: ckanURL,
-        dataType: "jsonp",  // required: we want jsonp. See why here https://en.wikipedia.org/wiki/JSONP                
-        data: ckanParameters,   // optional: but we use it to get all fields in this example
-        cache: "false"      // optional: tell it to get it from the server each time                
-    })
-        .done(function (data) {
-            if (data.success == true) { // CKAN sets success = true if the API was OK
-                mylog(mylogdiv, "data.success");
-
-               globalMembers = tidyOrganizations(data.result); // add and remove stuff
-                            
-               displayMemberCards(); // display the members fetched into globalMembers array
-            }
-        })
-        .fail(function () {
-            alert("Failed: ", JSON.stringify(data));
-            console.log(JSON.stringify(data));
-            
-        });
-
-
-
-    $('a[data-toggle="tooltip"]').tooltip({
-        animated: 'fade',
-        placement: 'bottom',
-        html: true
-    });
-
-
-    searching();
-    getMembersDummyData();
-    displayMemberCards(); 
-
-
-
-
-// for dockument ready use: });
-
-};
-
-
-function loadOrganizationsFromCKAN2() {
 
         var ckanParameters = { all_fields: "true", include_extras: "true", include_users: "true" }; // See API description for what parameters to use
     
