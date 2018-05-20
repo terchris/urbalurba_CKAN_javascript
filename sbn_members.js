@@ -547,17 +547,11 @@ function employeeTemplateSidebar(employee) {
             <small class="text-muted mr-3">
                 <i class="icon-screen-smartphone"></i> <a href="tel:${employee.mobil}"> ${employee.mobil}
             </small>
-            <a href="${employee.linkedin}" target="_blank">
-                <small class="text-muted mr-3">
-                    <i class="icon-social-linkedin"></i>
-                </small>
-            </a>    
-            
-            <a href="${employee.twitter}" target="_blank">
-                <small class="text-muted">
-                    <i class="icon-social-twitter"></i>
-                </small>
-            </a> 
+    
+            ${(employee.linkedin.length > 10) ? '<a href="${employee.twitter}" target="_blank"><small class="text-muted"><i class="icon-social-linkedin"></i></small></a> ' : ""}
+
+            ${(employee.twitter.length > 10) ? '<a href="${employee.twitter}" target="_blank"><small class="text-muted"><i class="icon-social-twitter"></i></small></a> ' : ""}
+
         </div>
 
         <small class="text-muted">
