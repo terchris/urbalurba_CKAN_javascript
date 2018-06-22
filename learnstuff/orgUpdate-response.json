@@ -1,0 +1,86 @@
+{
+    "users": [],
+    "display_name": "abb",
+    "description": "UPDATE: El-produkter, roboter og drivsystemer, industriell automatisering og kraftnett.",
+    "image_display_url": "http://bucket.urbalurba.com/logo/abb.jpg",
+    "title": "",
+    "package_count": 0,
+    "created": "2018-04-17T22:57:13.282926",
+    "approval_status": "approved",
+    "is_organization": true,
+    "state": "active",
+    "extras": [
+        {
+            "value": "",
+            "state": "active",
+            "key": "contact_name",
+            "revision_id": "83b01469-3f20-412c-9f36-4e88db5e57be",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "8c41b865-cd89-490b-9fb1-a24661f24577"
+        },
+        {
+            "value": 107445495,
+            "state": "active",
+            "key": "insightly_id",
+            "revision_id": "bc24a573-1f0e-42c8-af19-d6cfe901981f",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "52cd1f3a-8436-4890-8131-ee6dcd002657"
+        },
+        {
+            "value": "Hurtigruten2018",
+            "state": "active",
+            "key": "insightly_tags",
+            "revision_id": "ae8e0eb0-e108-44da-b974-44e3270da33f",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "92ea7487-b8cd-4024-87d0-1ac587f85f10"
+        },
+        {
+            "value": "",
+            "state": "active",
+            "key": "main_adddress",
+            "revision_id": "83b01469-3f20-412c-9f36-4e88db5e57be",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "e35941b3-8d5b-4ae3-af18-b34ba579a44d"
+        },
+        {
+            "value": "no",
+            "state": "active",
+            "key": "member",
+            "revision_id": "ae8e0eb0-e108-44da-b974-44e3270da33f",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "ae180d18-a9f1-4cf5-ac03-7783db24a9a9"
+        },
+        {
+            "value": "private",
+            "state": "active",
+            "key": "organization_type",
+            "revision_id": "ae8e0eb0-e108-44da-b974-44e3270da33f",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "0f2f31a2-b495-48fe-bddf-8768ae18c2ae"
+        },
+        {
+            "value": "Industriell automatisering",
+            "state": "active",
+            "key": "slogan",
+            "revision_id": "ae8e0eb0-e108-44da-b974-44e3270da33f",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "9ff9368c-50a2-4992-9268-ce5ecdf16dd1"
+        },
+        {
+            "value": "http://www.abb.no",
+            "state": "active",
+            "key": "website",
+            "revision_id": "ae8e0eb0-e108-44da-b974-44e3270da33f",
+            "group_id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+            "id": "f1fe1b96-d89e-452b-8020-569aab559ceb"
+        }
+    ],
+    "image_url": "http://bucket.urbalurba.com/logo/abb.jpg",
+    "groups": [],
+    "revision_id": "bc24a573-1f0e-42c8-af19-d6cfe901981f",
+    "packages": [],
+    "type": "organization",
+    "id": "ee3a213d-5836-4f72-ae77-8ef5d4472503",
+    "tags": [],
+    "name": "abb"
+}

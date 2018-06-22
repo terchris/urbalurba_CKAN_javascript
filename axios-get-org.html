@@ -1,0 +1,54 @@
+<html lang="no">
+
+<head>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+</head>
+
+
+<body>
+    <h1>axios simple Display CKAN Organizations</h1>
+
+    <p> Doing </p>
+    <p id="serverURL"></p>
+    <p>Result is:</p>
+
+    <p id="mydiv"></p>
+
+
+    <script>
+
+        function loadOrganizationsFromCKAN2() {
+
+            const ckanURLgetOrganisations = "api/3/action/organization_list?all_fields=true&include_extras=true&include_users=true";
+            var ckanServer = "http://demo.ckan.org/";
+            //ckanServer = "http://data.urbalurba.com/"; //WORKS
+            //ckanServer = "http://test.urbalurba.no/";
+            //ckanServer = "https://open.stavanger.kommune.no/"; //WORKS
+            ckanServer = "http://172.16.1.96/"; //WORKS after adding ckan.cors.origin_allow_all = true
+
+            var ckanURL = ckanServer + ckanURLgetOrganisations;
+            document.getElementById("serverURL").innerHTML = ckanURL;
+
+            return axios.get(ckanURL)
+                .then(function (response) {
+
+                    document.getElementById("mydiv").innerHTML = JSON.stringify(response.data.result);
+
+                })
+                .catch(function (error) {
+
+                    document.getElementById("mydiv").innerHTML = JSON.stringify(error);
+                });
+
+        };
+
+        loadOrganizationsFromCKAN2();
+    </script>
+
+
+
+
+
+</body>
+
+</html>
