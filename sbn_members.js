@@ -149,55 +149,70 @@ function orgType(orgType) {
 
 
 /**
- * editTags
+ * editMemberTags
  */
-function editTags(member_id){
+function editMemberTags(member_id,fieldToEdit, leadTxt){
     var member = globalMembers.find(function (member) { return member.id === member_id; }); //get the member object
+
 debugger; 
 
-    document.getElementById("myEditModal").innerHTML = `
-    <div class="modal-dialog" role="document">
-        <div id="myEditModalContent">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="myEditModalLabel">Edit Tags: ${member.display_name}</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <form>
-                        <div class="form-group">
-                            <label for="tags">Tags</label>
-                            <input type="text" value="${member.member_tags}" class="form-control" id="editTags" placeholder="komma, separert, liste">
-                            <span class="help-block">Tags gjør din virksomhet søkbar. Kommaseparert liste</span>
-                        </div>
+    if(myAPIkey.length == "") { //not logged in
+        alert("not logged in");
+        
+
+    }else
+    {
+        //TODO: check that the myAPIkey has rights to update
+
+        var currentFieldValue = member[fieldToEdit];
 
 
-                    </form>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" onclick="saveTags('${member.id}')" class="btn btn-primary">Save changes</button>
+        document.getElementById("myEditModal").innerHTML = `
+        <div class="modal-dialog" role="document">
+            <div id="myEditModalContent">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myEditModalLabel">Edit ${leadTxt}: ${member.display_name}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="tags">Tags</label>
+                                <input type="text" value="${currentFieldValue}" class="form-control" id="editTags" placeholder="komma, separert, liste">
+                                <span class="help-block">Tags gjør din virksomhet søkbar. Kommaseparert liste</span>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="saveMemberTags('${member.id}','${fieldToEdit}')" class="btn btn-primary">Save changes</button>
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    `;
-    $('#myEditModal').modal('show');
-   
-    
-    
+        `;
+        $('#myEditModal').modal('show');
+    }
 
 }
 
 /**
- * saveTags
+ * saveMemberTags
  */
-function saveTags(org_id) {
+function saveMemberTags(member_id, fieldToEdit) {    
 debugger;
+isOK = 2;
     var newTags = document.getElementById("editTags").value;
-    orgUpdateField(org_id,"tags", newTags);       
+    isOK = orgUpdateField(member_id,fieldToEdit, newTags);       
+    if (isOK==1){
+debugger;
+
+    }
     $('#myEditModal').modal('hide')         
 }
 
@@ -1190,7 +1205,7 @@ function displayMemberOverlay(member_id) {
 
  <div class="container" style="background-color:white">
 
-    <button type="button" class="close closebtn" aria-label="Close">
+    <button type="button" class="close closebtn" aria-label="Close" onclick="closeMemberOverlay()">
             <span aria-hidden="true">&times;</span>            
     </button>
     <section>
@@ -1240,7 +1255,11 @@ function displayMemberOverlay(member_id) {
 
 
                             <div class="widget widget--widget_meta">
-                                <h3 class="widget__title">Member Tags</h3>
+                                
+                                <h3 class="widget__title">Member Tags</h3> 
+                                <div onclick="editMemberTags('${member.id}','member_tags','Member Tags',)">
+                                    <i class="fa fa-edit"></i>
+                                </div>
                                 <div class="widget__content-NODEFINE">
                                     <ul>
                                         ${member.member_tags ? tags(member.member_tags) : ""}
@@ -1250,6 +1269,10 @@ function displayMemberOverlay(member_id) {
 
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Segment</h3>
+                                <div onclick="editMemberTags('${member.id}','segment','Segment Tags',)">
+                                    <i class="fa fa-edit"></i>
+                                </div>
+
                                 <div class="widget__content-NODEFINE">
                                     <ul>
                                         ${member.segment ? tags(member.segment) : ""}
@@ -1258,6 +1281,10 @@ function displayMemberOverlay(member_id) {
                             </div>
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Sustainable Development Goals</h3>
+                                <div onclick="editMemberTags('${member.id}','sustainable_development_goals','Sustainable development goals',)">
+                                    <i class="fa fa-edit"></i>
+                                </div>
+
                                 <div class="widget__content-NODEFINE">
                                     <ul>
                                         ${member.sustainable_development_goals ? tags(member.sustainable_development_goals) : ""}
@@ -1326,6 +1353,7 @@ function closeMemberOverlay() {
  * orgUpdateField updates the field specified in fieldName with the
  * value in parameter fieldValue
  * org_id is the id of the org to be updated.
+ * Returns true if update was OK - false if not
  * 
  */
 function orgUpdateField(org_id, fieldName, fieldValue ) {
@@ -1335,7 +1363,7 @@ function orgUpdateField(org_id, fieldName, fieldValue ) {
     var ckanParameters = { id: org_id };
     ckanParameters[fieldName] = fieldValue;
 
-//         "tags": member.tags,
+
 
 
     debugger;
@@ -1346,9 +1374,13 @@ function orgUpdateField(org_id, fieldName, fieldValue ) {
             if (err != null) { //some error - try figure out what
                 mylog(mylogdiv, "orgUpdateField ERROR: " + JSON.stringify(err));
                 console.log("orgUpdateField ERROR: " + JSON.stringify(err));
+                //return false;
+                return 0;
             } else // we have managed to update. We are getting the full info for the org as the result
             {
                 console.log("orgUpdateField RETURN: " + JSON.stringify(result.result));
+                //return true;
+                return 1;
                 // update the globalMembers array
                 // update the screen
 
@@ -1368,12 +1400,10 @@ function orgUpdateField(org_id, fieldName, fieldValue ) {
  * 
  */
 function loginStatus() {
-    //TODO: avatar image to big
+    
     if (myAPIkey.length > 10) {
-        document.getElementById("loginstatus").innerHTML = `
-            <img class="img-avatar" src="${avatarImageDefaut}"> 
-                        `;
-
+        document.getElementById("avatarImage").src = avatarImageDefaut; 
+        document.getElementById("loginstatus").innerHTML = `.`;                
     } else {
         document.getElementById("loginstatus").innerHTML = `
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginForm">Login
@@ -1476,6 +1506,7 @@ function loadOrganizationsFromCKAN2() {
       .then(function (response) {
 
         globalMembers = tidyOrganizations(response.data.result); // add and remove stuff
+        console.log(JSON.stringify(globalMembers));
         displayMemberCards(); // display the members fetched into globalMembers array                    
 
       })
