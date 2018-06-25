@@ -1518,7 +1518,7 @@ var avatarImageDefaut = "http://icons.iconarchive.com/icons/designbolts/free-mal
 //var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
 var organizationImageDefaut = "http://bucket.urbalurba.com/logo/dummylogo.png";
 
-const SBNnetworkInfo_resource_id = "0cd73796-e873-4079-a976-46cd765b6523";
+const SBNnetworkInfo_resource_id = "2b8ad5a8-e209-4d29-959d-0460a35c2343";
 let adminUsersToRemove = ["terchris"]; // the ckan main admin is usually a member. so remove that one
 
 // For logging to screen
