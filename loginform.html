@@ -30,6 +30,9 @@
     <script src="http://ckan.urbalurba.com/vendors/js/coreui.min.js"></script>
     <!-- From coreui.io STOP-->
 
+    <!-- Chart.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.min.js"></script>
+
     <!-- CKAN api -->
     <script src="http://okfnlabs.org/ckan.js/ckan.js"></script>
     <!-- axios for rewrite of loadOrganizationsFromCKAN2 -->
@@ -56,7 +59,7 @@
 
     <!-- overlay start -->
     <!-- terchris comment The onclick="closeMemberOverlay()" is removed from the line below -->
-    <div id="memberOverlay" class="overlay" >
+    <div id="memberOverlay" class="overlay">
         <div id="displayProfile" class="overlay-content">
             <p>Some dummy text</p>
         </div>
@@ -148,37 +151,18 @@
         </a>
 
 
-        <div id="loginstatus">
-            some status
+
+
+        <div class="form-group my-2">
+            <input type="text" class="form-control form-control-lg searchboxfield" placeholder="Search..." />
         </div>
 
 
 
 
-
-
-        <ul class="nav navbar-nav ml-auto">
-
-            <li class="nav-item dropdown show">
-                <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
-                    <img id="avatarImage" class="img-avatar" src="img/avatars/6.jpg" alt="admin@bootstrapmaster.com">
-                </a>
-                <div class="dropdown-menu dropdown-menu-right">
-
-                    <div class="dropdown-header text-center">
-                        <strong>Settings</strong>
-                    </div>
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-user"></i> Login</a>
-
-                    <a class="dropdown-item" href="#">
-                        <i class="fa fa-lock"></i> Logout</a>
-                </div>
-            </li>
-        </ul>
-
-
-
+        <div id="loginstatus">
+            some status
+        </div>
 
     </header>
 
@@ -188,34 +172,62 @@
         <main class="main">
             <div class="container-fluid">
                 <div id="ui-view">
-                    <div class="container">
+                    <div class="animated fadeIn">
+                        <p id="mylogdiv"></p>
+                        <div class="card-columns cols-3">
 
-                        <div class="card">
-                            <div class="card-header">
-                                Smarte Byer Norge - Nettverket (PROTOTYPE)
-                            </div>
-                            <div class="card-body">
-                                Smarte Byer Norge Nettverket er i første rekke et uformelt nettverk der alle aktører som er interessert i smartbyutvikling
-                                kan finne hverandre, møtes på nøytral grunn, diskutere, dele erfaringer og bistå hverandre.
-                                <div class="form-group my-2">
-                                    <input type="text" class="form-control form-control-lg searchboxfield" placeholder="Search..." />
+
+                            <div class="card">
+                                <div class="card-header">
+                                    Virksomhets typer
                                 </div>
-                                <p id="mylogdiv"></p>
-
+                                <div class="card-body">
+                                    <div class="chart-wrapper">                                        
+                                        <canvas id="canvas-virksomhet" width="429" height="214" class="chartjs-render-monitor" style="display: block; width: 429px; height: 214px;"></canvas>
+                                    </div>
+                                </div>
                             </div>
+
+                            <div class="card">
+                                <div class="card-header">
+                                    Segment
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-wrapper">                                        
+                                        <canvas id="canvas-segment" width="429" height="214" class="chartjs-render-monitor" style="display: block; width: 429px; height: 214px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+                            
+                            <div class="card">
+                                <div class="card-header">
+                                    Sustainable Development Goals
+                                </div>
+                                <div class="card-body">
+                                    <div class="chart-wrapper">                                        
+                                        <canvas id="canvas-sustainable_development_goals" width="429" height="214" class="chartjs-render-monitor" style="display: block; width: 429px; height: 214px;"></canvas>
+                                    </div>
+                                </div>
+                            </div>
+
+
 
                         </div>
-
-
-                        <!-- This is where the javascrip loads its stuff -->
-                        <div class="urbalurba" id="app"></div>
-
-
-
                     </div>
+
+
+
+
+
+                    <!-- This is where the javascrip loads its stuff -->
+                    <div class="urbalurba" id="app"></div>
+
+
+
                 </div>
             </div>
-        </main>
+    </div>
+    </main>
     </div>
     <script>
         // Wait until all scrips has load before executing

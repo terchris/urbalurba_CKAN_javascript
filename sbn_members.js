@@ -1392,6 +1392,72 @@ function orgUpdateField(org_id, fieldName, fieldValue ) {
 }
 
 
+/** statistics
+ * 
+ */
+function statistics() {
+
+    var virksomhetChart = new Chart($('#canvas-virksomhet'), {
+        type: 'pie',
+        data: {
+          labels: ['private', 'public', 'civil_society','research','startup'],
+          datasets: [{
+            data: [86, 24, 8,5,2],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4eeb36','#e7eb36'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        },
+        options: {
+          responsive: true,
+          legend: {
+            position: 'right'
+          }
+        }
+      });
+
+
+      var segmentChart = new Chart($('#canvas-segment'), {
+        type: 'pie',
+        data: {
+          labels: ['mobilitet', 'energi', 'digitalisering'],
+          datasets: [{
+            data: [300, 50, 100],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+              position: 'right'
+            }
+          }
+        });
+
+
+      
+
+      var sustainable_development_goalsChart = new Chart($('#canvas-sustainable_development_goals'), {
+        type: 'bar',
+        data: {
+          labels: ['1 Utrydde fattigdom', '2 Utrydde sult', '3 God helse', '4 God utdanning', '5 Likestilling mellom kjønnene', '6 Rent vann og gode sanitærforhold', '7 Ren energi for alle'],
+          datasets: [{
+            backgroundColor: 'rgba(220, 220, 220, 0.5)',
+            borderColor: 'rgba(220, 220, 220, 0.8)',
+            highlightFill: 'rgba(220, 220, 220, 0.75)',
+            highlightStroke: 'rgba(220, 220, 220, 1)',
+            data: [5, 23, 11, 2, 22, 17, 54]
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+
+
+
+}
+
 
 
 /**
@@ -1402,8 +1468,29 @@ function orgUpdateField(org_id, fieldName, fieldValue ) {
 function loginStatus() {
     
     if (myAPIkey.length > 10) {
-        document.getElementById("avatarImage").src = avatarImageDefaut; 
-        document.getElementById("loginstatus").innerHTML = `.`;                
+        
+        document.getElementById("loginstatus").innerHTML = `
+        <ul class="nav navbar-nav ml-auto">
+
+        <li class="nav-item dropdown show">
+            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                <img id="avatarImage" class="img-avatar" src="${avatarImageDefaut}" alt="admin@bootstrapmaster.com">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+                <div class="dropdown-header text-center">
+                    <strong>Settings</strong>
+                </div>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-user"></i> Login</a>
+
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+
+        `;                
     } else {
         document.getElementById("loginstatus").innerHTML = `
         <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginForm">Login
@@ -1423,7 +1510,7 @@ function loginStatus() {
 
 var myAPIkey = ""; // TODO: figure out how to set this a secure way
 var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or use http://demo.ckan.org
-ckanServer = "http://172.16.1.96/";
+//ckanServer = "http://172.16.1.96/";
 //ckanServer = "http://test.urbalurba.no/";
 
 
@@ -1481,6 +1568,7 @@ function loadOrganizationsFromCKAN() {
     getMembersDummyData();
     displayMemberCards();
     loginStatus();
+    statistics();
 
 
 
@@ -1527,6 +1615,7 @@ function loadOrganizationsFromCKAN2() {
     getMembersDummyData();
     displayMemberCards();
     loginStatus();
+    statistics();
 
 
 
