@@ -447,8 +447,8 @@ function readSBNnetworkInfo(member) {
             function (err, result) {
                 if (err != null) { //some error - try figure out what
                     
-                    mylog(mylogdiv, "SBNnetworkInfo_resource_id ERROR: " + JSON.stringify(err));
-                    console.log("SBNnetworkInfo_resource_id ERROR: " + JSON.stringify(err));
+                    mylog(mylogdiv, "SBNnetworkInfo_resource_id:" + SBNnetworkInfo_resource_id + "  ERROR: " + JSON.stringify(err));
+                    console.log("SBNnetworkInfo_resource_id:" + SBNnetworkInfo_resource_id + "  ERROR: " + JSON.stringify(err));
                 } else // we have read the resource     
                 {
                     globalSBNnetworkInfo = result.result.records;
