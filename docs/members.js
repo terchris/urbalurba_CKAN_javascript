@@ -148,7 +148,80 @@ function orgType(orgType) {
 
 
 
-/* displays the profile images for each user */
+/**
+ * editMemberTags
+ */
+function editMemberTags(member_id,fieldToEdit, leadTxt){
+    var member = globalMembers.find(function (member) { return member.id === member_id; }); //get the member object
+
+debugger; 
+
+    if(myAPIkey.length == "") { //not logged in
+        alert("not logged in");
+        
+
+    }else
+    {
+        //TODO: check that the myAPIkey has rights to update
+
+        var currentFieldValue = member[fieldToEdit];
+
+
+        document.getElementById("myEditModal").innerHTML = `
+        <div class="modal-dialog" role="document">
+            <div id="myEditModalContent">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="myEditModalLabel">Edit ${leadTxt}: ${member.display_name}</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form>
+                            <div class="form-group">
+                                <label for="tags">Tags</label>
+                                <input type="text" value="${currentFieldValue}" class="form-control" id="editTags" placeholder="komma, separert, liste">
+                                <span class="help-block">Tags gjør din virksomhet søkbar. Kommaseparert liste</span>
+                            </div>
+
+
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" onclick="saveMemberTags('${member.id}','${fieldToEdit}')" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        `;
+        $('#myEditModal').modal('show');
+    }
+
+}
+
+/**
+ * saveMemberTags
+ */
+function saveMemberTags(member_id, fieldToEdit) {    
+debugger;
+isOK = 2;
+    var newTags = document.getElementById("editTags").value;
+    isOK = orgUpdateField(member_id,fieldToEdit, newTags);       
+    if (isOK==1){
+debugger;
+
+    }
+    $('#myEditModal').modal('hide')         
+}
+
+
+
+/**
+ * displays the profile images for each user
+ * NOT USED
+ */  
 function displayUserAvatars(users) {
 
     return `
@@ -171,7 +244,7 @@ function displayUserAvatars(users) {
  * 
  * 
  */
-function displayMemberContactInfo(member){
+function displayMemberContactInfo(member) {
 
     return `
 
@@ -226,7 +299,7 @@ function displayMemberContactInfo(member){
 
 /** displayMemberProfileCard
  * Takes member object as parameter and creates a card with member info
- * 
+ * NOT USED
  */
 function displayMemberProfileCard(member) {
 
@@ -254,7 +327,7 @@ function displayMemberProfileCard(member) {
 
 /** displayMemberTagsCard
  * Takes member object as parameter and creates a card with tags info
- * 
+ * NOT USED
  */
 function displayMemberTagsCard(member) {
 
@@ -273,35 +346,9 @@ function displayMemberTagsCard(member) {
 
 }
 
-/** displayMemberTagsSidebar displays the tags for a member in the sidebar
- * 
- */
-
-function displayMemberTagsSidebar(member){
-
-    if (member.tags != undefined) {
-        var tagArray = member.tags.split(',');
-        return `
-        <div class="widget__content-NODEFINE">
-            <ul>
-                ${member.tags ? tags(tagArray) : ""}
-            </ul>    
-        </div>
-        `;
-    }
-    else
-    return `
-    <div class="widget__content-NODEFINE">
-       Ingen Tags definert. Se Acando for eksempel   
-    </div>
-    `;
-
-
-}
-
 /** displayMemberDescriptionCard
  * Takes member object as parameter and creates a card with about info
- * 
+ * NOT USED
  */
 function displayMemberDescriptionCard(member) {
 
@@ -325,10 +372,10 @@ function displayMemberDescriptionCard(member) {
 
 
 /**
- * 
+ * Template for displaying an article inside a card
  * 
  */
-function articleTemplateCard(article,member) {
+function articleTemplateCard(article) {
 
     return `
     <div>
@@ -359,10 +406,14 @@ function articleTemplateCard(article,member) {
 
 }
 
-
+/**
+ * Displays all articles that are linked to a member
+ * The link (id) is the member.name on the arganization
+ * 
+ */
 function displayArticles(member) {
 
-    var memberArticles = globalSBNnetworkInfo.filter(function(matchingMember) {
+    var memberArticles = globalSBNnetworkInfo.filter(function (matchingMember) {
         return matchingMember.name == member.name;
     });
     return `
@@ -372,40 +423,40 @@ function displayArticles(member) {
         </div>        
     </div>
     
-    `;    
+    `;
 
 }
 
 
 
 /**
- * Read articles that has name=member.name 
- * 
+ * Read all articles in the dataset id SBNnetworkInfo_resource_id into the array globalSBNnetworkInfo
+ *  If the articles are already in the globalSBNnetworkInfo array. Then the articles are displayed 
  */
-function readSBNnetworkInfo(member){
+function readSBNnetworkInfo(member) {
 
-    if(Array.isArray(globalSBNnetworkInfo)){ // the array is already read
-       return `
+    if (Array.isArray(globalSBNnetworkInfo)) { // the array is already read
+        return `
             ${displayArticles(member)} 
-            `;   
-    }else{
-       // First call. Read it from server
+            `;
+    } else {
+        // First call. Read it from server
         var client = new CKAN.Client(ckanServer, myAPIkey);
-    
-        client.action('datastore_search', { resource_id: SBNnetworkInfo_resource_id }, 
-            function(err, result) {
+
+        client.action('datastore_search', { resource_id: SBNnetworkInfo_resource_id },
+            function (err, result) {
                 if (err != null) { //some error - try figure out what
-                    debugger;
-                    mylog(mylogdiv, "SBNnetworkInfo_resource_id ERROR: " +JSON.stringify(err));
-                    console.log("SBNnetworkInfo_resource_id ERROR: " +JSON.stringify(err));
+                    
+                    mylog(mylogdiv, "SBNnetworkInfo_resource_id ERROR: " + JSON.stringify(err));
+                    console.log("SBNnetworkInfo_resource_id ERROR: " + JSON.stringify(err));
                 } else // we have read the resource     
                 {
                     globalSBNnetworkInfo = result.result.records;
-                    document.getElementById("SBNnetworkInfo_resource_id").innerHTML =  `
+                    document.getElementById("SBNnetworkInfo_resource_id").innerHTML = `
                         ${displayArticles(member)} 
-                    `;    
-                }      
-                        
+                    `;
+                }
+
             });
 
     }
@@ -415,7 +466,7 @@ function readSBNnetworkInfo(member){
 
 /**
  * displays the card for a organization
- * 
+ * Thisis the main listing of members.
  *
  */
 
@@ -450,11 +501,13 @@ function memberTemplateCard(member) {
           padding-bottom: 1px;
       ">
                  ${member.organization_type ? orgType(member.organization_type) : ""} 
-                 ${member.description.length > 50 ? ` <i class="icon-info text-dark"></i> ` : ""}
-                 ${member.phone ? ` <i class="icon-phone text-dark"></i> ` : ""}
-                 ${ ((isValidResource(member.employees)) || (Array.isArray(member.employees))  )  ? ` <i class="icon-people"></i> ` : ""}
-                 ${member.tags ? ` <i class="icon-tag text-dark"></i> ` : ""}              
-                ${member.package_count > 0 ? ` <i class="fa fa-database text-muted"></i> ` : ""}                
+                 ${member.description.length > 50 ? ` <i class="icon-info"></i> ` : ""}
+                 ${member.phone ? ` <i class="icon-phone"></i> ` : ""}
+                 ${ ((isValidResource(member.employees)) || (Array.isArray(member.employees))) ? ` <i class="icon-people"></i> ` : ""}
+                 ${member.tags ? ` <i class="icon-tag"></i> ` : ""}              
+                ${member.package_count > 0 ? ` <i class="fa fa-database"></i> ` : ""}   
+                
+                             
           </div>
       
        </div>
@@ -476,29 +529,29 @@ function memberTemplateCard(member) {
 *       <div class="card">
 *
 * */
-function searching(){
+function searching() {
     $('.searchboxfield').on('input', function () { // connect to the div named searchboxfield
         var $targets = $('.urbacard'); // 
         $targets.show();
-        debugger;
+        //debugger;
         var text = $(this).val().toLowerCase();
         if (text) {
             $targets.filter(':visible').each(function () {
-                debugger;
+                //debugger;
                 mylog(mylogdiv, text);
                 var $target = $(this);
                 var $matches = 0;
                 // Search only in targeted element
                 $target.find('h2, h3, h4, p').add($target).each(function () {
                     tmp = $(this).text().toLowerCase().indexOf("" + text + "");
-                    debugger;
+                    //debugger;
                     if ($(this).text().toLowerCase().indexOf("" + text + "") !== -1) {
-                        debugger;
+                       // debugger;
                         $matches++;
                     }
                 });
                 if ($matches === 0) {
-                    debugger;
+                   // debugger;
                     $target.hide();
                 }
             });
@@ -571,7 +624,7 @@ function employeeTemplateSidebar(employee) {
 }
 
 /** employeeTemplateRow Displays employees in a row 
- * 
+ * NOT USED
  */
 function employeeTemplateRow(employee) {
 
@@ -630,10 +683,10 @@ function displayEmployeesSidebar(member) {
 }
 
 /*** displays all employees for a member.
- * 
+ * NOT USED
  */
 
-function  displayEmployeesRow(member){
+function displayEmployeesRow(member) {
 
     return `
     <!-- start employees -->
@@ -650,57 +703,59 @@ function  displayEmployeesRow(member){
 
 
 
-/** readEmployees reads all employees 
+/** readEmployees reads all employees for the organisation
  * and adds it to the member object in the global array
- * Default the member.employees contains a resource_id for a dataset containing all employees 
- * If this function has run before, then the member.employees contains a array of all emplyees
+ * the field member.employee_resource_id can contain a resource_id for the dataset that contains the employees 
+ * If the member.employee_resource_id contains a valid resource id and it can be read then 
+ * the employees are read into the member.employees array
+ * 
+ * If this function has run before for the organisation, then the member.employees contains a array of all emplyees
  */
 function readEmployees(member) {
-   
+
     if (member.hasOwnProperty('employees')) {   // if the field employees is present. 
-        if (isValidResource(member.employees)) { // the member has a valid pointer to a dataset resource
-
-
-            
-            var client = new CKAN.Client(ckanServer, myAPIkey);
-
-            client.action('datastore_search', { resource_id: member.employees }, 
-                function(err, result) {
-
-                    if (err != null) { //some error - try figure out what
-                        debugger;
-                        mylog(mylogdiv, "readEmployees ERROR: " +JSON.stringify(err));
-                        console.log("readEmployees ERROR: " +JSON.stringify(err));
-                    } else // we have read the resource
-                    {
-                        member.employees = JSON.parse(JSON.stringify(result.result.records));     // copy the employees array to the member 
-                        // we must attach to the div id employees the first time because it has taken time to fetch the employees
-                        document.getElementById("employees").innerHTML =  `
-                            ${displayEmployeesSidebar(member)} 
-                        `;
-        
-                }
-                
-            });
-            
-        } 
-        else if(Array.isArray(member.employees)){ // employees are already read into member object
+        if (Array.isArray(member.employees)) { // employees are already read into member object
             // when the employees are already in the array we can just output them
             return `
                 ${displayEmployeesSidebar(member)} 
             `;
         }
-        else 
-        return `
-        Kontaktpersoner ikke definert. Se Acando for hvordan kontakter vises når de er registrert
-         `;
-    }
-    else 
-    return `
-    Kontaktpersoner ikke definert. Se Acando for hvordan kontakter vises når de er registrert..
-     `;
+    } else // employees are not read
+        if (member.hasOwnProperty('employee_resource_id')) { // there is a property
+            if (isValidResource(member.employee_resource_id)) { // and the member has a valid pointer to a dataset resource
+                
+                var client = new CKAN.Client(ckanServer, myAPIkey);
 
+                client.action('datastore_search', { resource_id: member.employee_resource_id },
+                    function (err, result) {
+
+                        if (err != null) { //some error - try figure out what
+                            debugger;
+                            mylog(mylogdiv, "readEmployees ERROR: " + JSON.stringify(err));
+                            console.log("readEmployees ERROR: " + JSON.stringify(err));
+                        } else // we have read the resource
+                        {
+                            member.employees = JSON.parse(JSON.stringify(result.result.records));     // copy the employees array to the member 
+                            // we must attach to the div id employees the first time because it has taken time to fetch the employees
+                            document.getElementById("employees").innerHTML = `
+                                ${displayEmployeesSidebar(member)} 
+                            `;
+
+                        }
+
+                    });
+            } else
+                if (member.employee_resource_id != "") //No valid resource id
+                    return `Kontaktpersoner ikke definert. [ugyldig id]`;
+                else
+                    return `Kontaktpersoner ikke definert.`;
+    
+        }
+        else
+            return `Kontaktpersoner ikke definert. `;
 }
+
+
 
 
 
@@ -713,8 +768,8 @@ function readEmployees(member) {
 *****/
 function isValidResource(resource_id) {
 
-//TODO: write the code to validate the resource_id
-    if (resource_id != undefined){
+    //TODO: write the code to validate the resource_id
+    if (resource_id != undefined) {
         var n = resource_id.length;
         if (n == 36)
             return true;
@@ -724,12 +779,31 @@ function isValidResource(resource_id) {
 }
 
 
+/*** tagsToArray
+ * takes a string that is comma separated and returns an array of the strings
+ * clean out empty tags like ,, and leading/ending spaces
+ * return "" if there is no array in the tagString
+ */
+function tagsToArray(tagString){
+    if ((tagString != undefined) && (tagString != "")) {
+        var newArray =[];
+        var tagArray = tagString.split(','); // create an array
+        for (var i = 0; i < tagArray.length; i++) {
+            tmpTag = tagArray[i].trim();
+            tmpTag = tmpTag.toLowerCase();
+            if(tmpTag != "") newArray.push(tmpTag);
+        }
+        return newArray;
+    } else
+        return "";
+}
 
 function tidyOrganizations(members) {
     // Remove the organizations that are not "member": "yes",
     // Remove the ckan admin user from the list of users in the organization
     // call setUserProperties to figure out how to intepret the user.about field
-  
+    // creates array of the comma separated tag fields
+
 
     newMemberArray = []; // All members are copied into this array.
 
@@ -739,7 +813,7 @@ function tidyOrganizations(members) {
 
         newMember = JSON.parse(JSON.stringify(members[i])); // copy the full member object
 
-       
+
 
         // handle the ckan users for the member org 
         originalNumUsers = newMember.users.length; // count the original number
@@ -757,6 +831,11 @@ function tidyOrganizations(members) {
             }
         }
         newMember.users = JSON.parse(JSON.stringify(newUserArray)); // seems to be the way one copies an array in javascript
+
+        newMember.member_tags = tagsToArray(newMember.member_tags); // convert to array and clean 
+        newMember.segment = tagsToArray(newMember.segment); // convert to array and clean 
+        newMember.insightly_tags = tagsToArray(newMember.insightly_tags); // convert to array and clean 
+        newMember.sustainable_development_goals = tagsToArray(newMember.sustainable_development_goals); // convert to array and clean 
 
         newMemberArray.push(newMember); // copy the organization. it is a member
         //        } else {
@@ -778,7 +857,7 @@ function tidyOrganizations(members) {
  * 
  * The global array that holds members is globalMembers 
  */
-function getMembersDummyData(){
+function getMembersDummyData() {
 
     globalMembers = [
         {
@@ -1073,6 +1152,26 @@ function getMembersDummyData(){
 
 }
 
+/**
+ * Log in the user
+ */
+function doLogin() {
+    var username = document.getElementById("username").value;
+    var password = document.getElementById("password").value;
+    var apikey = document.getElementById("apikey").value;
+
+    /*TODO: call ckan login and get the api-key
+    For now we just use the api-key provided */
+    //alert("loginform. username:"+ username + " password="+ password + " apikey="+ apikey);
+    myAPIkey = apikey;
+    loginStatus();
+    $('#loginForm').modal('hide')
+}
+
+
+
+
+
 /** displayMemberCards display all members in the 
  * array globalMembers
  * 
@@ -1096,7 +1195,7 @@ function displayMemberCards() {
  */
 
 function displayMemberOverlay(member_id) {
-                 
+
 
 
     var member = globalMembers.find(function (member) { return member.id === member_id; }); //get the member object
@@ -1106,7 +1205,7 @@ function displayMemberOverlay(member_id) {
 
  <div class="container" style="background-color:white">
 
-    <button type="button" class="close closebtn" aria-label="Close">
+    <button type="button" class="close closebtn" aria-label="Close" onclick="closeMemberOverlay()">
             <span aria-hidden="true">&times;</span>            
     </button>
     <section>
@@ -1156,9 +1255,55 @@ function displayMemberOverlay(member_id) {
 
 
                             <div class="widget widget--widget_meta">
-                                <h3 class="widget__title">Tags</h3>
-                                ${displayMemberTagsSidebar(member)} 
+                                
+                                <h3 class="widget__title">Member Tags</h3> 
+                                <div onclick="editMemberTags('${member.id}','member_tags','Member Tags',)">
+                                    <i class="fa fa-edit"></i>
+                                </div>
+                                <div class="widget__content-NODEFINE">
+                                    <ul>
+                                        ${member.member_tags ? tags(member.member_tags) : ""}
+                                    </ul>    
+                                </div> 
                             </div>
+
+                            <div class="widget widget--widget_meta">
+                                <h3 class="widget__title">Segment</h3>
+                                <div onclick="editMemberTags('${member.id}','segment','Segment Tags',)">
+                                    <i class="fa fa-edit"></i>
+                                </div>
+
+                                <div class="widget__content-NODEFINE">
+                                    <ul>
+                                        ${member.segment ? tags(member.segment) : ""}
+                                    </ul>    
+                                </div>                                
+                            </div>
+                            <div class="widget widget--widget_meta">
+                                <h3 class="widget__title">Sustainable Development Goals</h3>
+                                <div onclick="editMemberTags('${member.id}','sustainable_development_goals','Sustainable development goals',)">
+                                    <i class="fa fa-edit"></i>
+                                </div>
+
+                                <div class="widget__content-NODEFINE">
+                                    <ul>
+                                        ${member.sustainable_development_goals ? tags(member.sustainable_development_goals) : ""}
+                                    </ul>    
+                                </div>                                
+                            </div>
+
+
+
+                            <div class="widget widget--widget_meta">
+                                <h3 class="widget__title">Insightly Tags</h3>
+                                <div class="widget__content-NODEFINE">
+                                    <ul>
+                                        ${member.insightly_tags ? tags(member.insightly_tags) : ""}
+                                    </ul>    
+                                </div>                                
+                            </div>
+
+
 
                             <div class="widget widget--widget_meta">
                                 <h3 class="widget__title">Kontakt info</h3>
@@ -1196,12 +1341,169 @@ function displayMemberOverlay(member_id) {
     document.getElementById("memberOverlay").style.width = "100%";
 }
 
-        
+
 
 function closeMemberOverlay() {
-            document.getElementById("memberOverlay").style.width = "0%";
+    document.getElementById("memberOverlay").style.width = "0%";
 }
- 
+
+
+
+/**
+ * orgUpdateField updates the field specified in fieldName with the
+ * value in parameter fieldValue
+ * org_id is the id of the org to be updated.
+ * Returns true if update was OK - false if not
+ * 
+ */
+function orgUpdateField(org_id, fieldName, fieldValue ) {
+
+ //   var member = globalMembers.find(function (member) { return member.id === member_id; }); //get the member object
+    
+    var ckanParameters = { id: org_id };
+    ckanParameters[fieldName] = fieldValue;
+
+
+
+
+    debugger;
+    var client = new CKAN.Client(ckanServer, myAPIkey);
+
+    client.action('organization_patch', ckanParameters,
+        function (err, result) {
+            if (err != null) { //some error - try figure out what
+                mylog(mylogdiv, "orgUpdateField ERROR: " + JSON.stringify(err));
+                console.log("orgUpdateField ERROR: " + JSON.stringify(err));
+                //return false;
+                return 0;
+            } else // we have managed to update. We are getting the full info for the org as the result
+            {
+                console.log("orgUpdateField RETURN: " + JSON.stringify(result.result));
+                //return true;
+                return 1;
+                // update the globalMembers array
+                // update the screen
+
+            }
+
+        });
+
+
+}
+
+
+/** statistics
+ * 
+ */
+function statistics() {
+
+    var virksomhetChart = new Chart($('#canvas-virksomhet'), {
+        type: 'pie',
+        data: {
+          labels: ['private', 'public', 'civil_society','research','startup'],
+          datasets: [{
+            data: [86, 24, 8,5,2],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4eeb36','#e7eb36'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        },
+        options: {
+          responsive: true,
+          legend: {
+            position: 'right'
+          }
+        }
+      });
+
+
+      var segmentChart = new Chart($('#canvas-segment'), {
+        type: 'pie',
+        data: {
+          labels: ['mobilitet', 'energi', 'digitalisering'],
+          datasets: [{
+            data: [300, 50, 100],
+            backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56'],
+            hoverBackgroundColor: ['#FF6384', '#36A2EB', '#FFCE56']
+          }]
+        },
+        options: {
+            responsive: true,
+            legend: {
+              position: 'right'
+            }
+          }
+        });
+
+
+      
+
+      var sustainable_development_goalsChart = new Chart($('#canvas-sustainable_development_goals'), {
+        type: 'bar',
+        data: {
+          labels: ['1 Utrydde fattigdom', '2 Utrydde sult', '3 God helse', '4 God utdanning', '5 Likestilling mellom kjønnene', '6 Rent vann og gode sanitærforhold', '7 Ren energi for alle'],
+          datasets: [{
+            backgroundColor: 'rgba(220, 220, 220, 0.5)',
+            borderColor: 'rgba(220, 220, 220, 0.8)',
+            highlightFill: 'rgba(220, 220, 220, 0.75)',
+            highlightStroke: 'rgba(220, 220, 220, 1)',
+            data: [5, 23, 11, 2, 22, 17, 54]
+          }]
+        },
+        options: {
+          responsive: true
+        }
+      });
+
+
+
+}
+
+
+
+/**
+ * sets the status of login un the upper right corner.
+ * 
+ * 
+ */
+function loginStatus() {
+    
+    if (myAPIkey.length > 10) {
+        
+        document.getElementById("loginstatus").innerHTML = `
+        <ul class="nav navbar-nav ml-auto">
+
+        <li class="nav-item dropdown show">
+            <a class="nav-link nav-link" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="true">
+                <img id="avatarImage" class="img-avatar" src="${avatarImageDefaut}" alt="admin@bootstrapmaster.com">
+            </a>
+            <div class="dropdown-menu dropdown-menu-right">
+
+                <div class="dropdown-header text-center">
+                    <strong>Settings</strong>
+                </div>
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-user"></i> Login</a>
+
+                <a class="dropdown-item" href="#">
+                    <i class="fa fa-lock"></i> Logout</a>
+            </div>
+        </li>
+    </ul>
+
+        `;                
+    } else {
+        document.getElementById("loginstatus").innerHTML = `
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#loginForm">Login
+        </button> 
+                        `;
+
+
+
+    }
+
+}
+
+
 
 
 
@@ -1209,7 +1511,10 @@ function closeMemberOverlay() {
 var myAPIkey = ""; // TODO: figure out how to set this a secure way
 var ckanServer = "http://data.urbalurba.com/"; // change to your own to test or use http://demo.ckan.org
 //ckanServer = "http://172.16.1.96/";
-var avatarImageDefaut="http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
+//ckanServer = "http://test.urbalurba.no/";
+
+
+var avatarImageDefaut = "http://icons.iconarchive.com/icons/designbolts/free-male-avatars/128/Male-Avatar-Bowler-Hat-icon.png";
 //var avatarImageDefaut = "http://icons.iconarchive.com/icons/icons8/windows-8/128/Users-Name-icon.png";
 var organizationImageDefaut = "http://bucket.urbalurba.com/logo/dummylogo.png";
 
@@ -1231,43 +1536,89 @@ var globalMembers = []; // we need to access the member array after the cards ar
  */
 function loadOrganizationsFromCKAN() {
 
-        var ckanParameters = { all_fields: "true", include_extras: "true", include_users: "true" }; // See API description for what parameters to use
-    
-        var client = new CKAN.Client(ckanServer, myAPIkey);
 
-        client.action('organization_list', { all_fields: "true", include_extras: "true", include_users: "true" }, 
-            function(err, result) {
-                if (err != null) { //some error - try figure out what
-                    mylog(mylogdiv, "organization_list ERROR: " +JSON.stringify(err));
-                    console.log("organization_list ERROR: " +JSON.stringify(err));
-                } else // we have read the data
-                {
-                    //globalMembers = JSON.parse(JSON.stringify(result.result.records));     
-                    globalMembers = tidyOrganizations(result.result); // add and remove stuff
-                    displayMemberCards(); // display the members fetched into globalMembers array                    
+
+    var client = new CKAN.Client(ckanServer, myAPIkey);
+
+    client.action('organization_list', { all_fields: "true", include_extras: "true", include_users: "true" },
+        function (err, result) {
+            if (err != null) { //some error - try figure out what
+                mylog(mylogdiv, "organization_list ERROR: " + JSON.stringify(err));
+                console.log("organization_list ERROR: " + JSON.stringify(err));
+            } else // we have read the data
+            {
+                //globalMembers = JSON.parse(JSON.stringify(result.result.records));     
+                globalMembers = tidyOrganizations(result.result); // add and remove stuff
+                displayMemberCards(); // display the members fetched into globalMembers array                    
             }
-            
+
         });
 
-    
-    
-    
-        $('a[data-toggle="tooltip"]').tooltip({
-            animated: 'fade',
-            placement: 'bottom',
-            html: true
-        });
-    
-    
-        searching();
-        getMembersDummyData();
-        displayMemberCards(); 
-    
-    
-    
-    
+
+
+
+    $('a[data-toggle="tooltip"]').tooltip({
+        animated: 'fade',
+        placement: 'bottom',
+        html: true
+    });
+
+
+    searching();
+    getMembersDummyData();
+    displayMemberCards();
+    loginStatus();
+    statistics();
+
+
+
     // for dockument ready use: });
-    
-    };
-    
-    
+
+};
+
+
+
+
+
+/**
+ * This is the starting function. It reads the organisations from CKAN 
+ * and displays the organizations/members as cards
+ */
+function loadOrganizationsFromCKAN2() {
+
+    const ckanURLgetOrganisations = "api/3/action/organization_list?all_fields=true&include_extras=true&include_users=true";
+
+    var ckanURL = ckanServer + ckanURLgetOrganisations;
+  
+    axios.get(ckanURL, { crossdomain: true } )
+      .then(function (response) {
+
+        globalMembers = tidyOrganizations(response.data.result); // add and remove stuff
+        console.log(JSON.stringify(globalMembers));
+        displayMemberCards(); // display the members fetched into globalMembers array                    
+
+      })
+      .catch(function (error) {
+        mylog(mylogdiv, "organization_list ERROR: " + JSON.stringify(error));
+        console.log("organization_list ERROR: " + JSON.stringify(error));
+      });
+
+
+    $('a[data-toggle="tooltip"]').tooltip({
+        animated: 'fade',
+        placement: 'bottom',
+        html: true
+    });
+
+
+    searching();
+    getMembersDummyData();
+    displayMemberCards();
+    loginStatus();
+    statistics();
+
+
+
+    // for dockument ready use: });
+
+};
